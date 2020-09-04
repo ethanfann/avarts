@@ -20,10 +20,10 @@ Bundler.require(*Rails.groups)
 module RailsDeviseGraphql
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    # config.load_defaults 5.2
+    config.load_defaults 6.0
 
-    config.autoload_paths << Rails.root.join("lib")
-    config.eager_load_paths << Rails.root.join("lib")
+    config.autoload_paths << "#{Rails.root}/lib"
 
     # config.autoload_paths += Dir[Rails.root.join('app', 'graphql')]
 
@@ -35,8 +35,6 @@ module RailsDeviseGraphql
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
-
-    config.time_zone = 'Berlin'
 
     config.api_only = true
   end

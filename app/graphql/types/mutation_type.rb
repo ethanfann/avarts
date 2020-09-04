@@ -11,7 +11,9 @@ module Types
     field :send_reset_password_instructions, mutation: Mutations::User::SendResetPasswordInstructions
     field :unlock, mutation: Mutations::User::Unlock
     field :resend_unlock_instructions, mutation: Mutations::User::ResendUnlockInstructions
-
+    field :upload, mutation: Mutations::Upload
+    field :add_activity_comment, mutation: Mutations::AddActivityComment
+    field :delete_activity_comment, mutation: Mutations::DeleteActivityComment
   end
 end
   

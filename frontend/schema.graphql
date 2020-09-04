@@ -1,0 +1,135 @@
+type Activity {
+  comments: [ActivityComment!]!
+  createdAt: ISO8601DateTime!
+  description: String!
+  geoJson: JSON!
+  id: ID!
+  title: String!
+  updatedAt: ISO8601DateTime!
+  userId: ID!
+}
+
+type ActivityComment {
+  comment: String!
+  createdAt: ISO8601DateTime!
+  id: ID!
+  updatedAt: ISO8601DateTime!
+  user: User!
+}
+
+"""
+An ISO 8601-encoded datetime
+"""
+scalar ISO8601DateTime
+
+"""
+Represents untyped JSON
+"""
+scalar JSON
+
+type Mutation {
+  addActivityComment(activityId: ID!, comment: String!, userId: ID!): ActivityComment
+  deleteActivityComment(commentId: ID!): ActivityComment
+
+  """
+  Login for users
+  """
+  login(email: String!, password: String!): User
+
+  """
+  Logout for users
+  """
+  logout: Boolean
+
+  """
+  Unlock the user account
+  """
+  resendUnlockInstructions(email: String!): Boolean!
+
+  """
+  Set the new password
+  """
+  resetPassword(password: String!, passwordConfirmation: String!, resetPasswordToken: String!): Boolean
+
+  """
+  Send password reset instructions to users email
+  """
+  sendResetPasswordInstructions(email: String!): Boolean
+
+  """
+  Sign up for users
+  """
+  signUp(attributes: UserInput!): User
+
+  """
+  JWT token login
+  """
+  tokenLogin: User
+
+  """
+  Unlock the user account
+  """
+  unlock(unlockToken: String!): Boolean!
+
+  """
+  Update user
+  """
+  updateUser(password: String, passwordConfirmation: String): User
+  upload(description: String!, geoJson: JSON!, title: String!, userId: ID!): Activity
+}
+
+type Query {
+  """
+  Returns the activities belonging to the specified user_id
+  """
+  activitiesByUserId(userId: ID!): [Activity!]
+
+  """
+  Returns the current user
+  """
+  me: User
+}
+
+type User {
+  activityCount: Int
+  createdAt: ISO8601DateTime!
+  email: String
+  firstName: String!
+  id: ID!
+  img: String!
+  lastName: String!
+  latestActivity: Activity
+  name: String!
+  token: String!
+  updatedAt: ISO8601DateTime!
+}
+
+"""
+Attributes to create a user.
+"""
+input UserInput {
+  """
+  Email of user
+  """
+  email: String!
+
+  """
+  Firstname of user
+  """
+  firstName: String!
+
+  """
+  Lastname of user
+  """
+  lastName: String!
+
+  """
+  Password of user
+  """
+  password: String!
+
+  """
+  Password confirmation
+  """
+  passwordConfirmation: String!
+}

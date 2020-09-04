@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
   include Tokenizable
+  has_many :activities
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -34,6 +35,14 @@ class User < ApplicationRecord
   # Send mail through activejob
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
+  end
+
+  def latest_activity
+    Activity.where(user_id: id).last
+  end
+
+  def activity_count
+    Activity.where(user_id: id).length
   end
 
   # return first and lastname
