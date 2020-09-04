@@ -171,4 +171,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 [Ethan Fann](https://ethanfann.com) - [@ethanfann](https://twitter.com/ethancord) - github@ethanfann.com
 
-Project Link: [https://github.com/ethanfann/strava-clone](https://github.com/ethanfann/strava-clone)
+Project Link: [https://github.com/ethanfann/avarts](https://github.com/ethanfann/avarts)
