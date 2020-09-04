@@ -1,31 +1,99 @@
-# Rails 6 API-only boilerplate with devise & JWT & graphQL
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/ethanfann/strava-clone">
+  </a>
 
-This is a boilerplate to build your next SaaS product. It's a RubyOnRails 6 API only backend with Authentication and GraphQL API. It works nicely together with clients made with **React.js & React.Native** or any other frontend which implements the [JSON Web Tokens](https://jwt.io/introduction/) philosophy. We have a demo frontend made with [gatsbyJS](https://www.gatsbyjs.org/) available here: <https://gatsby-redux.zauberware.com/>.
+  <h3 align="center">My Strava Clone</h3>
 
-## Versions
+  <p align="center">
+    Just a fun learning project to recreate a https://strava.com.
+    <br />
+    <br />
+    <a href="https://youtu.be/LmrOFXKklL4">View Demo</a>
+    ·
+    <a href="https://github.com/ethanfann/strava-clone/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/ethanfann/strava-clone/issues">Request Feature</a>
+    ·
+    <a href="https://trello.com/b/spuSqAyQ">Roadmap</a>
+  </p>
+</p>
 
-- Current ruby version `2.6.x`
-- Bundler version `2.1.4`
-- Rails version `6.0.X`
-- Postgresql Server as db connector
+<!-- TABLE OF CONTENTS
+## Table of Contents
 
-## Quick start
+- [About The Project](#about-the-project)
+  - [Built With](#built-with)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+    - [Misc](#misc)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+  - [Codegen](#codegen)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+-->
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/zauberware/rails-devise-graphql)
+<!-- ABOUT THE PROJECT -->
 
-or
+## About The Project
 
-clone the repo:
+![](https://i.imgur.com/nR04Tyn.png)
+
+### Built With
+
+#### Frontend
+
+- [React](https://reactjs.org/)
+- [Apollo GraphQL](https://www.apollographql.com/)
+- [Mapbox](https://www.mapbox.com/)
+- [Halfmoon CSS](https://www.gethalfmoon.com/docs/introduction/)
+
+#### Backend
+
+- [Rails](https://expressjs.com/)
+- [GraphQL Ruby](https://graphql-ruby.org/)
+- [Postgres](https://www.postgresql.org/)
+
+#### Misc
+
+- [GeoJSON](https://geojson.org/)
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+To get a local copy up and running follow these simple steps.
+
+### Prerequisites
+
+- [Ruby 2.7.1](https://www.ruby-lang.org/en/)
+- [Rails 6](https://rubyonrails.org/)
+- [Node 14](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/)
+- [Postgres](https://www.postgresql.org/)
+
+### Installation
 
 ```sh
-git clone https://github.com/zauberware/rails-devise-graphql my-saas-backend
-cd my-saas-backend
+git clone https://github.com/ethanfann/avarts.git avarts
+cd avarts
 ```
 
-Clone `env_sample` to .env for local development. We set it up with default rails `3000` and gatsby `8000` ports:
+Clone `env_sample` to .env for local development. We set it up with default rails `3000` and React `3001` ports:
 
 ```sh
 cp env_sample .env
+```
+
+Clone `frontend/.env.example` to .env. This contains the Mapbox token used for activity static image creation.
+
+```sh
+cp frontend/.env.example frontend/.env
 ```
 
 Install the bundle:
@@ -44,7 +112,7 @@ rake db:seed
 
 Run the development server:
 
-```
+```sh
 rails s
 ```
 
@@ -52,75 +120,55 @@ While this is an API-only application you will not be able to access any routes 
 
 Point the GraphQL IDE to `http://0.0.0.0:3000/graphql`
 
-**Note:** Make sure that the `.env` file is included in the root of your project and you have defined `CLIENT_URL` and `DEVISE_JWT_SECRET_KEY`. You can try out the [Demo frontend](https://github.com/zauberware/gatsby-starter-redux-saas) or you implement the actions in any other client. Read more about the JSON Web Token [this](https://github.com/zauberware/rails-devise-graphql). There are plenty of packages available.
+Start the frontend
 
-## What's included?
+```sh
+cd frontend && npm install
+npm run start
+```
 
-### 1. Database
-The app uses a postgresql database. It implements the connector with the gem `pg`. The app already includes a `User` model with basic setup.
+<!-- USAGE EXAMPLES -->
 
-### 2. Authentication
-The app uses [devise](https://github.com/plataformatec/devise)'s logic for authentication. Emails are currently disabled in the environment settings.
+## Usage
 
-### 3. JSON Web Token
-[devise-jwt](https://github.com/waiting-for-dev/devise-jwt) is a devise extension which uses JWT tokens for user authentication. It follows [secure by default](https://en.wikipedia.org/wiki/Secure_by_default) principle.
+### Codegen
 
-### 4. GraphQL
-[graphql-ruby](https://github.com/rmosolgo/graphql-ruby) is a Ruby implementation of GraphQL. Sadly it's not 100% open source, but with the free version allows you amazing things to do. See the [Getting Started Guide](https://graphql-ruby.org/) and the current implementations in this project under `app/graphql/`.
+We are using [GraphQL Code Generator](https://graphql-code-generator.com/) to provide React Hook-based mutations and queries.
 
-### 5. CORS
-Protect your app and only allow specific domains to access your API. Set `CLIENT_URL=` in `.env` to your prefered client. If you need advanced options please change the CORS settings here `config/initializers/cors.rb`.
+To generate:
 
-### 6. App server
-The app uses [Puma](https://github.com/puma/puma) as the web serber. It is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications in development and production.
+ 1. Export the GraphQL Schema from Rails
 
-### 7. Testing
+```sh
+rake graphql:schema:dump
+```
 
-We are using the wonderful framework [rspec](https://github.com/rspec/rspec). The testsuit also uses [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails) for fixtures. 
+2. Run Codegen
 
-Run `rspec spec` 
+```sh
+cd frontend && npm run codegen
+```
 
-### 8. Deployment
-The project runs on every webhoster with ruby installed. The only dependency is a PostgreSQL database. Create a block `production:` in the`config/database.yml` for your connection.
+<!-- CONTRIBUTING -->
 
-#### Heroku
+## Contributing
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/zauberware/rails-devise-graphql)
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Choose the one click installer or push a clone of this repo to heroku by yourself. We added a `Profile` to the project and heroku run the `release:` statement after deploying a new version. Heroku will automatically set the db settings for your project, so there is nothing to do in `config/database.yml`.
+<!-- LICENSE -->
 
+## License
 
-**Make sure all ENV vars are set and the database settings are valid.**
+Distributed under the MIT License. See `LICENSE` for more information.
 
-#### Bitbucket Pipelines
-If you want to use [bitbucket pipelines](https://bitbucket.org/product/de/features/pipelines) for CI you can use the sample file `bitbucket-pipelines.yml` in the project root.
+<!-- CONTACT -->
 
-Make sure to set ENV vars `$HEROKU_API_KEY` and `$HEROKU_APP_NAME` in bitbuckets pipeline settings. (Will appear after enabling pipelines for your project.)
+## Contact
 
-The pipeline has 2 environments: staging and production. Staging pipline is getting triggered in `develop` branch. Production uses all `release-*` branches.
+[Ethan Fann](https://ethanfann.com) - [@ethanfann](https://twitter.com/ethancord) - github@ethanfann.com
 
-
-### 9. Frontend
-
-#### GatsbyJS
-
-If you need a frontend than have a look at this basic [Gatsby boilerplate](https://github.com/zauberware/gatsby-starter-redux-saas). A Gatsby Redux SaaS starter for your next SaaS product. Uses react-redux, apollo-client, magicsoup.io, styled-components, styled-system.
-
-![zauberware technologies](https://github.com/zauberware/gatsby-starter-redux-saas/raw/master/static/website-preview.jpg)
-
-
-## What's missing?
-
-* Specs for devise lockable
-* Implementation for devise confirmable
-* Implementation for omniauthable
-
-
-Feel free to join development!
-
-## Author
-
-__Script:__ <https://github.com/zauberware/rails-devise-graphql>  
-__Author website:__ [https://www.zauberware.com](https://www.zauberware.com)    
-
-![zauberware technologies](https://avatars3.githubusercontent.com/u/1753330?s=200&v=4)
+Project Link: [https://github.com/ethanfann/strava-clone](https://github.com/ethanfann/strava-clone)
