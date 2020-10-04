@@ -2,6 +2,7 @@ import { faMoon } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect } from 'react'
 import UserContext from '../userContext'
+import { Link } from 'react-router-dom'
 
 const halfmoon = require('halfmoon')
 
@@ -57,7 +58,8 @@ export const AvatarDropdown = () => {
               className="dropdown-menu dropdown-menu-right mr-5"
               aria-labelledby="avatar-popover-toggle"
             >
-              <h6 className="dropdown-header">{ctx.user.name}</h6>
+              <h5 className="dropdown-header">{ctx.user.name}</h5>
+              <Link to="/settings">Settings</Link>
               <div className="dropdown-divider"></div>
               <button className="btn mt-5" onClick={ctx.logout}>
                 Sign Out

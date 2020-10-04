@@ -12,6 +12,8 @@ export default gql`
         createdAt
       }
       activityCount
+      firstName
+      lastName
     }
   }
 `

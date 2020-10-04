@@ -72,6 +72,11 @@ type Mutation {
   unlock(unlockToken: String!): Boolean!
 
   """
+  Update user name
+  """
+  updateName(firstName: String, lastName: String): User
+
+  """
   Update user
   """
   updateUser(password: String, passwordConfirmation: String): User

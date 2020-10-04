@@ -6,6 +6,14 @@ import UserCard from './components/UserCard'
 import { useMeQuery } from './generated/graphql'
 import UserContext from './userContext'
 import { toggleSidebar } from './utils/sideBar'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  BrowserRouter,
+} from 'react-router-dom'
+import SignUp from './components/SignUp'
+import UserSettings from './components/UserSettings'
 
 require('halfmoon/css/halfmoon.min.css')
 
@@ -61,28 +69,45 @@ const App: React.FC = () => {
               ? user.latestActivity
               : { title: '', createdAt: '' },
           activityCount: user ? user.activityCount : 0,
+          firstName: user ? user.firstName : '',
+          lastName: user ? user.lastName : '',
         },
         logout: logout,
       }}
     >
       <div
         id="pageWrapper"
-        className="page-wrapper with-navbar with-sidebar" //with-sidebar
-        data-sidebar-type="overlayed-sm-and-down"
+        className="page-wrapper with-navbar" //with-sidebar
+        // data-sidebar-type="overlayed-sm-and-down"
       >
-        <div className="sidebar-overlay" onClick={toggleSidebar}></div>
+        {/* <div className="sidebar-overlay" onClick={toggleSidebar}></div>
         <div className="sidebar border-0">
           <UserCard />
-        </div>
+        </div> */}
 
         <Helmet>
           <meta charSet="utf-8" />
           <title>Avarts</title>
         </Helmet>
 
-        <Header />
+        <BrowserRouter>
+          <Header />
 
-        <Main />
+          <>
+            <div className="content-wrapper">
+              <div className="container-fluid">
+                <div className="d-flex justify-content-center">
+                  <Switch>
+                    <Route path="/settings" component={UserSettings} />
+                    <Route path="/" component={Main} />
+                  </Switch>
+                </div>
+              </div>
+            </div>
+          </>
+        </BrowserRouter>
+
+        {/* <Main /> */}
         {/* Footer? */}
       </div>
     </UserContext.Provider>

@@ -16,17 +16,7 @@ export const Main = () => {
     <UserContext.Consumer>
       {(ctx) => (
         <>
-          <div className="content-wrapper">
-            <div className="container-fluid">
-              <div className="d-flex justify-content-center">
-                {ctx.user.id !== '0' ? (
-                  <TimeLine userId={ctx.user.id} />
-                ) : (
-                  <SignUp />
-                )}
-              </div>
-            </div>
-          </div>
+          {ctx.user.id !== '0' ? <TimeLine userId={ctx.user.id} /> : <SignUp />}
         </>
       )}
     </UserContext.Consumer>

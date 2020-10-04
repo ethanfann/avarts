@@ -32,3 +32,5 @@ coverage
 .env.*
 
 dump.rdb
+
+frontend/node_modules

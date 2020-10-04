@@ -9,9 +9,11 @@ export type UserType = {
     createdAt: string
   }
   activityCount: number
+  firstName: string
+  lastName: string
 }
 
-type ContextType = {
+export type ContextType = {
   user: UserType
   logout: any
 }
@@ -26,6 +28,8 @@ const UserContext = createContext<ContextType>({
       createdAt: '',
     },
     activityCount: 0,
+    firstName: '',
+    lastName: '',
   },
   logout: null,
 })
