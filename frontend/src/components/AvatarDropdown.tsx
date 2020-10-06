@@ -1,4 +1,4 @@
-import { faMoon } from '@fortawesome/free-solid-svg-icons'
+import { faMoon, faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect } from 'react'
 import UserContext from '../userContext'
@@ -16,6 +16,7 @@ export const AvatarDropdown = () => {
 
     const darkModePref = localStorage.getItem('prefer-dark-mode')
 
+    // TODO: Improve this
     if (darkModePref) {
       if (darkModePref === 'true') {
         localStorage.setItem('prefer-dark-mode', 'false')
@@ -58,8 +59,21 @@ export const AvatarDropdown = () => {
               className="dropdown-menu dropdown-menu-right mr-5"
               aria-labelledby="avatar-popover-toggle"
             >
-              <h5 className="dropdown-header">{ctx.user.name}</h5>
-              <Link to="/settings">Settings</Link>
+              <div className="d-flex d-flex-inline align-items-center">
+                <div className="w-full">
+                  <h5 className="dropdown-header">{ctx.user.name}</h5>
+                </div>
+
+                <div className="flex-shrink-1">
+                  <a href="/settings">
+                    <button className="btn btn-action float-right">
+                      <FontAwesomeIcon icon={faCog} />
+                    </button>
+                  </a>
+                </div>
+              </div>
+              {/* <Link to="/settings">Settings</Link> */}
+
               <div className="dropdown-divider"></div>
               <button className="btn mt-5" onClick={ctx.logout}>
                 Sign Out

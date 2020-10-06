@@ -7,6 +7,10 @@ export default gql`
       title
       geoJson
       createdAt
+      user {
+        name
+        img
+      }
       comments {
         id
         comment

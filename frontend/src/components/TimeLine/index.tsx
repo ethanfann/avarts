@@ -98,8 +98,8 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
                             <img
                               className="img-fluid rounded-circle w-auto h-auto w-half"
                               src={
-                                activity?.userByUserId?.img
-                                  ? activity?.userByUserId?.img
+                                activity.user.img
+                                  ? activity.user.img
                                   : 'default-user-avatar.png'
                               }
                             ></img>
@@ -114,7 +114,7 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
 
                       <div className="col-10">
                         <p className="font-weight-bold m-0">
-                          {activity?.userByUserId?.name}
+                          {activity?.user.name}
                         </p>
                         <p className="m-0">{activityTime(activity?.geoJson)}</p>
                         <h1 className="card-title font-weight-bolder font-size-20 mt-5 text-primary mb-5">

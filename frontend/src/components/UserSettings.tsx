@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import UserContext, { ContextType } from '../userContext'
-import { faEdit, faTaxi, faTimes } from '@fortawesome/free-solid-svg-icons'
+import {
+  faEdit,
+  faTaxi,
+  faTimes,
+  faCamera,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useUpdateUserNameMutation } from '../generated/graphql'
+import {
+  useUpdateUserNameMutation,
+  useUpdateUserImgMutation,
+} from '../generated/graphql'
+
 const halfmoon = require('halfmoon')
 
 type FormData = {
@@ -14,8 +23,10 @@ const UserSettings = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [edit, setEdit] = useState(false)
+  const [img, setImg] = useState<File>()
 
   const [updateUserName] = useUpdateUserNameMutation()
+  const [updateUserImg] = useUpdateUserImgMutation()
 
   const toggleEdit = (e: any) => {
     setEdit(!edit)
@@ -46,6 +57,29 @@ const UserSettings = () => {
     }
   }
 
+  const handleImgChosen = (img: File) => {
+    setImg(img)
+    uploadImg(img)
+  }
+
+  const uploadImg = async (img: File) => {
+    console.log('now here')
+
+    try {
+      const result = await updateUserImg({
+        variables: {
+          img: img,
+        },
+        refetchQueries: ['currentUserQuery'],
+      })
+      if (result && result.data && result.data.updateImg) {
+        window.location.reload()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <UserContext.Consumer>
       {(ctx) => (
@@ -63,9 +97,22 @@ const UserSettings = () => {
               <div className="d-flex justify-content-left mb-20">
                 <img
                   src={ctx.user?.img ? ctx.user.img : 'default-user-avatar.png'}
-                  className="img-fluid rounded-circle w-quarter"
+                  className="img-fluid rounded-circle w-100 h-100"
                   alt="rounded circle image"
                 />
+
+                <label>
+                  <FontAwesomeIcon className="text-muted" icon={faCamera} />
+                  <input
+                    type="file"
+                    id="file"
+                    className="input-file d-none"
+                    accept="image/*"
+                    onChange={(e) =>
+                      e.target.files && handleImgChosen(e.target.files[0])
+                    }
+                  />
+                </label>
               </div>
 
               <hr></hr>

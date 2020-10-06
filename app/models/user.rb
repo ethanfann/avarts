@@ -1,13 +1,15 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
-  include Tokenizable
-  has_many :activities
+	include Tokenizable
+	include Rails.application.routes.url_helpers
+	has_many :activities
+	has_one_attached :img
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
          :registerable,
-         :recoverable, 
+         :recoverable,
          :devise,
          :validatable,
          :trackable,
@@ -48,7 +50,11 @@ class User < ApplicationRecord
   # return first and lastname
   def name
     [first_name, last_name].join(' ').strip
-  end
+	end
+
+	def img_url
+		img.service_url
+	end
 
   private def setup_new_user
     self.role ||= :customer

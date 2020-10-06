@@ -18,6 +18,7 @@ export type Scalars = {
   ISO8601DateTime: any;
   /** Represents untyped JSON */
   JSON: any;
+  Upload: any;
 };
 
 export type Activity = {
@@ -29,6 +30,7 @@ export type Activity = {
   id: Scalars['ID'];
   title: Scalars['String'];
   updatedAt: Scalars['ISO8601DateTime'];
+  user: User;
   userId: Scalars['ID'];
 };
 
@@ -63,6 +65,8 @@ export type Mutation = {
   tokenLogin?: Maybe<User>;
   /** Unlock the user account */
   unlock: Scalars['Boolean'];
+  /** Update user img */
+  updateImg?: Maybe<User>;
   /** Update user name */
   updateName?: Maybe<User>;
   /** Update user */
@@ -116,6 +120,11 @@ export type MutationUnlockArgs = {
 };
 
 
+export type MutationUpdateImgArgs = {
+  img: Scalars['Upload'];
+};
+
+
 export type MutationUpdateNameArgs = {
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
@@ -147,6 +156,7 @@ export type Query = {
 export type QueryActivitiesByUserIdArgs = {
   userId: Scalars['ID'];
 };
+
 
 export type User = {
   __typename?: 'User';
@@ -236,6 +246,19 @@ export type SignUpMutation = (
   )> }
 );
 
+export type UpdateUserImgMutationVariables = Exact<{
+  img: Scalars['Upload'];
+}>;
+
+
+export type UpdateUserImgMutation = (
+  { __typename?: 'Mutation' }
+  & { updateImg?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'img'>
+  )> }
+);
+
 export type UpdateUserNameMutationVariables = Exact<{
   firstName: Scalars['String'];
   lastName: Scalars['String'];
@@ -276,7 +299,10 @@ export type ActivitiesByUserIdQuery = (
   & { activitiesByUserId?: Maybe<Array<(
     { __typename?: 'Activity' }
     & Pick<Activity, 'id' | 'title' | 'geoJson' | 'createdAt'>
-    & { comments: Array<(
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'name' | 'img'>
+    ), comments: Array<(
       { __typename?: 'ActivityComment' }
       & Pick<ActivityComment, 'id' | 'comment'>
       & { user: (
@@ -514,6 +540,57 @@ export function useSignUpMutation(baseOptions?: ApolloReactHooks.MutationHookOpt
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = ApolloReactCommon.MutationResult<SignUpMutation>;
 export type SignUpMutationOptions = ApolloReactCommon.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
+export const UpdateUserImgDocument = gql`
+    mutation updateUserImg($img: Upload!) {
+  updateImg(img: $img) {
+    img
+  }
+}
+    `;
+export type UpdateUserImgMutationFn = ApolloReactCommon.MutationFunction<UpdateUserImgMutation, UpdateUserImgMutationVariables>;
+export type UpdateUserImgComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<UpdateUserImgMutation, UpdateUserImgMutationVariables>, 'mutation'>;
+
+    export const UpdateUserImgComponent = (props: UpdateUserImgComponentProps) => (
+      <ApolloReactComponents.Mutation<UpdateUserImgMutation, UpdateUserImgMutationVariables> mutation={UpdateUserImgDocument} {...props} />
+    );
+    
+export type UpdateUserImgProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
+      [key in TDataName]: ApolloReactCommon.MutationFunction<UpdateUserImgMutation, UpdateUserImgMutationVariables>
+    } & TChildProps;
+export function withUpdateUserImg<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  UpdateUserImgMutation,
+  UpdateUserImgMutationVariables,
+  UpdateUserImgProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withMutation<TProps, UpdateUserImgMutation, UpdateUserImgMutationVariables, UpdateUserImgProps<TChildProps, TDataName>>(UpdateUserImgDocument, {
+      alias: 'updateUserImg',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useUpdateUserImgMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserImgMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserImgMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserImgMutation, { data, loading, error }] = useUpdateUserImgMutation({
+ *   variables: {
+ *      img: // value for 'img'
+ *   },
+ * });
+ */
+export function useUpdateUserImgMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateUserImgMutation, UpdateUserImgMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateUserImgMutation, UpdateUserImgMutationVariables>(UpdateUserImgDocument, baseOptions);
+      }
+export type UpdateUserImgMutationHookResult = ReturnType<typeof useUpdateUserImgMutation>;
+export type UpdateUserImgMutationResult = ApolloReactCommon.MutationResult<UpdateUserImgMutation>;
+export type UpdateUserImgMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateUserImgMutation, UpdateUserImgMutationVariables>;
 export const UpdateUserNameDocument = gql`
     mutation updateUserName($firstName: String!, $lastName: String!) {
   updateName(firstName: $firstName, lastName: $lastName) {
@@ -627,6 +704,10 @@ export const ActivitiesByUserIdDocument = gql`
     title
     geoJson
     createdAt
+    user {
+      name
+      img
+    }
     comments {
       id
       comment

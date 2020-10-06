@@ -15,5 +15,6 @@ module Types
     field :add_activity_comment, mutation: Mutations::AddActivityComment
 		field :delete_activity_comment, mutation: Mutations::DeleteActivityComment
 		field :update_name, mutation: Mutations::User::UpdateName
+		field :update_img, mutation: Mutations::User::UpdateImg
   end
 end

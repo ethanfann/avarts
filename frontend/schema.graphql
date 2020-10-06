@@ -6,6 +6,7 @@ type Activity {
   id: ID!
   title: String!
   updatedAt: ISO8601DateTime!
+  user: User!
   userId: ID!
 }
 
@@ -72,6 +73,11 @@ type Mutation {
   unlock(unlockToken: String!): Boolean!
 
   """
+  Update user img
+  """
+  updateImg(img: Upload!): User
+
+  """
   Update user name
   """
   updateName(firstName: String, lastName: String): User
@@ -94,6 +100,8 @@ type Query {
   """
   me: User
 }
+
+scalar Upload
 
 type User {
   activityCount: Int
