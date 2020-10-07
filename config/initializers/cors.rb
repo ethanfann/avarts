@@ -9,7 +9,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 
   allow do
 
-    origins ENV['CLIENT_URL'] ? ENV['CLIENT_URL'].split(',').map { |origin| origin.strip } : '0.0.0.0:3001'
+    # origins ENV['CLIENT_URL'] ? ENV['CLIENT_URL'].split(',').map { |origin| origin.strip } : '0.0.0.0:3001'
 		origins ['localhost:3001', 'cryptic-brook-60963.herokuapp.com']
     resource '*',
       headers: :any,
