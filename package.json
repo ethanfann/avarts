@@ -1,0 +1,11 @@
+{
+  "name": "avarts",
+  "engines": {
+    "node": "14.x"
+  },
+  "scripts": {
+    "build": "cd front && npm install && npm run build && cd ..",
+    "deploy": "cp -a front/build/. public/",
+    "postinstall": "npm run build && npm run deploy && echo 'Client built!'"
+  }
+}
