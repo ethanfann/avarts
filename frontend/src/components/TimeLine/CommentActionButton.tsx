@@ -29,14 +29,7 @@ export const CommentActionButton = (props: Props) => {
     <>
       <div className="dropdown dropleft with-arrow">
         <button
-          style={{
-            backgroundColor: 'transparent',
-            backgroundRepeat: 'no-repeat',
-            border: 'none',
-            overflow: 'hidden',
-            outline: 'none',
-          }}
-          className="float-right btn-sm mb-0 pb-0"
+          className="float-right btn btn-sm mb-0 pb-0"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
