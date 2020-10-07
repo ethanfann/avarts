@@ -71,3 +71,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'apollo_upload_server', '2.0.1'
 gem "aws-sdk-s3", require: false
 gem "image_processing"
+gem 'scout_apm'
