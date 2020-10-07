@@ -2,9 +2,8 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect } from 'react'
 import { useUploadActivityMutation } from '../generated/graphql'
+import { parseFit } from '../utils/parseFit'
 
-const toGeoJson = require('@tmcw/togeojson')
-const DOMParser = require('xmldom').DOMParser
 const halfmoon = require('halfmoon')
 
 interface Props {
@@ -12,20 +11,26 @@ interface Props {
 }
 
 const Upload = (props: Props) => {
-  let fileReader: FileReader
+  let file: File
+  let fitReader: FileReader
+
   const [uploadActivityMutation] = useUploadActivityMutation()
 
-  const handleFileRead = async () => {
-    const content = fileReader.result
+  const handleFitRead = async () => {
+    const arrayBuffer = fitReader.result
 
-    const gpx = new DOMParser().parseFromString(content)
-    const converted = toGeoJson.gpx(gpx)
-    const json = converted['features'][0]
+    if (arrayBuffer && typeof arrayBuffer !== 'string') {
+      let json = parseFit(arrayBuffer)
 
+      handleUpload('Cool Ride', json)
+    }
+  }
+
+  const handleUpload = async (title: string, converted: JSON) => {
     try {
       await uploadActivityMutation({
         variables: {
-          title: json.properties.name,
+          title: title,
           description: '',
           geoJson: JSON.stringify(converted),
           userId: props.userId,
@@ -38,13 +43,15 @@ const Upload = (props: Props) => {
   }
 
   useEffect(() => {
-    halfmoon.onDOMContentLoaded()
+    // halfmoon.onDOMContentLoaded()
   }, [])
 
-  const handleFileChosen = (file: any) => {
-    fileReader = new FileReader()
-    fileReader.onloadend = handleFileRead
-    fileReader.readAsText(file)
+  const handleFileChosen = (selected: any) => {
+    file = selected
+    fitReader = new FileReader()
+
+    fitReader.onloadend = handleFitRead
+    fitReader.readAsArrayBuffer(file)
   }
 
   return (
@@ -57,7 +64,7 @@ const Upload = (props: Props) => {
             type="file"
             id="file"
             className="input-file d-none"
-            accept=".gpx"
+            accept=".fit"
             onChange={(e) =>
               e.target.files && handleFileChosen(e.target.files[0])
             }

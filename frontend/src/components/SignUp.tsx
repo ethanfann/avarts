@@ -25,14 +25,13 @@ export const SignUp = () => {
 
   const { register, setValue, handleSubmit } = useForm<FormData>()
   const onSubmit = (data: any) => {
-    console.log(data)
     signup(data)
   }
 
   const [signupMutation] = useSignUpMutation()
 
   useEffect(() => {
-    halfmoon.onDOMContentLoaded()
+    // halfmoon.onDOMContentLoaded()
   }, [])
 
   const handleImgRead = async () => {

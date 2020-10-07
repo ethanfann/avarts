@@ -38,7 +38,6 @@ const UserSettings = () => {
     const newFirstName = firstName.length === 0 ? ctx.user.firstName : firstName
     const newLastName = lastName.length === 0 ? ctx.user.lastName : lastName
 
-    console.log(`${newFirstName} ${newLastName}`)
     setEdit(false)
 
     try {
@@ -63,8 +62,6 @@ const UserSettings = () => {
   }
 
   const uploadImg = async (img: File) => {
-    console.log('now here')
-
     try {
       const result = await updateUserImg({
         variables: {

@@ -15,8 +15,6 @@ type Props = {
 export const ActivityComments = (props: Props) => {
   const { comments } = props
 
-  console.log(comments)
-
   return (
     <>
       {comments.map((comment: CommentType, index: number) => (

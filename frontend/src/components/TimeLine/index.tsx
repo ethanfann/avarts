@@ -9,6 +9,7 @@ import ActivityCommentBox from './ActivityCommentBox'
 import ActivityComments from './ActivityComments'
 import MetricRow from './MetricRow'
 const simplify = require('simplify-geojson')
+const simplifyJs = require('simplify-js')
 
 // TODO: Don't parse JSON so much
 // TODO: Break out into more components
@@ -28,7 +29,8 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
 
   const activityTime = (geoJsonStr: any) => {
     const geoJson = JSON.parse(geoJsonStr)
-    const timeStr = DayJs(geoJson['features'][0].properties.time).format(
+    console.log(geoJson)
+    const timeStr = DayJs(geoJson['features'].properties.coordTimes[0]).format(
       'MMMM D, YYYY--h:mm A'
     )
     const timeStrSplit = timeStr.split('--')
@@ -40,8 +42,9 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
 
   const activityImg = (geoJsonStr: string) => {
     const json = JSON.parse(geoJsonStr)
-    const simplified = simplify(json, 0.002)
-    return staticRideImg(simplified['features'][0].geometry.coordinates)
+    const simplified = simplify(json['features'], 0.002)
+    const coordinates = simplified.geometry.coordinates
+    return staticRideImg(coordinates)
   }
 
   const toggleComment = (comment: CommentEnabledType) => {

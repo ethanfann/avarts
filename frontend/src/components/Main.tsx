@@ -8,7 +8,7 @@ const halfmoon = require('halfmoon')
 
 export const Main = () => {
   useEffect(() => {
-    halfmoon.onDOMContentLoaded()
+    // halfmoon.onDOMContentLoaded()
     toggleSidebar()
   }, [])
 

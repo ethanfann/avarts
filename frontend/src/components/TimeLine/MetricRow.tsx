@@ -18,22 +18,23 @@ const MetricRow = (props: Props) => {
 
   const rideLength = (geoJsonStr: string) => {
     const json = JSON.parse(geoJsonStr)
-    var area = geojsonLength(json['features'][0].geometry)
+    var area = geojsonLength(json['features'].geometry)
     return area
   }
 
   const elevGain = (geoJsonStr: string) => {
     const json = JSON.parse(geoJsonStr)
-    return Math.round(
-      getElevationGain(json['features'][0].geometry, 40) * 3.28084
-    )
+    return Math.round(getElevationGain(json['features'].geometry, 40) * 3.28084)
   }
 
   const elapsedTime = (geoJsonStr: string) => {
     const json = JSON.parse(geoJsonStr)
-    const coordTimes = json['features'][0].properties.coordTimes
-    const firstCoordTime = DayJs(coordTimes[0])
-    const lastCoordTime = DayJs(coordTimes[coordTimes.length - 1])
+    const firstCoordTime = DayJs(json['features'].properties.coordTimes[0])
+    const lastCoordTime = DayJs(
+      json['features'].properties.coordTimes[
+        json['features'].properties.coordTimes.length - 1
+      ]
+    )
     const seconds = lastCoordTime.diff(firstCoordTime, 'second')
     const time = new Date(seconds * 1000).toISOString().substr(11, 8)
     const split = time.split(':')

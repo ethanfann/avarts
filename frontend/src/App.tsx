@@ -14,6 +14,8 @@ import {
 } from 'react-router-dom'
 import SignUp from './components/SignUp'
 import UserSettings from './components/UserSettings'
+import UploadForm from './components/UploadForm'
+import Upload from './components/Upload'
 
 require('halfmoon/css/halfmoon.min.css')
 
@@ -31,7 +33,6 @@ const App: React.FC = () => {
   useEffect(() => {
     if (data) {
       if (data && data.me) {
-        console.log(data.me)
         setUser(data.me)
       }
     }
@@ -53,7 +54,7 @@ const App: React.FC = () => {
       halfmoon.toggleDarkMode()
     }
 
-    halfmoon.onDOMContentLoaded()
+    // halfmoon.onDOMContentLoaded()
   }, [])
 
   return (
@@ -75,41 +76,44 @@ const App: React.FC = () => {
         logout: logout,
       }}
     >
-      <div
-        id="pageWrapper"
-        className="page-wrapper with-navbar" //with-sidebar
-        // data-sidebar-type="overlayed-sm-and-down"
-      >
-        {/* <div className="sidebar-overlay" onClick={toggleSidebar}></div>
-        <div className="sidebar border-0">
-          <UserCard />
-        </div> */}
+      <>
+        <div
+          id="pageWrapper"
+          className="page-wrapper with-navbar with-sidebar" //with-sidebar
+          data-sidebar-type="overlayed-sm-and-down"
+        >
+          <div className="sidebar-overlay" onClick={toggleSidebar}></div>
+          <div className="sidebar border-0">
+            <UserCard />
+            {user && user.id !== 0 && <UploadForm userId={user.id} />}
+          </div>
 
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>Avarts</title>
-        </Helmet>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>Avarts</title>
+          </Helmet>
 
-        <BrowserRouter>
-          <Header />
+          <BrowserRouter>
+            <Header />
 
-          <>
-            <div className="content-wrapper">
-              <div className="container-fluid">
-                <div className="d-flex justify-content-center">
-                  <Switch>
-                    <Route path="/settings" component={UserSettings} />
-                    <Route path="/" component={Main} />
-                  </Switch>
+            <>
+              <div className="content-wrapper">
+                <div className="container-fluid">
+                  <div className="d-flex justify-content-center">
+                    <Switch>
+                      <Route path="/settings" component={UserSettings} />
+                      <Route path="/" component={Main} />
+                    </Switch>
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        </BrowserRouter>
+            </>
+          </BrowserRouter>
 
-        {/* <Main /> */}
-        {/* Footer? */}
-      </div>
+          {/* <Main /> */}
+          {/* Footer? */}
+        </div>
+      </>
     </UserContext.Provider>
   )
 }

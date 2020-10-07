@@ -1,6 +1,6 @@
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLoginMutation } from '../generated/graphql'
 import UserContext from '../userContext'
 import { toggleSidebar } from '../utils/sideBar'
@@ -14,9 +14,9 @@ const Header: React.FC = () => {
   const [password, setPassword] = useState('')
   const [signinMutation] = useLoginMutation()
 
-  // useEffect(() => {
-  //   halfmoon.onDOMContentLoaded()
-  // }, [])
+  useEffect(() => {
+    halfmoon.onDOMContentLoaded()
+  }, [])
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -108,7 +108,7 @@ const Header: React.FC = () => {
               </div>
             ) : (
               <>
-                <Upload userId={ctx.user.id} />
+                {/* <Upload userId={ctx.user.id} /> */}
                 <AvatarDropdown />
               </>
             )}
