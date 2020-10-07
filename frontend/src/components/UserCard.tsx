@@ -26,7 +26,7 @@ const UserCard: React.FC = () => {
                 {ctx.user.activityCount} activities
               </p>
               <hr />
-              {ctx.user.latestActivity && (
+              {ctx.user.latestActivity.title !== '' && (
                 <>
                   <p
                     style={{ lineHeight: '17 .4px', fontSize: '10px' }}
