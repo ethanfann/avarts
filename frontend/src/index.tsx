@@ -17,8 +17,13 @@ const httpLink = createHttpLink({
   credentials: 'same-origin',
 })
 
+const uri =
+  process.env.NODE_ENV === 'production'
+    ? 'https://cryptic-brook-60963.herokuapp.com/graphql'
+    : 'http://localhost:3000/graphql'
+
 const uploadLink = createUploadLink({
-  uri: 'http://localhost:3000/graphql',
+  uri: uri,
   credentials: 'same-origin',
 })
 
