@@ -90,7 +90,7 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
               data.activitiesByUserId.map((activity: any, index: number) => (
                 <div
                   key={index}
-                  style={{ maxWidth: '550px' }}
+                  style={{ maxWidth: '800px' }}
                   className="card mb-0 pb-0"
                 >
                   <div className="container-fluid">
