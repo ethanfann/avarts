@@ -5,6 +5,7 @@ export default gql`
     activitiesByUserId(userId: $userId) {
       id
       title
+      description
       geoJson
       createdAt
       user {

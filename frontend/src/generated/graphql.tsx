@@ -298,7 +298,7 @@ export type ActivitiesByUserIdQuery = (
   { __typename?: 'Query' }
   & { activitiesByUserId?: Maybe<Array<(
     { __typename?: 'Activity' }
-    & Pick<Activity, 'id' | 'title' | 'geoJson' | 'createdAt'>
+    & Pick<Activity, 'id' | 'title' | 'description' | 'geoJson' | 'createdAt'>
     & { user: (
       { __typename?: 'User' }
       & Pick<User, 'name' | 'img'>
@@ -702,6 +702,7 @@ export const ActivitiesByUserIdDocument = gql`
   activitiesByUserId(userId: $userId) {
     id
     title
+    description
     geoJson
     createdAt
     user {

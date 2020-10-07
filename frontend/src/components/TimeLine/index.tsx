@@ -123,6 +123,11 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
                         <h1 className="card-title font-weight-bolder font-size-20 mt-5 text-primary mb-5">
                           {activity?.title}
                         </h1>
+                        {activity?.description !== '' && (
+                          <p className="mb-10 font-size-12">
+                            {activity?.description}
+                          </p>
+                        )}
                         <MetricRow geoJson={activity?.geoJson} />
                       </div>
                     </div>
