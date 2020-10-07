@@ -40,9 +40,29 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
       : timeStrSplit[0] + ` at ${timeStrSplit[1]}`
   }
 
+  // TODO: This is the thing that really needs to be tested first. We need to use just the right tolerance factor,
+  // IE: most detail, without making the requst to mapbox fail.
   const activityImg = (geoJsonStr: string) => {
     const json = JSON.parse(geoJsonStr)
-    const simplified = simplify(json['features'], 0.002)
+
+    let factor: number = 0.001
+    const dataPoints: number = json['features'].geometry.coordinates.length
+
+    if (dataPoints > 40000) {
+      factor = 0.009
+    } else if (dataPoints > 10000) {
+      factor = 0.009
+    } else if (dataPoints > 5000) {
+      factor = 0.0005
+    } else if (dataPoints > 2500) {
+      factor = 0.00039
+    } else if (dataPoints > 1000) {
+      factor = 0.00009
+    } else {
+      factor = 0.00009
+    }
+
+    const simplified = simplify(json['features'], factor)
     const coordinates = simplified.geometry.coordinates
     return staticRideImg(coordinates)
   }
