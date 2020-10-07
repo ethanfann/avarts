@@ -19,7 +19,7 @@ const httpLink = createHttpLink({
 
 const uri =
   process.env.NODE_ENV === 'production'
-    ? 'https://avarts.herokuapp.com/graphql'
+    ? 'https://avarts.ethanfann.com/graphql'
     : 'http://localhost:3000/graphql'
 
 const uploadLink = createUploadLink({
