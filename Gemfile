@@ -12,7 +12,7 @@ gem 'pg'
 gem 'devise'                                # Use devise as authentication module
 gem 'devise-jwt'                             # Use JWT token authentication with devise
 gem 'bcrypt'                    # Use ActiveModel has_secure_password
-gem 'graphql'
+gem 'graphql', '~> 1.11.5'
 gem 'graphql-errors'
 gem 'rack-cors'
 # gem 'graphiql-rails', group: :development

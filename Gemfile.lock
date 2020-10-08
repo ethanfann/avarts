@@ -271,7 +271,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
-  graphql
+  graphql (~> 1.11.5)
   graphql-errors
   image_processing
   listen
