@@ -86,7 +86,7 @@ type Mutation {
   Update user
   """
   updateUser(password: String, passwordConfirmation: String): User
-  upload(description: String!, geoJson: JSON!, title: String!, userId: ID!): Activity
+  upload(description: String!, fitFile: Upload!, title: String!, userId: ID!): Activity
 }
 
 type Query {

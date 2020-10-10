@@ -4,13 +4,13 @@ export default gql`
   mutation uploadActivity(
     $title: String!
     $description: String!
-    $geoJson: JSON!
+    $fitFile: Upload!
     $userId: ID!
   ) {
     upload(
       title: $title
       description: $description
-      geoJson: $geoJson
+      fitFile: $fitFile
       userId: $userId
     ) {
       id

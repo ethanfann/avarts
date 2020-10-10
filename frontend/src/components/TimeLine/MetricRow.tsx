@@ -29,11 +29,13 @@ const MetricRow = (props: Props) => {
 
   const elapsedTime = (geoJsonStr: string) => {
     const json = JSON.parse(geoJsonStr)
-    const firstCoordTime = DayJs(json['features'].properties.coordTimes[0])
-    const lastCoordTime = DayJs(
-      json['features'].properties.coordTimes[
-        json['features'].properties.coordTimes.length - 1
-      ]
+    const firstCoordTime = DayJs.unix(
+      json['features'].properties.coordProps[0].timestamp
+    )
+    const lastCoordTime = DayJs.unix(
+      json['features'].properties.coordProps[
+        json['features'].properties.coordProps.length - 1
+      ].timestamp
     )
     const seconds = lastCoordTime.diff(firstCoordTime, 'second')
     const time = new Date(seconds * 1000).toISOString().substr(11, 8)

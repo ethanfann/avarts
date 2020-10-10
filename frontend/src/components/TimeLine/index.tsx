@@ -29,10 +29,9 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
 
   const activityTime = (geoJsonStr: any) => {
     const geoJson = JSON.parse(geoJsonStr)
-    console.log(geoJson)
-    const timeStr = DayJs(geoJson['features'].properties.coordTimes[0]).format(
-      'MMMM D, YYYY--h:mm A'
-    )
+    const timeStr = DayJs.unix(
+      geoJson['features'].properties.coordProps[0].timestamp
+    ).format('MMMM D, YYYY--h:mm A')
     const timeStrSplit = timeStr.split('--')
 
     return DayJs(timeStrSplit[0]).isSame(DayJs(), 'day')

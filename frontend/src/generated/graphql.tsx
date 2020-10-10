@@ -139,7 +139,7 @@ export type MutationUpdateUserArgs = {
 
 export type MutationUploadArgs = {
   description: Scalars['String'];
-  geoJson: Scalars['JSON'];
+  fitFile: Scalars['Upload'];
   title: Scalars['String'];
   userId: Scalars['ID'];
 };
@@ -276,7 +276,7 @@ export type UpdateUserNameMutation = (
 export type UploadActivityMutationVariables = Exact<{
   title: Scalars['String'];
   description: Scalars['String'];
-  geoJson: Scalars['JSON'];
+  fitFile: Scalars['Upload'];
   userId: Scalars['ID'];
 }>;
 
@@ -644,8 +644,8 @@ export type UpdateUserNameMutationHookResult = ReturnType<typeof useUpdateUserNa
 export type UpdateUserNameMutationResult = ApolloReactCommon.MutationResult<UpdateUserNameMutation>;
 export type UpdateUserNameMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateUserNameMutation, UpdateUserNameMutationVariables>;
 export const UploadActivityDocument = gql`
-    mutation uploadActivity($title: String!, $description: String!, $geoJson: JSON!, $userId: ID!) {
-  upload(title: $title, description: $description, geoJson: $geoJson, userId: $userId) {
+    mutation uploadActivity($title: String!, $description: String!, $fitFile: Upload!, $userId: ID!) {
+  upload(title: $title, description: $description, fitFile: $fitFile, userId: $userId) {
     id
   }
 }
@@ -686,7 +686,7 @@ export function withUploadActivity<TProps, TChildProps = {}, TDataName extends s
  *   variables: {
  *      title: // value for 'title'
  *      description: // value for 'description'
- *      geoJson: // value for 'geoJson'
+ *      fitFile: // value for 'fitFile'
  *      userId: // value for 'userId'
  *   },
  * });

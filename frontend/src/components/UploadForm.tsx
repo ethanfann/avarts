@@ -19,18 +19,17 @@ interface Props {
 
 const UploadForm = (props: Props) => {
   let fitReader: FileReader
-  let [selectedFile, setSelectedFile] = useState<File>()
+  let [selectedFile, setSelectedFile] = useState<File | null>()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [geoJson, setGeoJson] = useState('{}')
 
   const { register, setValue, handleSubmit } = useForm<FormData>()
 
   const onSubmit = (data: any) => {
     const { title, description } = data
 
-    if (geoJson) {
-      handleUpload(title, description, geoJson)
+    if (selectedFile) {
+      handleUpload(title, description, selectedFile)
     }
   }
 
@@ -41,21 +40,20 @@ const UploadForm = (props: Props) => {
 
     if (arrayBuffer && typeof arrayBuffer !== 'string') {
       let json = parseFit(arrayBuffer)
-      setGeoJson(JSON.stringify(json))
     }
   }
 
   const handleUpload = async (
     title: string,
     description: string,
-    converted: string
+    converted: File
   ) => {
     try {
       await uploadActivityMutation({
         variables: {
           title: title,
           description: description,
-          geoJson: converted,
+          fitFile: converted,
           userId: props.userId,
         },
         refetchQueries: ['activitiesByUserId', 'me'],
@@ -63,7 +61,7 @@ const UploadForm = (props: Props) => {
 
       setTitle('')
       setDescription('')
-      setGeoJson('{}')
+      setSelectedFile(null)
     } catch (error) {
       console.log(error)
     }
@@ -74,15 +72,15 @@ const UploadForm = (props: Props) => {
   }, [])
 
   const disableUpload = (): boolean => {
-    return title.length === 0 || geoJson === '{}'
+    return title.length === 0 || !selectedFile
   }
 
   const handleFileChosen = (selected: any) => {
     setSelectedFile(selected)
-    fitReader = new FileReader()
+    // fitReader = new FileReader()
 
-    fitReader.onloadend = handleFitRead
-    fitReader.readAsArrayBuffer(selected)
+    // fitReader.onloadend = handleFitRead
+    // fitReader.readAsArrayBuffer(selected)
   }
 
   return (
@@ -114,8 +112,10 @@ const UploadForm = (props: Props) => {
                 <div>
                   <textarea
                     name="description"
+                    ref={register({ required: false })}
+                    required={false}
+                    onChange={(e) => setDescription(e.target.value.trim())}
                     className="form-control"
-                    ref={register({ required: true })}
                     placeholder="Description"
                   ></textarea>
                 </div>
