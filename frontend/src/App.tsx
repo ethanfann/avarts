@@ -15,7 +15,6 @@ import {
 import SignUp from './components/SignUp'
 import UserSettings from './components/UserSettings'
 import UploadForm from './components/UploadForm'
-import Upload from './components/Upload'
 
 require('halfmoon/css/halfmoon.min.css')
 

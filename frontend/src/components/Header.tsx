@@ -5,7 +5,6 @@ import { useLoginMutation } from '../generated/graphql'
 import UserContext from '../userContext'
 import { toggleSidebar } from '../utils/sideBar'
 import AvatarDropdown from './AvatarDropdown'
-import Upload from './Upload'
 
 const halfmoon = require('halfmoon')
 
