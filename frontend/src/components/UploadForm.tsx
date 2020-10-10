@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { useUploadActivityMutation } from '../generated/graphql'
 import { parseFit } from '../utils/parseFit'
-import Upload from './Upload'
 import { useForm } from 'react-hook-form'
 
 type FormData = {
