@@ -12,11 +12,6 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { createUploadLink } from 'apollo-upload-client'
 
-const httpLink = createHttpLink({
-  uri: 'http://localhost:3000/graphql',
-  credentials: 'same-origin',
-})
-
 const uri =
   process.env.NODE_ENV === 'production'
     ? 'https://avarts.ethanfann.com/graphql'
