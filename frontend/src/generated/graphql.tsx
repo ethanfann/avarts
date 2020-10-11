@@ -303,7 +303,7 @@ export type ActivitiesByUserIdQuery = (
   { __typename?: 'Query' }
   & { activitiesByUserId?: Maybe<Array<(
     { __typename?: 'Activity' }
-    & Pick<Activity, 'title' | 'description' | 'polyline' | 'startTime' | 'duration' | 'elevation' | 'distance' | 'createdAt'>
+    & Pick<Activity, 'id' | 'title' | 'description' | 'polyline' | 'startTime' | 'duration' | 'elevation' | 'distance' | 'createdAt'>
     & { user: (
       { __typename?: 'User' }
       & Pick<User, 'name' | 'img'>
@@ -705,6 +705,7 @@ export type UploadActivityMutationOptions = ApolloReactCommon.BaseMutationOption
 export const ActivitiesByUserIdDocument = gql`
     query activitiesByUserId($userId: ID!) {
   activitiesByUserId(userId: $userId) {
+    id
     title
     description
     polyline
