@@ -26,8 +26,13 @@ export type Activity = {
   comments: Array<ActivityComment>;
   createdAt: Scalars['ISO8601DateTime'];
   description: Scalars['String'];
+  distance: Scalars['Int'];
+  duration: Scalars['Int'];
+  elevation: Scalars['Int'];
   geoJson: Scalars['JSON'];
   id: Scalars['ID'];
+  polyline: Scalars['String'];
+  startTime: Scalars['Int'];
   title: Scalars['String'];
   updatedAt: Scalars['ISO8601DateTime'];
   user: User;
@@ -298,7 +303,7 @@ export type ActivitiesByUserIdQuery = (
   { __typename?: 'Query' }
   & { activitiesByUserId?: Maybe<Array<(
     { __typename?: 'Activity' }
-    & Pick<Activity, 'id' | 'title' | 'description' | 'geoJson' | 'createdAt'>
+    & Pick<Activity, 'id' | 'title' | 'description' | 'geoJson' | 'polyline' | 'startTime' | 'duration' | 'elevation' | 'distance' | 'createdAt'>
     & { user: (
       { __typename?: 'User' }
       & Pick<User, 'name' | 'img'>
@@ -704,6 +709,11 @@ export const ActivitiesByUserIdDocument = gql`
     title
     description
     geoJson
+    polyline
+    startTime
+    duration
+    elevation
+    distance
     createdAt
     user {
       name

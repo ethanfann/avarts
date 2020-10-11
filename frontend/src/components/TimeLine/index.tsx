@@ -8,8 +8,6 @@ import { staticRideImg } from '../../utils/mapbox'
 import ActivityCommentBox from './ActivityCommentBox'
 import ActivityComments from './ActivityComments'
 import MetricRow from './MetricRow'
-const simplify = require('simplify-geojson')
-const simplifyJs = require('simplify-js')
 
 // TODO: Don't parse JSON so much
 // TODO: Break out into more components
@@ -27,11 +25,8 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
   const { userId } = props
   const [commentEnabled, enableComment] = useState<CommentEnabledType>()
 
-  const activityTime = (geoJsonStr: any) => {
-    const geoJson = JSON.parse(geoJsonStr)
-    const timeStr = DayJs.unix(
-      geoJson['features'].properties.coordProps[0].timestamp
-    ).format('MMMM D, YYYY--h:mm A')
+  const activityTime = (startTime: number) => {
+    const timeStr = DayJs.unix(startTime).format('MMMM D, YYYY--h:mm A')
     const timeStrSplit = timeStr.split('--')
 
     return DayJs(timeStrSplit[0]).isSame(DayJs(), 'day')
@@ -41,29 +36,8 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
 
   // TODO: This is the thing that really needs to be tested first. We need to use just the right tolerance factor,
   // IE: most detail, without making the requst to mapbox fail.
-  const activityImg = (geoJsonStr: string) => {
-    const json = JSON.parse(geoJsonStr)
-
-    let factor: number = 0.001
-    const dataPoints: number = json['features'].geometry.coordinates.length
-
-    if (dataPoints > 40000) {
-      factor = 0.009
-    } else if (dataPoints > 10000) {
-      factor = 0.009
-    } else if (dataPoints > 5000) {
-      factor = 0.0005
-    } else if (dataPoints > 2500) {
-      factor = 0.00039
-    } else if (dataPoints > 1000) {
-      factor = 0.00009
-    } else {
-      factor = 0.00009
-    }
-
-    const simplified = simplify(json['features'], factor)
-    const coordinates = simplified.geometry.coordinates
-    return staticRideImg(coordinates)
+  const activityImg = (polyline: string) => {
+    return staticRideImg(polyline)
   }
 
   const toggleComment = (comment: CommentEnabledType) => {
@@ -138,7 +112,9 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
                         <p className="font-weight-bold m-0">
                           {activity?.user.name}
                         </p>
-                        <p className="m-0">{activityTime(activity?.geoJson)}</p>
+                        <p className="m-0">
+                          {activityTime(activity?.startTime)}
+                        </p>
                         <h1 className="card-title font-weight-bolder font-size-20 mt-5 text-primary mb-5">
                           {activity?.title}
                         </h1>
@@ -147,13 +123,18 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
                             {activity?.description}
                           </p>
                         )}
-                        <MetricRow geoJson={activity?.geoJson} />
+                        <MetricRow
+                          geoJson={activity?.geoJson}
+                          duration={activity?.duration}
+                          elevation={activity?.elevation}
+                          distance={activity?.distance}
+                        />
                       </div>
                     </div>
                   </div>
                   <div className="align-center mt-10">
                     <img
-                      src={activityImg(activity?.geoJson)}
+                      src={activityImg(activity?.polyline)}
                       className="img-fluid rounded w-full h-full"
                       alt="responsive image"
                     />

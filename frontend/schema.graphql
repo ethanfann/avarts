@@ -2,8 +2,13 @@ type Activity {
   comments: [ActivityComment!]!
   createdAt: ISO8601DateTime!
   description: String!
+  distance: Int!
+  duration: Int!
+  elevation: Int!
   geoJson: JSON!
   id: ID!
+  polyline: String!
+  startTime: Int!
   title: String!
   updatedAt: ISO8601DateTime!
   user: User!

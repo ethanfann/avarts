@@ -11,33 +11,27 @@ const geojsonLength = require('geojson-length')
 
 type Props = {
   geoJson: string
+  distance: number
+  elevation: number
+  duration: number
 }
 
 const MetricRow = (props: Props) => {
-  const { geoJson } = props
+  const { geoJson, distance, elevation, duration } = props
 
-  const rideLength = (geoJsonStr: string) => {
-    const json = JSON.parse(geoJsonStr)
-    var area = geojsonLength(json['features'].geometry)
-    return area
+  // const rideLength = (distance: number) => {
+  //   var area = geojsonLength(json['features'].geometry)
+  //   return area
+  // }
+
+  // elevation = meters
+  const elevGain = (elevation: number) => {
+    return Math.round(elevation * 3.28084)
   }
 
-  const elevGain = (geoJsonStr: string) => {
-    const json = JSON.parse(geoJsonStr)
-    return Math.round(getElevationGain(json['features'].geometry, 40) * 3.28084)
-  }
-
-  const elapsedTime = (geoJsonStr: string) => {
-    const json = JSON.parse(geoJsonStr)
-    const firstCoordTime = DayJs.unix(
-      json['features'].properties.coordProps[0].timestamp
-    )
-    const lastCoordTime = DayJs.unix(
-      json['features'].properties.coordProps[
-        json['features'].properties.coordProps.length - 1
-      ].timestamp
-    )
-    const seconds = lastCoordTime.diff(firstCoordTime, 'second')
+  // duration is in seconds
+  const elapsedTime = (duration: number) => {
+    const seconds = duration
     const time = new Date(seconds * 1000).toISOString().substr(11, 8)
     const split = time.split(':')
     return (
@@ -57,7 +51,7 @@ const MetricRow = (props: Props) => {
             header="Distance"
             value={
               <>
-                {(rideLength(geoJson) * 0.000621371).toFixed(2)}
+                {(distance * 0.000621371).toFixed(2)}
                 <abbr>mi</abbr>
               </>
             }
@@ -69,7 +63,7 @@ const MetricRow = (props: Props) => {
             header="Elev Gain"
             value={
               <>
-                {elevGain(geoJson).toString()}
+                {elevGain(elevation).toString()}
                 <abbr>ft</abbr>
               </>
             }
@@ -77,7 +71,7 @@ const MetricRow = (props: Props) => {
         </div>
         <Divider />
         <div className="">
-          <Metric header="Time" value={elapsedTime(geoJson)} />
+          <Metric header="Time" value={elapsedTime(duration)} />
         </div>
       </div>
     </>

@@ -6,7 +6,11 @@ export default gql`
       id
       title
       description
-      geoJson
+      polyline
+      startTime
+      duration
+      elevation
+      distance
       createdAt
       user {
         name

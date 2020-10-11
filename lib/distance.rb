@@ -32,6 +32,6 @@ module Distance
       i = i + 1
     end
 
-    distance * 1000 # in m
+    (distance * 1000).round(2) # in m
   end
 end
