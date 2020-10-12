@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSignUpMutation } from '../generated/graphql'
 import { emailValidation } from '../utils/validation'
+import { toggleSidebar } from '../utils/sideBar'
 
 const halfmoon = require('halfmoon')
 
@@ -22,6 +23,10 @@ export const SignUp = () => {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [img, setImg] = useState<File>()
+
+  useEffect(() => {
+    // toggleSidebar()
+  }, [])
 
   const { register, setValue, handleSubmit } = useForm<FormData>()
   const onSubmit = () => {
