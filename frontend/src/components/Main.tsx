@@ -1,17 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import UserContext from '../userContext'
-import { toggleSidebar } from '../utils/sideBar'
 import SignUp from './SignUp'
 import TimeLine from './TimeLine'
 
-const halfmoon = require('halfmoon')
-
 export const Main = () => {
-  useEffect(() => {
-    // halfmoon.onDOMContentLoaded()
-    toggleSidebar()
-  }, [])
-
   return (
     <UserContext.Consumer>
       {(ctx) => (
