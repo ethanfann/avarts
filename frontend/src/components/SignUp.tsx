@@ -24,15 +24,11 @@ export const SignUp = () => {
   const [img, setImg] = useState<File>()
 
   const { register, setValue, handleSubmit } = useForm<FormData>()
-  const onSubmit = (data: any) => {
-    signup(data)
+  const onSubmit = () => {
+    signup()
   }
 
   const [signupMutation] = useSignUpMutation()
-
-  useEffect(() => {
-    // halfmoon.onDOMContentLoaded()
-  }, [])
 
   const handleImgRead = async () => {
     const content = fileReader.result
@@ -68,9 +64,7 @@ export const SignUp = () => {
     }
   }
 
-  const signup = async (data: FormData) => {
-    const { firstName, lastName, email, password, passwordConfirm } = data
-
+  const signup = async () => {
     try {
       const result = await signupMutation({
         variables: {
