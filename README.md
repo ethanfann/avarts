@@ -1,48 +1,31 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/ethanfann/strava-clone">
+  <a href="https://github.com/ethanfann/avarts">
   </a>
 
-  <h3 align="center">My Strava Clone</h3>
+  <h3 align="center">	<a href="https://avarts.ethanfann.com">Avarts</a>
+</h3>
+
 
   <p align="center">
-    Just a fun learning project to recreate a https://strava.com.
+		Avarts (Strava spelled backwards) is a Covid-19 mini-project to recreate some of the common features of https://strava.com.
     <br />
     <br />
     <a href="https://youtu.be/LmrOFXKklL4">View Demo</a>
     ·
-    <a href="https://github.com/ethanfann/strava-clone/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/ethanfann/strava-clone/issues">Request Feature</a>
+    <a href="https://github.com/ethanfann/avarts/issues">Report Bug</a>
     ·
     <a href="https://trello.com/b/spuSqAyQ">Roadmap</a>
   </p>
 </p>
 
-<!-- TABLE OF CONTENTS
-## Table of Contents
-
-- [About The Project](#about-the-project)
-  - [Built With](#built-with)
-    - [Frontend](#frontend)
-    - [Backend](#backend)
-    - [Misc](#misc)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-  - [Codegen](#codegen)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
--->
-
 <!-- ABOUT THE PROJECT -->
 
-## About The Project
 
 ![](https://i.imgur.com/nR04Tyn.png)
+
+## About The Project
 
 ### Built With
 
@@ -67,14 +50,14 @@
 
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
+To get a local copy up and running follow these steps.
 
 ### Prerequisites
 
 - [Ruby 2.7.1](https://www.ruby-lang.org/en/)
 - [Rails 6](https://rubyonrails.org/)
 - [Node 14](https://nodejs.org/en/)
-- [npm](https://www.npmjs.com/)
+- [NPM](https://www.npmjs.com/)
 - [Postgres](https://www.postgresql.org/)
 
 ### Installation
@@ -84,19 +67,19 @@ git clone https://github.com/ethanfann/avarts.git avarts
 cd avarts
 ```
 
-Clone `env_sample` to .env for local development. We set it up with default rails `3000` and React `3001` ports:
+Clone `.env.example` to `.env` for local development. Rails will run on port `3000` and React port `3001` by default:
 
 ```sh
-cp env_sample .env
+cp .env.eample .env
 ```
 
-Clone `frontend/.env.example` to .env. This contains the Mapbox token used for activity static image creation.
+Clone `frontend/.env.example` to `frontend/.env`. This contains the Mapbox token used for activity static image creation:
 
 ```sh
 cp frontend/.env.example frontend/.env
 ```
 
-Install the bundle:
+Install Ruby gems:
 
 ```sh
 bundle install
@@ -116,7 +99,7 @@ Run the development server:
 rails s
 ```
 
-While this is an API-only application you will not be able to access any routes via browser. Download a GraphQL client like [GraphiQL](https://github.com/graphql/graphiql) or others. 
+Rails runs in API mode and as such, you will not be able to access any Rails routes via browser. Download a GraphQL client like [GraphiQL](https://github.com/graphql/graphiql) or others.
 
 Point the GraphQL IDE to `http://0.0.0.0:3000/graphql`
 
