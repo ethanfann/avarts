@@ -70,7 +70,7 @@ cd avarts
 Clone `.env.example` to `.env` for local development. Rails will run on port `3000` and React port `3001` by default:
 
 ```sh
-cp .env.eample .env
+cp .env.example .env
 ```
 
 Clone `frontend/.env.example` to `frontend/.env`. This contains the Mapbox token used for activity static image creation:
@@ -85,7 +85,7 @@ Install Ruby gems:
 bundle install
 ```
 
-Make sure the postresql is running on localhost. You may have to change your credentials under `/config/database.yml`:
+Make sure postresql is running on localhost. You may have to change your credentials under `/config/database.yml`:
 
 ```sh
 rake db:create
@@ -131,6 +131,8 @@ rake graphql:schema:dump
 ```sh
 cd frontend && npm run codegen
 ```
+
+Note: This step is required after making any modifications to the Rails models or graphql types.
 
 <!-- CONTRIBUTING -->
 
