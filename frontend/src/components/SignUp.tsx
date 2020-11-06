@@ -102,9 +102,7 @@ export const SignUp = () => {
       <div className="container-fluid">
         <div className="d-flex justify-content-center">
           <div style={{ marginTop: '10vh' }} className="card w-400">
-            <h2 className="text-align-center">
-              Join Strava Clone today, it's Free
-            </h2>
+            <h2 className="text-align-center">Sign up for Avarts today.</h2>
             <form
               style={{ height: '50%' }}
               onSubmit={handleSubmit(onSubmit)}
