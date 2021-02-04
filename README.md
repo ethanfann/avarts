@@ -12,8 +12,6 @@
 		Avarts is a Covid-19 mini-project to recreate some of the basic features of https://strava.com.
     <br />
     <br />
-    <a href="https://youtu.be/LmrOFXKklL4">View Demo</a>
-    ·
     <a href="https://github.com/ethanfann/avarts/issues">Report Bug</a>
     ·
     <a href="https://trello.com/b/spuSqAyQ">Roadmap</a>
