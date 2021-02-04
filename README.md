@@ -9,7 +9,7 @@
 
 
   <p align="center">
-		Avarts (Strava spelled backwards) is a Covid-19 mini-project to recreate some of the common features of https://strava.com.
+		Avarts is a Covid-19 mini-project to recreate some of the basic features of https://strava.com.
     <br />
     <br />
     <a href="https://youtu.be/LmrOFXKklL4">View Demo</a>
