@@ -13,7 +13,7 @@ module Types
 		def img
 			if object.img.present?
 				# rails_blob_path(object.img, only_path: true)
-				object.img.service_url
+				object.img.url
 			else
 				''
 			end
