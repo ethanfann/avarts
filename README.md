@@ -9,21 +9,14 @@
 
 
   <p align="center">
-		Avarts (Strava spelled backwards) is a Covid-19 mini-project to recreate some of the common features of https://strava.com.
-    <br />
-    <br />
-    <a href="https://youtu.be/LmrOFXKklL4">View Demo</a>
-    ·
-    <a href="https://github.com/ethanfann/avarts/issues">Report Bug</a>
-    ·
-    <a href="https://trello.com/b/spuSqAyQ">Roadmap</a>
+		Avarts is a Covid-19 mini-project to recreate some of the basic features of https://strava.com.
   </p>
 </p>
 
 <!-- ABOUT THE PROJECT -->
 
 
-![](https://i.imgur.com/nR04Tyn.png)
+<a href="https://imgur.com/bP3Xszb"><img src="https://i.imgur.com/bP3Xszb.gif" title="source: imgur.com" /></a>
 
 ## About The Project
 
@@ -70,7 +63,7 @@ cd avarts
 Clone `.env.example` to `.env` for local development. Rails will run on port `3000` and React port `3001` by default:
 
 ```sh
-cp .env.eample .env
+cp .env.example .env
 ```
 
 Clone `frontend/.env.example` to `frontend/.env`. This contains the Mapbox token used for activity static image creation:
@@ -85,7 +78,7 @@ Install Ruby gems:
 bundle install
 ```
 
-Make sure the postresql is running on localhost. You may have to change your credentials under `/config/database.yml`:
+Make sure postresql is running on localhost. You may have to change your credentials under `/config/database.yml`:
 
 ```sh
 rake db:create
@@ -131,6 +124,8 @@ rake graphql:schema:dump
 ```sh
 cd frontend && npm run codegen
 ```
+
+Note: This step is required after making any modifications to the Rails models or graphql types.
 
 <!-- CONTRIBUTING -->
 
