@@ -77,7 +77,7 @@ const Header: React.FC = () => {
                       <div className="form-group">
                         <label className="required">Username</label>
                         <input
-                          type="text"
+                          type="email"
                           name="email"
                           className="form-control"
                           placeholder="Email"
