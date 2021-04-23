@@ -31,7 +31,7 @@ const UserCard: React.FC = () => {
                   <p className=" text-left mt-0 pt-0 font-size 12">
                     <strong>{ctx.user.latestActivity.title} • </strong>
                     <span className="font-weight-normal">
-                      {DayJs(ctx.user.latestActivity.createdAt).format(
+                      {DayJs.unix(ctx.user.latestActivity.startTime).format(
                         'MMMM D, YYYY'
                       )}
                     </span>

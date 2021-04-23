@@ -10,6 +10,7 @@ export default gql`
       latestActivity {
         title
         createdAt
+        startTime
       }
       activityCount
       firstName

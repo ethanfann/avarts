@@ -155,6 +155,8 @@ export type Query = {
   activitiesByUserId?: Maybe<Array<Activity>>;
   /** Returns the current user */
   me?: Maybe<User>;
+  /** Ping Pong */
+  ping: Scalars['String'];
 };
 
 
@@ -328,7 +330,7 @@ export type MeQuery = (
     & Pick<User, 'id' | 'name' | 'email' | 'img' | 'activityCount' | 'firstName' | 'lastName'>
     & { latestActivity?: Maybe<(
       { __typename?: 'Activity' }
-      & Pick<Activity, 'title' | 'createdAt'>
+      & Pick<Activity, 'title' | 'createdAt' | 'startTime'>
     )> }
   )> }
 );
@@ -784,6 +786,7 @@ export const MeDocument = gql`
     latestActivity {
       title
       createdAt
+      startTime
     }
     activityCount
     firstName

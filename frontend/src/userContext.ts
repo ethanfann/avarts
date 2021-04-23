@@ -7,6 +7,7 @@ export type UserType = {
   latestActivity: {
     title: string
     createdAt: string
+    startTime: number
   }
   activityCount: number
   firstName: string
@@ -26,6 +27,7 @@ const UserContext = createContext<ContextType>({
     latestActivity: {
       title: '',
       createdAt: '',
+      startTime: 0,
     },
     activityCount: 0,
     firstName: '',

@@ -76,7 +76,7 @@ const App: React.FC = () => {
                     latestActivity:
                       data.me.latestActivity && data.me.latestActivity.title
                         ? data.me.latestActivity
-                        : { title: '', createdAt: '' },
+                        : { title: '', createdAt: '', startTime: 0 },
                     activityCount: data.me.activityCount
                       ? data.me.activityCount
                       : 0,
