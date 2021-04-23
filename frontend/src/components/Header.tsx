@@ -99,7 +99,7 @@ const Header: React.FC = () => {
                       <input
                         className="btn btn-primary btn-block"
                         type="submit"
-                        value="Sign in"
+                        value="Sign In"
                       />
                     </form>
                   </div>
