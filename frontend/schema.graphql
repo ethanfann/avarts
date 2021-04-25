@@ -123,6 +123,7 @@ type User {
   lastName: String!
   latestActivity: Activity
   name: String!
+  strokeColor: String!
   token: String!
   updatedAt: ISO8601DateTime!
 }

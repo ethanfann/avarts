@@ -9,6 +9,7 @@ module Types
     field :img, String, null:false
     field :latest_activity, ActivityType, null:true
 		field :activity_count, Integer, null:true
+		field :stroke_color, String, null:false
 
 		def img
 			if object.img.present?
