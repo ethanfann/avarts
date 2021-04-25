@@ -2,7 +2,7 @@ import { faMoon, faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect } from 'react'
 import UserContext from '../userContext'
-import { Link } from 'react-router-dom'
+import DarkModeToggleButton from './DarkModeToggleButton'
 
 const halfmoon = require('halfmoon')
 
@@ -11,22 +11,6 @@ export const AvatarDropdown = () => {
     halfmoon.onDOMContentLoaded()
   }, [])
 
-  const toggleDarkMode = () => {
-    halfmoon.toggleDarkMode()
-
-    const darkModePref = localStorage.getItem('prefer-dark-mode')
-
-    // TODO: Improve this
-    if (darkModePref) {
-      if (darkModePref === 'true') {
-        localStorage.setItem('prefer-dark-mode', 'false')
-      } else if (darkModePref === 'false') {
-        localStorage.setItem('prefer-dark-mode', 'true')
-      }
-    } else {
-      localStorage.setItem('prefer-dark-mode', 'false')
-    }
-  }
   return (
     <UserContext.Consumer>
       {(ctx) => (
@@ -78,14 +62,7 @@ export const AvatarDropdown = () => {
               <button className="btn mt-5" onClick={ctx.logout}>
                 Sign Out
               </button>
-              <button
-                className="btn btn-action float-right mt-5"
-                type="button"
-                onClick={toggleDarkMode}
-                aria-label="Toggle dark mode"
-              >
-                <FontAwesomeIcon icon={faMoon} />
-              </button>
+              <DarkModeToggleButton />
             </div>
           </div>
         </>
