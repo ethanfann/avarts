@@ -17,7 +17,6 @@ const colorA = hexStringToRGB(startColor)
 const colorB = hexStringToRGB(endColor)
 
 function makePath(polyline: string, strokeColor: string) {
-  console.log(strokeColor)
   return `path-${strokeWidth}+${strokeColor.replace('#', '')}(${polyline})`
 }
 
