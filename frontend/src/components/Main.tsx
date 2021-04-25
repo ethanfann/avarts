@@ -8,7 +8,11 @@ export const Main = () => {
     <UserContext.Consumer>
       {(ctx) => (
         <>
-          {ctx.user.id !== '0' ? <TimeLine userId={ctx.user.id} /> : <SignUp />}
+          {ctx.user.id !== '0' ? (
+            <TimeLine userId={ctx.user.id} strokeColor={ctx.user.strokeColor} />
+          ) : (
+            <SignUp />
+          )}
         </>
       )}
     </UserContext.Consumer>

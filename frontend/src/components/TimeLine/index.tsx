@@ -20,10 +20,11 @@ type CommentEnabledType = {
 
 type PropsType = {
   userId: string
+  strokeColor: string
 }
 
 const TimeLine: React.FC<PropsType> = (props: PropsType) => {
-  const { userId } = props
+  const { userId, strokeColor } = props
   const [commentEnabled, enableComment] = useState<CommentEnabledType>()
 
   const activityTime = (startTime: number) => {
@@ -37,9 +38,12 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
 
   // TODO: This is the thing that really needs to be tested first. We need to use just the right tolerance factor,
   // IE: most detail, without making the requst to mapbox fail.
-  const activityImg = (polyline: string, darkMode: boolean) => {
-    console.log(darkMode)
-    return staticRideImg(polyline, darkMode)
+  const activityImg = (
+    polyline: string,
+    darkMode: boolean,
+    strokeColor: string
+  ) => {
+    return staticRideImg(polyline, darkMode, strokeColor)
   }
 
   const toggleComment = (comment: CommentEnabledType) => {
@@ -139,7 +143,11 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
                         </div>
                         <div className="align-center mt-10">
                           <img
-                            src={activityImg(activity?.polyline, ctx.darkMode)}
+                            src={activityImg(
+                              activity?.polyline,
+                              ctx.darkMode,
+                              strokeColor
+                            )}
                             className="img-fluid rounded w-full h-full"
                             alt="responsive image"
                           />

@@ -16,8 +16,9 @@ const mapboxToken = process.env.REACT_APP_MAPBOX_TOKEN
 const colorA = hexStringToRGB(startColor)
 const colorB = hexStringToRGB(endColor)
 
-function makePathWithGradient(polyline: string) {
-  return `path-${strokeWidth}(${polyline})`
+function makePath(polyline: string, strokeColor: string) {
+  console.log(strokeColor)
+  return `path-${strokeWidth}+${strokeColor.replace('#', '')}(${polyline})`
 }
 
 // function pathWithGradient(coords: Array<Coord>) {
@@ -32,10 +33,14 @@ function makePathWithGradient(polyline: string) {
 //   return makePathWithGradient(coords) + ',' + startMarker + ',' + endMarker
 // }
 
-export function staticRideImg(polyline: string, darkMode: boolean) {
+export function staticRideImg(
+  polyline: string,
+  darkMode: boolean,
+  strokeColor: string
+) {
   const mapType: string = darkMode === true ? 'dark-v10' : 'outdoors-v11'
 
   return `https://api.mapbox.com/styles/v1/mapbox/${mapType}/static/${urlencode(
-    makePathWithGradient(polyline)
+    makePath(polyline, strokeColor)
   )}/auto/750x300?access_token=${mapboxToken}`
 }

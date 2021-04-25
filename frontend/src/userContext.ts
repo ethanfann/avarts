@@ -12,6 +12,7 @@ export type UserType = {
   activityCount: number
   firstName: string
   lastName: string
+  strokeColor: string
 }
 
 export type ContextType = {
@@ -32,6 +33,7 @@ const UserContext = createContext<ContextType>({
     activityCount: 0,
     firstName: '',
     lastName: '',
+    strokeColor: '',
   },
   logout: null,
 })

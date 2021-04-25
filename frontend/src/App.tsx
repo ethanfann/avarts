@@ -118,6 +118,9 @@ const App: React.FC = () => {
                         : 0,
                       firstName: data.me.firstName ? data.me.firstName : '',
                       lastName: data.me.lastName ? data.me.lastName : '',
+                      strokeColor: data.me.strokeColor
+                        ? data.me.strokeColor
+                        : '',
                     },
                     logout: logout,
                   }}

@@ -15,6 +15,7 @@ export default gql`
       activityCount
       firstName
       lastName
+      strokeColor
     }
   }
 `
