@@ -32,8 +32,10 @@ function makePathWithGradient(polyline: string) {
 //   return makePathWithGradient(coords) + ',' + startMarker + ',' + endMarker
 // }
 
-export function staticRideImg(polyline: string) {
-  return `https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/${urlencode(
+export function staticRideImg(polyline: string, darkMode: boolean) {
+  const mapType: string = darkMode === true ? 'dark-v10' : 'outdoors-v11'
+
+  return `https://api.mapbox.com/styles/v1/mapbox/${mapType}/static/${urlencode(
     makePathWithGradient(polyline)
   )}/auto/750x300?access_token=${mapboxToken}`
 }

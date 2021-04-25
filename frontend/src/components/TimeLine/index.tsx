@@ -8,6 +8,7 @@ import { staticRideImg } from '../../utils/mapbox'
 import ActivityCommentBox from './ActivityCommentBox'
 import ActivityComments from './ActivityComments'
 import MetricRow from './MetricRow'
+import ThemeContext from '../../themeContext'
 
 // TODO: Don't parse JSON so much
 // TODO: Break out into more components
@@ -36,8 +37,9 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
 
   // TODO: This is the thing that really needs to be tested first. We need to use just the right tolerance factor,
   // IE: most detail, without making the requst to mapbox fail.
-  const activityImg = (polyline: string) => {
-    return staticRideImg(polyline)
+  const activityImg = (polyline: string, darkMode: boolean) => {
+    console.log(darkMode)
+    return staticRideImg(polyline, darkMode)
   }
 
   const toggleComment = (comment: CommentEnabledType) => {
@@ -76,112 +78,121 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
           )
 
         return (
-          <div>
-            {data &&
-              data.activitiesByUserId &&
-              data.activitiesByUserId.length > 0 &&
-              data.activitiesByUserId.map((activity: any, index: number) => (
-                <div
-                  key={index}
-                  style={{ maxWidth: '800px' }}
-                  className="card mb-0 pb-0"
-                >
-                  <div className="container-fluid">
-                    <div className="row">
-                      <div className="col-2">
-                        <div className="d-flex flex-column mr-10">
-                          <div className="text-center">
-                            <img
-                              className="img-fluid rounded-circle w-auto h-auto w-half"
-                              src={
-                                activity.user.img
-                                  ? activity.user.img
-                                  : 'default-user-avatar.png'
-                              }
-                            ></img>
+          <ThemeContext.Consumer>
+            {(ctx) => (
+              <div>
+                {data &&
+                  data.activitiesByUserId &&
+                  data.activitiesByUserId.length > 0 &&
+                  data.activitiesByUserId.map(
+                    (activity: any, index: number) => (
+                      <div
+                        key={index}
+                        style={{ maxWidth: '800px' }}
+                        className="card mb-0 pb-0"
+                      >
+                        <div className="container-fluid">
+                          <div className="row">
+                            <div className="col-2">
+                              <div className="d-flex flex-column mr-10">
+                                <div className="text-center">
+                                  <img
+                                    className="img-fluid rounded-circle w-auto h-auto w-half"
+                                    src={
+                                      activity.user.img
+                                        ? activity.user.img
+                                        : 'default-user-avatar.png'
+                                    }
+                                  ></img>
+                                </div>
+                                <FontAwesomeIcon
+                                  className="m-auto pt-5"
+                                  size="2x"
+                                  icon={faBicycle}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="col-10">
+                              <p className="font-weight-bold m-0">
+                                {activity?.user.name}
+                              </p>
+                              <p className="m-0">
+                                {activityTime(activity?.startTime)}
+                              </p>
+                              <h1 className="card-title font-weight-bolder font-size-20 mt-5 text-primary mb-5">
+                                {activity?.title}
+                              </h1>
+                              {activity?.description !== '' && (
+                                <p className="mb-10 font-size-12">
+                                  {activity?.description}
+                                </p>
+                              )}
+                              <MetricRow
+                                geoJson={activity?.geoJson}
+                                duration={activity?.duration}
+                                elevation={activity?.elevation}
+                                distance={activity?.distance}
+                              />
+                            </div>
                           </div>
-                          <FontAwesomeIcon
-                            className="m-auto pt-5"
-                            size="2x"
-                            icon={faBicycle}
+                        </div>
+                        <div className="align-center mt-10">
+                          <img
+                            src={activityImg(activity?.polyline, ctx.darkMode)}
+                            className="img-fluid rounded w-full h-full"
+                            alt="responsive image"
                           />
                         </div>
-                      </div>
+                        <div className="clearfix pt-5">
+                          <div className="float-right d-inline-block">
+                            {/* <button className="btn">
+               <FontAwesomeIcon className="m-auto" icon={faThumbsUp} />
+             </button> */}
+                            <button
+                              className="btn ml-5"
+                              onMouseDown={(e) => e.preventDefault()}
+                              onClick={() =>
+                                activity?.id &&
+                                toggleComment({
+                                  activityId: activity?.id,
+                                  enabled: !commentEnabled?.enabled,
+                                })
+                              }
+                            >
+                              <FontAwesomeIcon
+                                className="m-auto"
+                                icon={faComment}
+                              />
+                            </button>
+                          </div>
+                        </div>
 
-                      <div className="col-10">
-                        <p className="font-weight-bold m-0">
-                          {activity?.user.name}
-                        </p>
-                        <p className="m-0">
-                          {activityTime(activity?.startTime)}
-                        </p>
-                        <h1 className="card-title font-weight-bolder font-size-20 mt-5 text-primary mb-5">
-                          {activity?.title}
-                        </h1>
-                        {activity?.description !== '' && (
-                          <p className="mb-10 font-size-12">
-                            {activity?.description}
-                          </p>
-                        )}
-                        <MetricRow
-                          geoJson={activity?.geoJson}
-                          duration={activity?.duration}
-                          elevation={activity?.elevation}
-                          distance={activity?.distance}
+                        <ActivityComments
+                          comments={activity.comments.map((comment: any) => ({
+                            id: comment.id,
+                            comment: comment.comment,
+                            userName: comment.user.name,
+                            userImg: comment.user.img,
+                          }))}
+                        />
+
+                        <ActivityCommentBox
+                          hidden={
+                            !(
+                              commentEnabled?.enabled &&
+                              activity.id === commentEnabled.activityId
+                            )
+                          }
+                          activityId={activity?.id}
+                          toggleComment={toggleComment}
                         />
                       </div>
-                    </div>
-                  </div>
-                  <div className="align-center mt-10">
-                    <img
-                      src={activityImg(activity?.polyline)}
-                      className="img-fluid rounded w-full h-full"
-                      alt="responsive image"
-                    />
-                  </div>
-                  <div className="clearfix pt-5">
-                    <div className="float-right d-inline-block">
-                      {/* <button className="btn">
-                          <FontAwesomeIcon className="m-auto" icon={faThumbsUp} />
-                        </button> */}
-                      <button
-                        className="btn ml-5"
-                        onMouseDown={(e) => e.preventDefault()}
-                        onClick={() =>
-                          activity?.id &&
-                          toggleComment({
-                            activityId: activity?.id,
-                            enabled: !commentEnabled?.enabled,
-                          })
-                        }
-                      >
-                        <FontAwesomeIcon className="m-auto" icon={faComment} />
-                      </button>
-                    </div>
-                  </div>
-
-                  <ActivityComments
-                    comments={activity.comments.map((comment: any) => ({
-                      id: comment.id,
-                      comment: comment.comment,
-                      userName: comment.user.name,
-                      userImg: comment.user.img,
-                    }))}
-                  />
-
-                  <ActivityCommentBox
-                    hidden={
-                      !(
-                        commentEnabled?.enabled &&
-                        activity.id === commentEnabled.activityId
-                      )
-                    }
-                    activityId={activity?.id}
-                    toggleComment={toggleComment}
-                  />
-                </div>
-              ))}
-          </div>
+                    )
+                  )}
+              </div>
+            )}
+          </ThemeContext.Consumer>
         )
       }}
     </ActivitiesByUserIdComponent>

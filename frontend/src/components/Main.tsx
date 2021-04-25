@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import UserContext from '../userContext'
 import SignUp from './SignUp'
 import TimeLine from './TimeLine'
