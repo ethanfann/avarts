@@ -1,13 +1,6 @@
-import DayJs from 'dayjs'
 import React from 'react'
 import styled from 'styled-components'
 import Metric from './Metric'
-
-const {
-  getElevationGain,
-} = require('geojson-elevation-gain/build/geojson-elevation')
-
-const geojsonLength = require('geojson-length')
 
 type Props = {
   geoJson: string
@@ -17,19 +10,12 @@ type Props = {
 }
 
 const MetricRow = (props: Props) => {
-  const { geoJson, distance, elevation, duration } = props
+  const { distance, elevation, duration } = props
 
-  // const rideLength = (distance: number) => {
-  //   var area = geojsonLength(json['features'].geometry)
-  //   return area
-  // }
-
-  // elevation = meters
   const elevGain = (elevation: number) => {
     return Math.round(elevation * 3.28084)
   }
 
-  // duration is in seconds
   const elapsedTime = (duration: number) => {
     const seconds = duration
     const time = new Date(seconds * 1000).toISOString().substr(11, 8)
@@ -45,7 +31,7 @@ const MetricRow = (props: Props) => {
 
   return (
     <>
-      <div className="d-flex w-full">
+      <div className="d-flex w-sm-full w-md-three-quarter">
         <div>
           <Metric
             header="Distance"
