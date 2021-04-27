@@ -30,12 +30,12 @@ export const ActivityComments = (props: Props) => {
                   ? comment.userImg
                   : 'default-user-avatar.png'
               }
-              className="rounded-circle "
+              className="rounded-circle"
               alt="responsive image"
             />
           </div>
           <div className="col-10">
-            <div>
+            <div className="pr-5">
               <span className="font-weight-bolder font-size-12">
                 {comment.userName}
               </span>
