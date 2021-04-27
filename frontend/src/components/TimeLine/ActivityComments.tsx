@@ -18,35 +18,27 @@ export const ActivityComments = (props: Props) => {
   return (
     <>
       {comments.map((comment: CommentType, index: number) => (
-        <div key={index} className="row align-items-center mt-5">
-          <div className="col-1">
-            <img
-              style={{
-                width: '24px',
-                height: '24px',
-              }}
-              src={
-                comment.userImg !== ''
-                  ? comment.userImg
-                  : 'default-user-avatar.png'
-              }
-              className="rounded-circle"
-              alt="responsive image"
-            />
+        <div key={index} className="d-flex align-items-center mt-5">
+          <img
+            style={{
+              width: '24px',
+              height: '24px',
+            }}
+            src={
+              comment.userImg !== ''
+                ? comment.userImg
+                : 'default-user-avatar.png'
+            }
+            className="rounded-circle"
+            alt="responsive image"
+          />
+          <div className="pl-5 flex-fill">
+            <span className="font-weight-bolder font-size-12">
+              {comment.userName}
+            </span>
+            <div className="font-size-12">{comment.comment}</div>
           </div>
-          <div className="col-10">
-            <div className="pr-5">
-              <span className="font-weight-bolder font-size-12">
-                {comment.userName}
-              </span>
-              <div className="font-size-12">{comment.comment}</div>
-            </div>
-          </div>
-          <div className="col-1 h-full m-0 p-0">
-            {comment.id && (
-              <CommentActionButton activityCommentId={comment.id} />
-            )}
-          </div>
+          {comment.id && <CommentActionButton activityCommentId={comment.id} />}
         </div>
       ))}
     </>
