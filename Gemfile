@@ -70,7 +70,6 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "apollo_upload_server", "2.0.1"
 gem "aws-sdk-s3", require: false
-gem "scout_apm"
 gem "rubyfit"
 gem "polylines"
 gem "simplify_rb"
