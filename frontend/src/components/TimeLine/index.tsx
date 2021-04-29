@@ -101,7 +101,7 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
                               <div className="d-flex flex-column mr-10">
                                 <div className="text-center">
                                   <img
-                                    className="img-fluid rounded-circle w-auto h-auto w-half"
+                                    className="img-fluid rounded-circle w-auto h-auto w-sm-three-quarter w-md-half"
                                     src={
                                       activity.user.img
                                         ? activity.user.img
