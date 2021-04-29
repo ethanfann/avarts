@@ -76,6 +76,7 @@
     ]
   },
   "devDependencies": {
+    "@ethancord/prettier-config": "^1.0.0",
     "@graphql-codegen/cli": "1.17.7",
     "@graphql-codegen/typescript": "1.17.7",
     "@graphql-codegen/typescript-operations": "1.17.7",
@@ -91,5 +92,6 @@
   "engines": {
     "node": "14.x"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3001",
+  "prettier": "@ethancord/prettier-config"
 }
