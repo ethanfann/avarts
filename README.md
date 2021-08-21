@@ -4,8 +4,7 @@
   <a href="https://github.com/ethanfann/avarts">
   </a>
 
-  <h3 align="center">	<a href="https://avarts.ethanfann.com">Avarts</a>
-</h3>
+  <h3 align="center">Avarts</h3>
 
 
   <p align="center">
