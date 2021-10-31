@@ -1,8 +1,9 @@
-import { faMoon, faCog } from '@fortawesome/free-solid-svg-icons'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect } from 'react'
 import UserContext from '../userContext'
 import DarkModeToggleButton from './DarkModeToggleButton'
+import { Link } from 'react-router-dom'
 
 const halfmoon = require('halfmoon')
 
@@ -49,14 +50,13 @@ export const AvatarDropdown = () => {
                 </div>
 
                 <div className="flex-shrink-1">
-                  <a href="/settings">
+                  <Link to="/settings">
                     <button className="btn btn-action float-right">
                       <FontAwesomeIcon icon={faCog} />
                     </button>
-                  </a>
+                  </Link>
                 </div>
               </div>
-              {/* <Link to="/settings">Settings</Link> */}
 
               <div className="dropdown-divider"></div>
               <button className="btn mt-5" onClick={ctx.logout}>

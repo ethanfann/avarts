@@ -5,6 +5,7 @@ import { useLoginMutation } from '../generated/graphql'
 import UserContext from '../userContext'
 import { toggleSidebar } from '../utils/sideBar'
 import AvatarDropdown from './AvatarDropdown'
+import { Link } from 'react-router-dom'
 
 const halfmoon = require('halfmoon')
 
@@ -50,9 +51,9 @@ const Header: React.FC = () => {
                 <FontAwesomeIcon icon={faBars} />
               </button>
             )}
-            <a href="/" className="navbar-brand font-weight-bolder">
+            <Link className="navbar-brand font-weight-bolder" to="/">
               Avarts
-            </a>
+            </Link>
           </div>
           <div className="navbar-content ml-auto">
             {ctx.user.id === '0' ? (
