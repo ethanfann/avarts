@@ -13,8 +13,17 @@ module Types
 
 		def img
 			if object.img.present?
-				# rails_blob_path(object.img, only_path: true)
-				object.img.url
+
+				# Use disc storage served from rails for local development or test
+				# Otherwise, serve from S3.
+				if Rails.env.development? || Rails.env.test?
+					blob_path = rails_blob_path(object.img, only_path: true)
+					base_path = 'http://127.0.0.1:3000'
+					base_path + blob_path
+				else
+					object.img.url
+				end
+
 			else
 				''
 			end
