@@ -5,7 +5,6 @@ type Activity {
   distance: Int!
   duration: Int!
   elevation: Int!
-  geoJson: JSON!
   id: ID!
   polyline: String!
   startTime: Int!
@@ -27,11 +26,6 @@ type ActivityComment {
 An ISO 8601-encoded datetime
 """
 scalar ISO8601DateTime
-
-"""
-Represents untyped JSON
-"""
-scalar JSON
 
 type Mutation {
   addActivityComment(activityId: ID!, comment: String!, userId: ID!): ActivityComment

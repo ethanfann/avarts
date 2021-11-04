@@ -16,8 +16,6 @@ export type Scalars = {
   Float: number;
   /** An ISO 8601-encoded datetime */
   ISO8601DateTime: any;
-  /** Represents untyped JSON */
-  JSON: any;
   Upload: any;
 };
 
@@ -29,7 +27,6 @@ export type Activity = {
   distance: Scalars['Int'];
   duration: Scalars['Int'];
   elevation: Scalars['Int'];
-  geoJson: Scalars['JSON'];
   id: Scalars['ID'];
   polyline: Scalars['String'];
   startTime: Scalars['Int'];
@@ -47,7 +44,6 @@ export type ActivityComment = {
   updatedAt: Scalars['ISO8601DateTime'];
   user: User;
 };
-
 
 
 export type Mutation = {
