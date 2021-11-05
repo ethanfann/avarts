@@ -30,7 +30,7 @@ export const ActivityComments = (props: Props) => {
                 : 'default-user-avatar.png'
             }
             className="rounded-circle"
-            alt="responsive image"
+            alt="user avatar"
           />
           <div className="pl-5 flex-fill">
             <span className="font-weight-bolder font-size-12">

@@ -1,29 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import UserContext, { ContextType } from '../userContext'
-import {
-  faEdit,
-  faTaxi,
-  faTimes,
-  faCamera,
-} from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faCamera } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   useUpdateUserNameMutation,
   useUpdateUserImgMutation,
 } from '../generated/graphql'
 
-const halfmoon = require('halfmoon')
-
-type FormData = {
-  firstName: string
-  lastName: string
-}
-
 const UserSettings = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [edit, setEdit] = useState(false)
-  const [img, setImg] = useState<File>()
 
   const [updateUserName] = useUpdateUserNameMutation()
   const [updateUserImg] = useUpdateUserImgMutation()
@@ -34,9 +21,6 @@ const UserSettings = () => {
 
   const handleSubmit = async (e: any, ctx: ContextType) => {
     e.preventDefault()
-
-    const newFirstName = firstName.length === 0 ? ctx.user.firstName : firstName
-    const newLastName = lastName.length === 0 ? ctx.user.lastName : lastName
 
     setEdit(false)
 
@@ -57,7 +41,6 @@ const UserSettings = () => {
   }
 
   const handleImgChosen = (img: File) => {
-    setImg(img)
     uploadImg(img)
   }
 
@@ -95,7 +78,7 @@ const UserSettings = () => {
                 <img
                   src={ctx.user?.img ? ctx.user.img : 'default-user-avatar.png'}
                   className="img-fluid rounded-circle w-100 h-100"
-                  alt="rounded circle image"
+                  alt="user avatar"
                 />
 
                 <label>

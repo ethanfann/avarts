@@ -107,6 +107,7 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
                                         ? activity.user.img
                                         : 'default-user-avatar.png'
                                     }
+                                    alt="user avatar"
                                   ></img>
                                 </div>
                                 <FontAwesomeIcon
@@ -149,7 +150,7 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
                               strokeColor
                             )}
                             className="img-fluid rounded w-full h-full"
-                            alt="responsive image"
+                            alt="activity route"
                           />
                         </div>
                         <div className="clearfix pt-5">

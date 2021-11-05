@@ -14,7 +14,7 @@ const UserCard: React.FC = () => {
               <img
                 src={ctx.user?.img ? ctx.user.img : 'default-user-avatar.png'}
                 className="img-fluid rounded-circle"
-                alt="rounded circle image"
+                alt="user avatar"
               />
               <h1 className="card-title text-center font-weight-bold font-size-22 text-primary mt-10 mb-10">
                 {ctx.user?.name}

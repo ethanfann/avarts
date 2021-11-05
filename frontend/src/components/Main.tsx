@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import UserContext from '../userContext'
 import SignUp from './SignUp'
 import TimeLine from './TimeLine'
 
-export const Main = () => {
+const Main = () => {
   return (
     <UserContext.Consumer>
       {(ctx) => (

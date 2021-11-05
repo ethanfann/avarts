@@ -17,11 +17,15 @@ export const AvatarDropdown = () => {
       {(ctx) => (
         <>
           <div className="dropdown with-arrow">
-            <a
+            <button
               data-toggle="dropdown"
               id="avatar-popover-toggle"
               aria-haspopup="true"
               aria-expanded="false"
+              style={{
+                border: 'none',
+                background: 'none',
+              }}
             >
               <div className="text-center">
                 <img
@@ -39,7 +43,7 @@ export const AvatarDropdown = () => {
                   alt="..."
                 />
               </div>
-            </a>
+            </button>
             <div
               className="dropdown-menu dropdown-menu-right mr-5"
               aria-labelledby="avatar-popover-toggle"

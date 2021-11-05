@@ -6,12 +6,7 @@ import { MeComponent } from './generated/graphql'
 import UserContext from './userContext'
 import ThemeContext from './themeContext'
 import { toggleSidebar } from './utils/sideBar'
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  BrowserRouter,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import SignUp from './components/SignUp'
 import UserSettings from './components/UserSettings'
 import UploadForm from './components/UploadForm'

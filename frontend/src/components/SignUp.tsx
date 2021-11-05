@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSignUpMutation } from '../generated/graphql'
 import { emailValidation } from '../utils/validation'
-import { toggleSidebar } from '../utils/sideBar'
-
-const halfmoon = require('halfmoon')
 
 type FormData = {
   firstName: string
@@ -15,49 +12,18 @@ type FormData = {
 }
 
 export const SignUp = () => {
-  let fileReader: FileReader
-
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
-  const [img, setImg] = useState<File>()
 
-  useEffect(() => {
-    // toggleSidebar()
-  }, [])
-
-  const { register, setValue, handleSubmit } = useForm<FormData>()
+  const { register, handleSubmit } = useForm<FormData>()
   const onSubmit = () => {
     signup()
   }
 
   const [signupMutation] = useSignUpMutation()
-
-  const handleImgRead = async () => {
-    const content = fileReader.result
-    console.log(content)
-  }
-
-  const handleImgChosen = (img: File) => {
-    fileReader = new FileReader()
-    fileReader.onloadend = handleImgRead
-    setImg(img)
-  }
-
-  const selectedImg = () => {
-    const text = img && img.name ? img.name : 'No picture selected'
-    return (
-      <p
-        className={
-          text === 'No picture selected' ? 'text-muted' : 'text-success'
-        }
-      >
-        {text}
-      </p>
-    )
-  }
 
   const passwordMatch = () => {
     // Match if both are blank
