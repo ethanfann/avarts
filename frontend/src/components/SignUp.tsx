@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSignUpMutation } from '../generated/graphql'
 import { emailValidation } from '../utils/validation'
+
+const halfmoon = require('halfmoon')
 
 type FormData = {
   firstName: string
@@ -11,7 +13,7 @@ type FormData = {
   passwordConfirm: string
 }
 
-export const SignUp = () => {
+const SignUp = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -19,6 +21,11 @@ export const SignUp = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('')
 
   const { register, handleSubmit } = useForm<FormData>()
+
+  useEffect(() => {
+    halfmoon.onDOMContentLoaded()
+  }, [])
+
   const onSubmit = () => {
     signup()
   }
