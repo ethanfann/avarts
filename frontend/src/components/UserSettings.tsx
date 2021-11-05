@@ -88,7 +88,7 @@ const UserSettings = () => {
 
           <hr></hr>
           <div className="container-fluid">
-            <div className="w-full">
+            <div className="w-full pb-10">
               {!edit ? (
                 <>
                   <span className="text-muted font-size-12">Name</span>
