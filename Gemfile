@@ -73,3 +73,4 @@ gem "aws-sdk-s3", require: false
 gem "rubyfit"
 gem "polylines"
 gem "simplify_rb"
+gem "prettier"

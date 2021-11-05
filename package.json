@@ -7,5 +7,9 @@
     "build": "cd frontend && npm install && npm run build && cd ..",
     "deploy": "cp -a frontend/build/. public/",
     "postinstall": "npm run build && npm run deploy"
+  },
+  "devDependencies": {
+    "@prettier/plugin-ruby": "^2.0.0",
+    "prettier": "^2.4.1"
   }
 }

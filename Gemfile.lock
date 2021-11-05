@@ -161,6 +161,7 @@ GEM
     orm_adapter (0.5.0)
     pg (1.2.3)
     polylines (0.4.0)
+    prettier (2.0.0)
     puma (5.2.2)
       nio4r (~> 2.0)
     racc (1.5.2)
@@ -199,7 +200,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (~> 1.0)
-    rake (13.0.3)
+    rake (13.0.6)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -283,6 +284,7 @@ DEPENDENCIES
   listen
   pg
   polylines
+  prettier
   puma
   rack-cors
   rails
