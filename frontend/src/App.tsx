@@ -123,7 +123,7 @@ const App: React.FC = () => {
                         )}
                       </div>
 
-                      <BrowserRouter>
+                      <Router>
                         <Header />
 
                         <>
@@ -141,7 +141,7 @@ const App: React.FC = () => {
                             </div>
                           </div>
                         </>
-                      </BrowserRouter>
+                      </Router>
                     </div>
                   </>
                 </UserContext.Provider>
@@ -150,15 +150,17 @@ const App: React.FC = () => {
                   id="pageWrapper"
                   className="page-wrapper with-navbar" //with-sidebar
                 >
-                  <Header />
+                  <Router>
+                    <Header />
 
-                  <div className="content-wrapper">
-                    <div className="container-fluid">
-                      <div className="d-flex justify-content-center">
-                        <SignUp />
+                    <div className="content-wrapper">
+                      <div className="container-fluid">
+                        <div className="d-flex justify-content-center">
+                          <SignUp />
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Router>
                 </div>
               )}
             </div>
