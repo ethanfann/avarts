@@ -66,8 +66,7 @@ const Header: React.FC = () => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Sign in
-                  <i className="fa fa-angle-down ml-5" aria-hidden="true"></i>
+                  Sign In
                 </button>
                 <div
                   className="dropdown-menu w-250 w-sm-350 dropdown-menu-right"
@@ -107,10 +106,7 @@ const Header: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <>
-                {/* <Upload userId={ctx.user.id} /> */}
-                <AvatarDropdown />
-              </>
+              <AvatarDropdown />
             )}
           </div>
         </nav>
