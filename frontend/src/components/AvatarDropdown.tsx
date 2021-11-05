@@ -8,10 +8,6 @@ import { Link } from 'react-router-dom'
 const halfmoon = require('halfmoon')
 
 export const AvatarDropdown = () => {
-  useEffect(() => {
-    halfmoon.onDOMContentLoaded()
-  }, [])
-
   return (
     <UserContext.Consumer>
       {(ctx) => (
@@ -63,7 +59,13 @@ export const AvatarDropdown = () => {
               </div>
 
               <div className="dropdown-divider"></div>
-              <button className="btn mt-5" onClick={ctx.logout}>
+              <button
+                className="btn mt-5"
+                onClick={() => {
+                  localStorage.removeItem('token')
+                  ctx.refetch()
+                }}
+              >
                 Sign Out
               </button>
               <DarkModeToggleButton />
