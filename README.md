@@ -1,4 +1,3 @@
-<!-- PROJECT LOGO -->
 <br />
 <p align="center">
   <a href="https://github.com/ethanfann/avarts">
@@ -6,14 +5,10 @@
 
   <h3 align="center">Avarts</h3>
 
-
   <p align="center">
 		Avarts is a Covid-19 mini-project to recreate some of the basic features of https://strava.com.
   </p>
 </p>
-
-<!-- ABOUT THE PROJECT -->
-
 
 <a href="https://imgur.com/bP3Xszb"><img src="https://i.imgur.com/bP3Xszb.gif" title="source: imgur.com" /></a>
 
@@ -34,38 +29,31 @@
 - [GraphQL Ruby](https://graphql-ruby.org/)
 - [Postgres](https://www.postgresql.org/)
 
-#### Misc
-
-- [GeoJSON](https://geojson.org/)
-
-<!-- GETTING STARTED -->
-
 ## Getting Started
 
 To get a local copy up and running follow these steps.
 
 ### Prerequisites
 
-- [Ruby 2.7.1](https://www.ruby-lang.org/en/)
+- [Ruby 3.0.2](https://www.ruby-lang.org/en/)
 - [Rails 6](https://rubyonrails.org/)
-- [Node 14](https://nodejs.org/en/)
+- [Node 16](https://nodejs.org/en/)
 - [NPM](https://www.npmjs.com/)
 - [Postgres](https://www.postgresql.org/)
 
 ### Installation
 
 ```sh
-git clone https://github.com/ethanfann/avarts.git avarts
-cd avarts
+git clone https://github.com/ethanfann/avarts.git && cd avarts
 ```
 
-Clone `.env.example` to `.env` for local development. Rails will run on port `3000` and React port `3001` by default:
+Copy `.env.example` to `.env` for local development. Rails will run on port `3000` and React port `3001`:
 
 ```sh
 cp .env.example .env
 ```
 
-Clone `frontend/.env.example` to `frontend/.env`. This contains the Mapbox token used for activity static image creation:
+Copy `frontend/.env.example` to `frontend/.env`. This contains the Mapbox token used for activity static image creation:
 
 ```sh
 cp frontend/.env.example frontend/.env
@@ -77,7 +65,7 @@ Install Ruby gems:
 bundle install
 ```
 
-Make sure postresql is running on localhost. You may have to change your credentials under `/config/database.yml`:
+Make sure postresql is running. You may have to change your credentials under `/config/database.yml`:
 
 ```sh
 rake db:create
@@ -91,28 +79,27 @@ Run the development server:
 rails s
 ```
 
-Rails runs in API mode and as such, you will not be able to access any Rails routes via browser. Download a GraphQL client like [GraphiQL](https://github.com/graphql/graphiql) or others.
-
-Point the GraphQL IDE to `http://0.0.0.0:3000/graphql`
-
 Start the frontend
 
 ```sh
-cd frontend && npm install
-npm run start
+cd frontend && npm install && npm run start
 ```
 
-<!-- USAGE EXAMPLES -->
+## GraphQL
+
+Download a GraphQL client like [GraphiQL](https://github.com/graphql/graphiql) in order to execute queries and mutations against the Rails server.
+
+Use `http://127.0.0.1:3000/graphql`
 
 ## Usage
 
 ### Codegen
 
-We are using [GraphQL Code Generator](https://graphql-code-generator.com/) to provide React Hook-based mutations and queries.
+We are using [GraphQL Code Generator](https://graphql-code-generator.com/) to provide typed React components and Hooks based on the generated GraphQL schema.
 
 To generate:
 
- 1. Export the GraphQL Schema from Rails
+1.  Export the GraphQL Schema from Rails
 
 ```sh
 rake graphql:schema:dump
@@ -126,9 +113,7 @@ cd frontend && npm run codegen
 
 Note: This step is required after making any modifications to the Rails models or graphql types.
 
-<!-- CONTRIBUTING -->
-
-## Contributing
+z ## Contributing
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -136,13 +121,9 @@ Note: This step is required after making any modifications to the Rails models o
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<!-- LICENSE -->
-
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-<!-- CONTACT -->
 
 ## Contact
 
