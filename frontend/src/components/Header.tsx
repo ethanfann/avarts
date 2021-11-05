@@ -16,7 +16,7 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     halfmoon.onDOMContentLoaded()
-  }, [])
+  })
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,11 +26,10 @@ const Header: React.FC = () => {
           email: email,
           password: password,
         },
-        refetchQueries: ['currentUserQuery'],
+        refetchQueries: ['me'],
       })
       if (result && result.data && result.data.login?.token) {
         localStorage.setItem('token', result.data.login.token)
-        window.location.reload()
       }
     } catch (error) {
       console.log(error)
