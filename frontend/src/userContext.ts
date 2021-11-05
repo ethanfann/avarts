@@ -17,7 +17,7 @@ export type UserType = {
 
 export type ContextType = {
   user: UserType
-  logout: any
+  logout: () => void
 }
 
 const UserContext = createContext<ContextType>({
@@ -35,7 +35,7 @@ const UserContext = createContext<ContextType>({
     lastName: '',
     strokeColor: '',
   },
-  logout: null,
+  logout: () => {},
 })
 
 export default UserContext
