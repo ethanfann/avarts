@@ -18,11 +18,6 @@ require('halfmoon/css/halfmoon.min.css')
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false)
 
-  const logout = () => {
-    localStorage.removeItem('token')
-    window.location.reload()
-  }
-
   useEffect(() => {
     document.body.classList.add('with-custom-webkit-scrollbars')
     document.body.classList.add('with-custom-css-scrollbars')
@@ -36,6 +31,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setDarkMode(darkModeEnabled())
+  }, [])
+
+  useEffect(() => {
+    halfmoon.onDOMContentLoaded()
   }, [])
 
   const toggleDarkMode = () => {
@@ -67,7 +66,7 @@ const App: React.FC = () => {
 
   return (
     <MeComponent>
-      {({ loading, error, data }) => {
+      {({ loading, error, data, refetch }) => {
         if (loading) return <div>Loading</div>
 
         if (error) return <div>Error</div>
@@ -98,7 +97,7 @@ const App: React.FC = () => {
                         ? data.me.strokeColor
                         : '',
                     },
-                    logout: logout,
+                    refetch: refetch,
                   }}
                 >
                   <>
