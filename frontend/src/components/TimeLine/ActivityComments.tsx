@@ -12,7 +12,7 @@ type Props = {
   comments: Array<CommentType>
 }
 
-export const ActivityComments = (props: Props) => {
+const ActivityComments = (props: Props) => {
   const { comments } = props
 
   return (

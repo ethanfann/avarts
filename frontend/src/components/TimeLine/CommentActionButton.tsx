@@ -7,7 +7,7 @@ type Props = {
   activityCommentId: string
 }
 
-export const CommentActionButton = (props: Props) => {
+const CommentActionButton = (props: Props) => {
   const { activityCommentId } = props
   const [deleteComment] = useDeleteActivityCommentMutation()
 
