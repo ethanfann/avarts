@@ -30,9 +30,17 @@ coverage
 
 .env
 
-dump.rdb
-
-frontend/node_modules
-
-.DS_Store
+# node_modules
 node_modules/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform
+
+# Misc
+dump.rdb
+.DS_Store
+
+
