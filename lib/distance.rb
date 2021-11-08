@@ -24,7 +24,10 @@ module Distance
       lat1 = lat1 / 180.0 * Math::PI
       lat2 = lat2 / 180.0 * Math::PI
 
-      a = Math.sin(dlat / 2) * Math.sin(dlat / 2) + Math.sin(dlon / 2) * Math.sin(dlon / 2) * Math.cos(lat1) * Math.cos(lat2)
+      a =
+        Math.sin(dlat / 2) * Math.sin(dlat / 2) +
+          Math.sin(dlon / 2) * Math.sin(dlon / 2) * Math.cos(lat1) *
+            Math.cos(lat2)
       c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
       d = earth_radius * c
 

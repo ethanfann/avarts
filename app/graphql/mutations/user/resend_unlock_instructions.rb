@@ -1,7 +1,6 @@
 class Mutations::User::ResendUnlockInstructions < GraphQL::Schema::Mutation
-
   null false
-  description "Unlock the user account"
+  description 'Unlock the user account'
   argument :email, String, required: true
   payload_type Boolean
 
@@ -10,5 +9,4 @@ class Mutations::User::ResendUnlockInstructions < GraphQL::Schema::Mutation
     return false if !user
     user.resend_unlock_instructions
   end
-
 end

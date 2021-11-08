@@ -1,7 +1,6 @@
 class Mutations::User::SendResetPasswordInstructions < GraphQL::Schema::Mutation
-
   null true
-  description "Send password reset instructions to users email"
+  description 'Send password reset instructions to users email'
   argument :email, String, required: true
   payload_type Boolean
 
@@ -11,5 +10,4 @@ class Mutations::User::SendResetPasswordInstructions < GraphQL::Schema::Mutation
     user.send_reset_password_instructions
     true
   end
-
 end

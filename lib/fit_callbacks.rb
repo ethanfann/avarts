@@ -7,7 +7,7 @@ class FitCallbacks
       laps: [],
       events: [],
       device_infos: [],
-      user_profiles: [],
+      user_profiles: []
     }
   end
 
@@ -25,18 +25,19 @@ class FitCallbacks
 
   def on_record(msg)
     cp = {}
+
     # Only append the point if there is a valid coordinate
-    if msg["position_lat"] and msg["position_long"]
-      cp[:position_lat] = msg["position_lat"]
-      cp[:position_long] = msg["position_long"]
-      cp[:distance] = msg["distance"] if msg["distance"]
-      cp[:altitude] = msg["altitude"] if msg["altitude"]
-      cp[:heart_rate] = msg["heart_rate"] if msg["heart_rate"]
-      cp[:timestamp] = msg["timestamp"]
-      cp[:cadence] = msg["cadence"] if msg["cadence"]
-      cp[:power] = msg["power"] if msg["power"]
-      cp[:speed] = msg["speed"] if msg["speed"]
-      cp[:temperature] = msg["temperature"] if msg["temperature"]
+    if msg['position_lat'] and msg['position_long']
+      cp[:position_lat] = msg['position_lat']
+      cp[:position_long] = msg['position_long']
+      cp[:distance] = msg['distance'] if msg['distance']
+      cp[:altitude] = msg['altitude'] if msg['altitude']
+      cp[:heart_rate] = msg['heart_rate'] if msg['heart_rate']
+      cp[:timestamp] = msg['timestamp']
+      cp[:cadence] = msg['cadence'] if msg['cadence']
+      cp[:power] = msg['power'] if msg['power']
+      cp[:speed] = msg['speed'] if msg['speed']
+      cp[:temperature] = msg['temperature'] if msg['temperature']
 
       @activity[:records].append(cp)
     end
@@ -58,8 +59,7 @@ class FitCallbacks
     #puts "weight scale info: #{msg.inspect}"
   end
 
-  def print_msg(msg)
-  end
+  def print_msg(msg); end
 
   def activities
     return @activity

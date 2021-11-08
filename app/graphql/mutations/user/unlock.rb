@@ -1,7 +1,6 @@
 class Mutations::User::Unlock < GraphQL::Schema::Mutation
-
   null false
-  description "Unlock the user account"
+  description 'Unlock the user account'
   argument :unlockToken, String, required: true
   payload_type Boolean
 
@@ -9,5 +8,4 @@ class Mutations::User::Unlock < GraphQL::Schema::Mutation
     user = User.unlock_access_by_token(unlock_token)
     return user.id
   end
-
 end

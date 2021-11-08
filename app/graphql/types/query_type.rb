@@ -5,4 +5,3 @@ module Types
     field :ping, resolver: Resolvers::Ping
   end
 end
-  

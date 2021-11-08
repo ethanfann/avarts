@@ -34,6 +34,4 @@ RSpec.describe User, type: :model do
       expect(create(:user, first_name: 'A', last_name: 'B').name).to eq 'A B'
     end
   end
-
-
 end

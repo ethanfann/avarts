@@ -5,9 +5,7 @@ module Tokenizable
 
   included do
     def token
-      token, payload = user_encoder.call(
-        self, devise_scope, aud_headers
-      )
+      token, payload = user_encoder.call(self, devise_scope, aud_headers)
       token
     end
 
@@ -25,9 +23,6 @@ module Tokenizable
   end
 
   private def token_headers
-    { 
-      'Accept' => 'application/json', 
-      'Content-Type' => 'application/json' 
-    }
+    { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
   end
 end
