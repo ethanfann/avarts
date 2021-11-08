@@ -38,7 +38,6 @@ To get a local copy up and running follow these steps.
 - [Ruby 3.0.2](https://www.ruby-lang.org/en/)
 - [Rails 6](https://rubyonrails.org/)
 - [Node 16](https://nodejs.org/en/)
-- [NPM](https://www.npmjs.com/)
 - [Postgres](https://www.postgresql.org/)
 
 ### Installation
@@ -87,31 +86,11 @@ cd frontend && npm install && npm run start
 
 ## GraphQL
 
-Download a GraphQL client like [GraphiQL](https://github.com/graphql/graphiql) in order to execute queries and mutations against the Rails server.
-
-Use `http://127.0.0.1:3000/graphql`
-
-## Terraform
-
-Terraform is used to manage the creation of AWS resources for running in production. Currently this includes:
-
-- S3: Used for serving images such as the user avatar.
-
-1. Install [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
-2. Verify an [AWS profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) has been created in `~/.aws`.
-3. Run the Terraform commands below
-
-```
-terraform init
-terraform plan
-terraform apply
-```
-
-## Usage
+Download a GraphQL client like [GraphiQL](https://github.com/graphql/graphiql) and point it to `http://127.0.0.1:3000/graphql` in order to execute queries and mutations against the server.
 
 ### Codegen
 
-We are using [GraphQL Code Generator](https://graphql-code-generator.com/) to provide typed React components and Hooks based on the generated GraphQL schema.
+[GraphQL Code Generator](https://graphql-code-generator.com/) is used to provide typed React components and hooks.
 
 To generate:
 
@@ -129,7 +108,23 @@ cd frontend && npm run codegen
 
 Note: This step is required after making any modifications to the Rails models or graphql types.
 
-z ## Contributing
+## Terraform
+
+Terraform is used to manage the creation of AWS resources for running in production. Currently this includes:
+
+- S3: Used for serving images such as the user avatar.
+
+1. Install [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+2. Verify an [AWS profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) has been created in `~/.aws`.
+3. Run the Terraform commands below
+
+```
+terraform init
+terraform plan
+terraform apply
+```
+
+## Contributing
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
