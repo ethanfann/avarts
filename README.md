@@ -91,6 +91,22 @@ Download a GraphQL client like [GraphiQL](https://github.com/graphql/graphiql) i
 
 Use `http://127.0.0.1:3000/graphql`
 
+## Terraform
+
+Terraform is used to manage the creation of AWS resources for running in production. Currently this includes:
+
+- S3: Used for serving images such as the user avatar.
+
+1. Install [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+2. Verify an [AWS profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) has been created in `~/.aws`.
+3. Run the Terraform commands below
+
+```
+terraform init
+terraform plan
+terraform apply
+```
+
 ## Usage
 
 ### Codegen
