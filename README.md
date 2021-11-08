@@ -143,6 +143,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-[Ethan Fann](https://ethanfann.com) - [@ethanfann](https://twitter.com/ethancord) - github@ethanfann.com
+[Ethan Fann](https://ethanfann.com) - github@ethanfann.com
 
 Project Link: [https://github.com/ethanfann/avarts](https://github.com/ethanfann/avarts)
