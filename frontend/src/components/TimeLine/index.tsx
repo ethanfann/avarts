@@ -92,7 +92,7 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
                     (activity: any, index: number) => (
                       <div
                         key={index}
-                        style={{ maxWidth: '800px' }}
+                        style={{ width: '100%', maxWidth: '800px' }}
                         className="card mb-0 pb-0"
                       >
                         <div className="container-fluid">
@@ -142,13 +142,19 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
                             </div>
                           </div>
                         </div>
-                        <div className="align-center mt-10">
+                        <div
+                          className="align-center mt-10"
+                          style={{
+                            width: '100%',
+                          }}
+                        >
                           <img
                             src={activityImg(
                               activity?.polyline,
                               ctx.darkMode,
                               strokeColor
                             )}
+                            width="100%"
                             className="img-fluid rounded w-full h-full"
                             alt="activity route"
                           />
