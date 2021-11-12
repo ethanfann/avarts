@@ -7,16 +7,10 @@ import { toggleSidebar } from '../utils/sideBar'
 import AvatarDropdown from './AvatarDropdown'
 import { Link } from 'react-router-dom'
 
-const halfmoon = require('halfmoon')
-
 const Header: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [signinMutation] = useLoginMutation()
-
-  useEffect(() => {
-    halfmoon.onDOMContentLoaded()
-  })
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault()

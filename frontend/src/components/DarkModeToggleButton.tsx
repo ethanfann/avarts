@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { faMoon } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ThemeContext from '../themeContext'
+
+const halfmoon = require('halfmoon')
 
 const DarkModeToggleButton = () => {
   return (

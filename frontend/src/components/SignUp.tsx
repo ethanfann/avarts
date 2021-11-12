@@ -22,10 +22,6 @@ const SignUp = () => {
 
   const { register, handleSubmit } = useForm<FormData>()
 
-  useEffect(() => {
-    halfmoon.onDOMContentLoaded()
-  }, [])
-
   const onSubmit = () => {
     signup()
   }

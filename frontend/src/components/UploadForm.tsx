@@ -8,8 +8,6 @@ type FormData = {
   file: File
 }
 
-const halfmoon = require('halfmoon')
-
 interface Props {
   userId: string
 }
@@ -20,10 +18,6 @@ const UploadForm = (props: Props) => {
   const [description, setDescription] = useState('')
   const [uploadActivityMutation] = useUploadActivityMutation()
   const { register, handleSubmit } = useForm<FormData>()
-
-  useEffect(() => {
-    halfmoon.onDOMContentLoaded()
-  }, [])
 
   const onSubmit = () => {
     if (selectedFile) {
