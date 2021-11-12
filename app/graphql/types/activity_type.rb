@@ -14,5 +14,9 @@ module Types
     def user
       object.user
     end
+
+    def comments
+      object.activity_comment
+    end
   end
 end

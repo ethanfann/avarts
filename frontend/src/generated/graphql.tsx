@@ -151,6 +151,8 @@ export type Query = {
   activitiesByUserId?: Maybe<Array<Activity>>;
   /** Returns the current user */
   me?: Maybe<User>;
+  /** Returns the current user's activities */
+  myActivities: Array<Activity>;
   /** Ping Pong */
   ping: Scalars['String'];
 };
