@@ -88,11 +88,91 @@ cd frontend && npm install && npm run start
 
 Download a GraphQL client like [GraphiQL](https://github.com/graphql/graphiql) and point it to `http://127.0.0.1:3000/graphql` in order to execute queries and mutations against the server.
 
+### Types
+
+All GraphQL responses are statically typed. Create a new file in `app/graphql/types` in order to add a new type.
+
+Ex.
+
+`activity_comment_type.rb`
+
+```rb
+module Types
+  class ActivityCommentType < BaseModel
+    field :comment, String, null: false
+    field :user, UserType, null: false
+  end
+end
+```
+
+### Queries
+
+The general process for creating a new query is as follows:
+
+1. Create a resolver in `app/graphql/resolvers/`
+2. Append the resolver to `app/graphql/types/query_type.rb`
+
+Ex.
+
+`app/graphql/resolvers/ping.rb `
+
+```rb
+class Resolvers::Ping < GraphQL::Schema::Resolver
+  type String, null: false
+  description 'Ping Pong'
+
+  def resolve
+    'Pong'
+  end
+end
+```
+
+```rb
+module Types
+  class QueryType < BaseObject
+    # ...
+    field :ping, resolver: Resolvers::Ping
+    # ...
+  end
+end=
+```
+
+### Mutations
+
+The general process for creating a new mutation is as follows:
+
+1. Create a resolver in `app/graphql/mutations/`
+2. Append the resolver to `app/graphql/types/mutation_type`
+
+Ex.
+
+`app/graphql/mutations.add_activity_comment.rb`
+
+```rb
+module Mutations
+  class AddActivityComment < GraphQL::Schema::Mutation
+    argument :comment, String, required: true
+    argument :activity_id, ID, required: true
+    argument :user_id, ID, required: true
+
+    type Types::ActivityCommentType
+
+    def resolve(comment: nil, activity_id: nil, user_id: nil)
+      ActivityComment.create!(
+        comment: comment,
+        activity_id: activity_id,
+        user_id: user_id,
+      )
+    end
+  end
+end
+```
+
 ### Codegen
 
-[GraphQL Code Generator](https://graphql-code-generator.com/) is used to provide typed React components and hooks.
+[GraphQL Code Generator](https://graphql-code-generator.com/) is used to provide typed components and hooks for use in the front-end React application.
 
-To generate:
+To generate a schema from Rails.
 
 1.  Export the GraphQL Schema from Rails
 
@@ -107,6 +187,43 @@ cd frontend && npm run codegen
 ```
 
 Note: This step is required after making any modifications to the Rails models or graphql types.
+
+3. Import a Query/Mutation
+
+`frontend/src/components/UploadForm.tsx`
+
+```tsx
+import { useUploadActivityMutation } from "../generated/graphql";
+```
+
+```tsx
+const UploadForm = (props: Props) => {
+  // ...
+  const [uploadActivityMutation] = useUploadActivityMutation()
+
+  const handleUpload = async () => {
+    try {
+      await uploadActivityMutation({
+        variables: {
+          title: title.trim(),
+          description: description.trim(),
+          fitFile: selectedFile,
+          userId: props.userId,
+        },
+        refetchQueries: ['activitiesByUserId', 'me'],
+      })
+
+      // ...
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+   return (
+     // ...
+   )
+}
+```
 
 ## Terraform
 
