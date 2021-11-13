@@ -2,8 +2,6 @@ import DayJs from 'dayjs'
 import React from 'react'
 import UserContext from '../userContext'
 
-require('halfmoon/css/halfmoon.min.css')
-
 const UserCard: React.FC = () => {
   return (
     <UserContext.Consumer>

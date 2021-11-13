@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSignUpMutation } from '../generated/graphql'
 import { emailValidation } from '../utils/validation'
-
-const halfmoon = require('halfmoon')
 
 type FormData = {
   firstName: string

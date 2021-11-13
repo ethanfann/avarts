@@ -1,11 +1,9 @@
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect } from 'react'
+import React from 'react'
 import UserContext from '../userContext'
 import DarkModeToggleButton from './DarkModeToggleButton'
 import { Link } from 'react-router-dom'
-
-const halfmoon = require('halfmoon')
 
 export const AvatarDropdown = () => {
   return (
