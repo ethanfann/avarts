@@ -1,5 +1,5 @@
 type Activity {
-  comments: [ActivityComment!]!
+  activityComment: [ActivityComment!]!
   createdAt: ISO8601DateTime!
   description: String!
   distance: Int!
@@ -11,7 +11,6 @@ type Activity {
   title: String!
   updatedAt: ISO8601DateTime!
   user: User!
-  userId: ID!
 }
 
 type ActivityComment {
@@ -98,6 +97,11 @@ type Query {
   Returns the current user
   """
   me: User
+
+  """
+  Returns the current user's activities
+  """
+  myActivities: [Activity!]!
 
   """
   Ping Pong

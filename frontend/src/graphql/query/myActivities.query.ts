@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query activitiesByUserId($userId: ID!) {
-    activitiesByUserId(userId: $userId) {
+  query myActivities {
+    myActivities {
       id
       title
       description
@@ -12,16 +12,26 @@ export default gql`
       elevation
       distance
       createdAt
+      updatedAt
       user {
+        id
         name
         img
+        strokeColor
+        token
       }
       activityComment {
         id
         comment
+        createdAt
+        updatedAt
         user {
           name
           img
+          createdAt
+          updatedAt
+          firstName
+          lastName
         }
       }
     }

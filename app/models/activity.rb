@@ -1,7 +1,4 @@
 class Activity < ApplicationRecord
   belongs_to :user
-
-  def comments
-    ActivityComment.where(activity_id: id)
-  end
+  has_many :activity_comment
 end

@@ -38,7 +38,6 @@ To get a local copy up and running follow these steps.
 - [Ruby 3.0.2](https://www.ruby-lang.org/en/)
 - [Rails 6](https://rubyonrails.org/)
 - [Node 16](https://nodejs.org/en/)
-- [NPM](https://www.npmjs.com/)
 - [Postgres](https://www.postgresql.org/)
 
 ### Installation
@@ -87,9 +86,167 @@ cd frontend && npm install && npm run start
 
 ## GraphQL
 
-Download a GraphQL client like [GraphiQL](https://github.com/graphql/graphiql) in order to execute queries and mutations against the Rails server.
+Download a GraphQL client like [GraphiQL](https://github.com/graphql/graphiql) and point it to `http://127.0.0.1:3000/graphql` in order to execute queries and mutations against the server.
 
-Use `http://127.0.0.1:3000/graphql`
+### Types
+
+All GraphQL responses are statically typed. Create a new file in `app/graphql/types` in order to add a new type.
+
+Ex.
+
+`activity_comment_type.rb`
+
+```rb
+module Types
+  class ActivityCommentType < BaseModel
+    field :comment, String, null: false
+    field :user, UserType, null: false
+  end
+end
+```
+
+### Queries
+
+The general process for creating a new query is as follows:
+
+1. Create a resolver in `app/graphql/resolvers/`
+2. Append the resolver to `app/graphql/types/query_type.rb`
+
+Ex.
+
+`app/graphql/resolvers/ping.rb `
+
+```rb
+class Resolvers::Ping < GraphQL::Schema::Resolver
+  type String, null: false
+  description 'Ping Pong'
+
+  def resolve
+    'Pong'
+  end
+end
+```
+
+```rb
+module Types
+  class QueryType < BaseObject
+    # ...
+    field :ping, resolver: Resolvers::Ping
+    # ...
+  end
+end=
+```
+
+### Mutations
+
+The general process for creating a new mutation is as follows:
+
+1. Create a resolver in `app/graphql/mutations/`
+2. Append the resolver to `app/graphql/types/mutation_type`
+
+Ex.
+
+`app/graphql/mutations.add_activity_comment.rb`
+
+```rb
+module Mutations
+  class AddActivityComment < GraphQL::Schema::Mutation
+    argument :comment, String, required: true
+    argument :activity_id, ID, required: true
+    argument :user_id, ID, required: true
+
+    type Types::ActivityCommentType
+
+    def resolve(comment: nil, activity_id: nil, user_id: nil)
+      ActivityComment.create!(
+        comment: comment,
+        activity_id: activity_id,
+        user_id: user_id,
+      )
+    end
+  end
+end
+```
+
+### Codegen
+
+[GraphQL Code Generator](https://graphql-code-generator.com/) is used to provide typed components and hooks for use in the front-end React application.
+
+To generate a schema from Rails.
+
+1.  Export the GraphQL Schema from Rails
+
+```sh
+rake graphql:schema:dump
+```
+
+2. Run Codegen
+
+```sh
+cd frontend && npm run codegen
+```
+
+Note: This step is required after making any modifications to the Rails models or graphql types.
+
+3. Add the mutation/query in `frontend/src/graphql/[mutations/query]`
+
+`frontend/src/graphql/mutations/addActivityComment.mutation.ts`
+
+```ts
+import gql from "graphql-tag";
+
+export default gql`
+  mutation AddActivityComment(
+    $comment: String!
+    $userId: ID!
+    $activityId: ID!
+  ) {
+    addActivityComment(
+      comment: $comment
+      userId: $userId
+      activityId: $activityId
+    ) {
+      id
+    }
+  }
+`;
+```
+
+4. Import a Query/Mutation
+
+`frontend/src/components/UploadForm.tsx`
+
+```tsx
+import { useAddActivityCommentMutation } from "../../generated/graphql";
+```
+
+```tsx
+const ActivityCommentBox = (props: Props) => {
+  // ...
+  const [addActivityCommentMutation] = useAddActivityCommentMutation()
+
+  // ...
+
+ const addComment = async (e: React.FormEvent, currentUser: UserType) => {
+    e.preventDefault()
+    if (currentUser && currentUser.id && activityId) {
+      await addActivityCommentMutation({
+        variables: {
+          comment: comment,
+          userId: currentUser.id,
+          activityId: activityId,
+        },
+        refetchQueries: ['myActivites'],
+      })
+    }
+    // ...
+  }
+
+   return (
+     // ...
+   )
+}
+```
 
 ## Terraform
 
@@ -107,29 +264,7 @@ terraform plan
 terraform apply
 ```
 
-## Usage
-
-### Codegen
-
-We are using [GraphQL Code Generator](https://graphql-code-generator.com/) to provide typed React components and Hooks based on the generated GraphQL schema.
-
-To generate:
-
-1.  Export the GraphQL Schema from Rails
-
-```sh
-rake graphql:schema:dump
-```
-
-2. Run Codegen
-
-```sh
-cd frontend && npm run codegen
-```
-
-Note: This step is required after making any modifications to the Rails models or graphql types.
-
-z ## Contributing
+## Contributing
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -143,6 +278,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-[Ethan Fann](https://ethanfann.com) - [@ethanfann](https://twitter.com/ethancord) - github@ethanfann.com
+[Ethan Fann](https://ethanfann.com) - github@ethanfann.com
 
 Project Link: [https://github.com/ethanfann/avarts](https://github.com/ethanfann/avarts)

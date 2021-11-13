@@ -7,12 +7,7 @@ module Types
     field :duration, Integer, null: false
     field :elevation, Integer, null: false
     field :distance, Integer, null: false
-    field :user_id, ID, null: false
     field :user, UserType, null: false
-    field :comments, [ActivityCommentType], null: false
-
-    def user
-      object.user
-    end
+    field :activity_comment, [ActivityCommentType], null: false
   end
 end
