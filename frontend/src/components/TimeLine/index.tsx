@@ -84,11 +84,7 @@ const TimeLine = (props: PropsType) => {
         <div>
           {data &&
             data.myActivities.map((activity, index) => (
-              <div
-                key={index}
-                style={{ width: '100%', maxWidth: '800px' }}
-                className="card mb-0 pb-0"
-              >
+              <div key={index} className="card mb-0 pb-0">
                 <div className="container-fluid">
                   <div className="row">
                     <div className="col-2">
@@ -133,19 +129,13 @@ const TimeLine = (props: PropsType) => {
                     </div>
                   </div>
                 </div>
-                <div
-                  className="align-center mt-10"
-                  style={{
-                    width: '100%',
-                  }}
-                >
+                <div className="align-center mt-10">
                   <img
                     src={activityImg(
                       activity?.polyline,
                       ctx.darkMode,
                       strokeColor
                     )}
-                    width="100%"
                     className="img-fluid rounded w-full h-full"
                     alt="activity route"
                   />
