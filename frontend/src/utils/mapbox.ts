@@ -17,5 +17,5 @@ export function staticRideImg(
 
   return `https://api.mapbox.com/styles/v1/mapbox/${mapType}/static/${urlencode(
     makePath(polyline, strokeColor)
-  )}/auto/750x300?access_token=${mapboxToken}`
+  )}/auto/750x300@2x?access_token=${mapboxToken}`
 }
