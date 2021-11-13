@@ -6,7 +6,8 @@
   "scripts": {
     "build": "cd frontend && npm install && npm run build && cd ..",
     "deploy": "cp -a frontend/build/. public/",
-    "postinstall": "npm run build && npm run deploy"
+    "postinstall": "npm run build && npm run deploy",
+    "codegen": "rake graphql:schema:dump && cd frontend && npm run codegen"
   },
   "devDependencies": {
     "@prettier/plugin-ruby": "^2.0.0",
