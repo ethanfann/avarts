@@ -84,7 +84,11 @@ const TimeLine = (props: PropsType) => {
         <div>
           {data &&
             data.myActivities.map((activity, index) => (
-              <div key={index} className="card mb-0 pb-0">
+              <div
+                key={index}
+                style={{ maxWidth: '800px' }}
+                className="card mb-0 pb-0"
+              >
                 <div className="container-fluid">
                   <div className="row">
                     <div className="col-2">
@@ -132,7 +136,7 @@ const TimeLine = (props: PropsType) => {
                 <div className="align-center mt-10">
                   <img
                     src={activityImg(
-                      activity?.polyline,
+                      activity.polyline,
                       ctx.darkMode,
                       strokeColor
                     )}
@@ -142,9 +146,6 @@ const TimeLine = (props: PropsType) => {
                 </div>
                 <div className="clearfix pt-5">
                   <div className="float-right d-inline-block">
-                    {/* <button className="btn">
-           <FontAwesomeIcon className="m-auto" icon={faThumbsUp} />
-         </button> */}
                     <button
                       className="btn ml-5"
                       onMouseDown={(e) => e.preventDefault()}
