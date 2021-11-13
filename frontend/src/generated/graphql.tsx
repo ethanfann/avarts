@@ -21,7 +21,7 @@ export type Scalars = {
 
 export type Activity = {
   __typename?: 'Activity';
-  comments: Array<ActivityComment>;
+  activityComment: Array<ActivityComment>;
   createdAt: Scalars['ISO8601DateTime'];
   description: Scalars['String'];
   distance: Scalars['Int'];
@@ -33,7 +33,6 @@ export type Activity = {
   title: Scalars['String'];
   updatedAt: Scalars['ISO8601DateTime'];
   user: User;
-  userId: Scalars['ID'];
 };
 
 export type ActivityComment = {
@@ -308,7 +307,7 @@ export type ActivitiesByUserIdQuery = (
     & { user: (
       { __typename?: 'User' }
       & Pick<User, 'name' | 'img'>
-    ), comments: Array<(
+    ), activityComment: Array<(
       { __typename?: 'ActivityComment' }
       & Pick<ActivityComment, 'id' | 'comment'>
       & { user: (
@@ -330,6 +329,28 @@ export type MeQuery = (
     & { latestActivity?: Maybe<(
       { __typename?: 'Activity' }
       & Pick<Activity, 'title' | 'createdAt' | 'startTime'>
+    )> }
+  )> }
+);
+
+export type MyActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MyActivitiesQuery = (
+  { __typename?: 'Query' }
+  & { myActivities: Array<(
+    { __typename?: 'Activity' }
+    & Pick<Activity, 'id' | 'title' | 'description' | 'polyline' | 'startTime' | 'duration' | 'elevation' | 'distance' | 'createdAt' | 'updatedAt'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'name' | 'img' | 'strokeColor' | 'token'>
+    ), activityComment: Array<(
+      { __typename?: 'ActivityComment' }
+      & Pick<ActivityComment, 'id' | 'comment' | 'createdAt' | 'updatedAt'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'name' | 'img' | 'createdAt' | 'updatedAt' | 'firstName' | 'lastName'>
+      ) }
     )> }
   )> }
 );
@@ -719,7 +740,7 @@ export const ActivitiesByUserIdDocument = gql`
       name
       img
     }
-    comments {
+    activityComment {
       id
       comment
       user {
@@ -838,3 +859,84 @@ export function useMeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptio
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
+export const MyActivitiesDocument = gql`
+    query myActivities {
+  myActivities {
+    id
+    title
+    description
+    polyline
+    startTime
+    duration
+    elevation
+    distance
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      img
+      strokeColor
+      token
+    }
+    activityComment {
+      id
+      comment
+      createdAt
+      updatedAt
+      user {
+        name
+        img
+        createdAt
+        updatedAt
+        firstName
+        lastName
+      }
+    }
+  }
+}
+    `;
+export type MyActivitiesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<MyActivitiesQuery, MyActivitiesQueryVariables>, 'query'>;
+
+    export const MyActivitiesComponent = (props: MyActivitiesComponentProps) => (
+      <ApolloReactComponents.Query<MyActivitiesQuery, MyActivitiesQueryVariables> query={MyActivitiesDocument} {...props} />
+    );
+    
+export type MyActivitiesProps<TChildProps = {}, TDataName extends string = 'data'> = {
+      [key in TDataName]: ApolloReactHoc.DataValue<MyActivitiesQuery, MyActivitiesQueryVariables>
+    } & TChildProps;
+export function withMyActivities<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  MyActivitiesQuery,
+  MyActivitiesQueryVariables,
+  MyActivitiesProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withQuery<TProps, MyActivitiesQuery, MyActivitiesQueryVariables, MyActivitiesProps<TChildProps, TDataName>>(MyActivitiesDocument, {
+      alias: 'myActivities',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useMyActivitiesQuery__
+ *
+ * To run a query within a React component, call `useMyActivitiesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMyActivitiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMyActivitiesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMyActivitiesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<MyActivitiesQuery, MyActivitiesQueryVariables>) {
+        return ApolloReactHooks.useQuery<MyActivitiesQuery, MyActivitiesQueryVariables>(MyActivitiesDocument, baseOptions);
+      }
+export function useMyActivitiesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<MyActivitiesQuery, MyActivitiesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<MyActivitiesQuery, MyActivitiesQueryVariables>(MyActivitiesDocument, baseOptions);
+        }
+export type MyActivitiesQueryHookResult = ReturnType<typeof useMyActivitiesQuery>;
+export type MyActivitiesLazyQueryHookResult = ReturnType<typeof useMyActivitiesLazyQuery>;
+export type MyActivitiesQueryResult = ApolloReactCommon.QueryResult<MyActivitiesQuery, MyActivitiesQueryVariables>;

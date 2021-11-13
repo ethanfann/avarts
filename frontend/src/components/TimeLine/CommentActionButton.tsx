@@ -18,7 +18,7 @@ const CommentActionButton = (props: Props) => {
         variables: {
           commentId: activityCommentId,
         },
-        refetchQueries: ['activitiesByUserId'],
+        refetchQueries: ['myActivities'],
       })
     } catch (error) {
       console.log(error)

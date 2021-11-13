@@ -42,7 +42,7 @@ export const ActivityCommentBox = (props: Props) => {
           userId: currentUser.id,
           activityId: activityId,
         },
-        refetchQueries: ['activitiesByUserId'],
+        refetchQueries: ['myActivities'],
       })
     }
 

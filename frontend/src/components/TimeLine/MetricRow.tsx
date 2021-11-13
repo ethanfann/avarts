@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import Metric from './Metric'
 
 type Props = {
-  geoJson: string
   distance: number
   elevation: number
   duration: number

@@ -188,35 +188,58 @@ cd frontend && npm run codegen
 
 Note: This step is required after making any modifications to the Rails models or graphql types.
 
-3. Import a Query/Mutation
+3. Add the mutation/query in `frontend/src/graphql/[mutations/query]`
+
+`frontend/src/graphql/mutations/addActivityComment.mutation.ts`
+
+```ts
+import gql from "graphql-tag";
+
+export default gql`
+  mutation AddActivityComment(
+    $comment: String!
+    $userId: ID!
+    $activityId: ID!
+  ) {
+    addActivityComment(
+      comment: $comment
+      userId: $userId
+      activityId: $activityId
+    ) {
+      id
+    }
+  }
+`;
+```
+
+4. Import a Query/Mutation
 
 `frontend/src/components/UploadForm.tsx`
 
 ```tsx
-import { useUploadActivityMutation } from "../generated/graphql";
+import { useAddActivityCommentMutation } from "../../generated/graphql";
 ```
 
 ```tsx
-const UploadForm = (props: Props) => {
+const ActivityCommentBox = (props: Props) => {
   // ...
-  const [uploadActivityMutation] = useUploadActivityMutation()
+  const [addActivityCommentMutation] = useAddActivityCommentMutation()
 
-  const handleUpload = async () => {
-    try {
-      await uploadActivityMutation({
+  // ...
+
+ const addComment = async (e: React.FormEvent, currentUser: UserType) => {
+    e.preventDefault()
+    if (currentUser && currentUser.id && activityId) {
+      await addActivityCommentMutation({
         variables: {
-          title: title.trim(),
-          description: description.trim(),
-          fitFile: selectedFile,
-          userId: props.userId,
+          comment: comment,
+          userId: currentUser.id,
+          activityId: activityId,
         },
-        refetchQueries: ['activitiesByUserId', 'me'],
+        refetchQueries: ['myActivites'],
       })
-
-      // ...
-    } catch (error) {
-      console.log(error)
     }
+    // ...
   }
 
    return (

@@ -8,8 +8,8 @@ const Main = () => {
     <UserContext.Consumer>
       {(ctx) => (
         <>
-          {ctx.user.id !== '0' ? (
-            <TimeLine userId={ctx.user.id} strokeColor={ctx.user.strokeColor} />
+          {ctx.user ? (
+            <TimeLine strokeColor={ctx.user.strokeColor} />
           ) : (
             <SignUp />
           )}

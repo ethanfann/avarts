@@ -34,7 +34,7 @@ const UploadForm = (props: Props) => {
           fitFile: selectedFile,
           userId: props.userId,
         },
-        refetchQueries: ['activitiesByUserId', 'me'],
+        refetchQueries: ['myActivities', 'me'],
       })
 
       setTitle('')

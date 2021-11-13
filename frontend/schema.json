@@ -15,7 +15,7 @@
           "description": null,
           "fields": [
             {
-              "name": "comments",
+              "name": "activityComment",
               "description": null,
               "args": [
 
@@ -232,24 +232,6 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "User",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userId",
-              "description": null,
-              "args": [
-
-              ],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
                   "ofType": null
                 }
               },

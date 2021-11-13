@@ -3,29 +3,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import DayJs from 'dayjs'
 import React, { useState } from 'react'
 import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader'
-import { ActivitiesByUserIdComponent } from '../../generated/graphql'
+import { useMyActivitiesQuery } from '../../generated/graphql'
 import { staticRideImg } from '../../utils/mapbox'
 import ActivityCommentBox from './ActivityCommentBox'
 import ActivityComments from './ActivityComments'
 import MetricRow from './MetricRow'
 import ThemeContext from '../../themeContext'
 
-// TODO: Don't parse JSON so much
-// TODO: Break out into more components
-
 type CommentEnabledType = {
-  activityId: number
+  activityId: String
   enabled: boolean
 }
 
 type PropsType = {
-  userId: string
   strokeColor: string
 }
 
-const TimeLine: React.FC<PropsType> = (props: PropsType) => {
-  const { userId, strokeColor } = props
+const TimeLine = (props: PropsType) => {
+  const { strokeColor } = props
   const [commentEnabled, enableComment] = useState<CommentEnabledType>()
+
+  const { loading, error, data } = useMyActivitiesQuery()
 
   const activityTime = (startTime: number) => {
     const timeStr = DayJs.unix(startTime).format('MMMM D, YYYY--h:mm A')
@@ -62,155 +60,141 @@ const TimeLine: React.FC<PropsType> = (props: PropsType) => {
     })
   }
 
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center mt-20">
+        <ClimbingBoxLoader color="grey" />
+      </div>
+    )
+  }
+
+  if (error) return <div>Error</div>
+
+  if (data && data.myActivities.length === 0) {
+    return (
+      <div className="d-flex justify-content-center mt-20">
+        <h4 className="text-primary text-align-center">No Activities</h4>
+      </div>
+    )
+  }
+
   return (
-    <ActivitiesByUserIdComponent variables={{ userId: userId }}>
-      {({ loading, error, data }) => {
-        if (loading)
-          return (
-            <div className="d-flex justify-content-center mt-20">
-              <ClimbingBoxLoader color="grey" />
-            </div>
-          )
-
-        if (error) return <div>Error</div>
-
-        if (data && data.activitiesByUserId?.length === 0)
-          return (
-            <div className="d-flex justify-content-center mt-20">
-              <h4 className="text-primary text-align-center">No Activities</h4>
-            </div>
-          )
-
-        return (
-          <ThemeContext.Consumer>
-            {(ctx) => (
-              <div>
-                {data &&
-                  data.activitiesByUserId &&
-                  data.activitiesByUserId.length > 0 &&
-                  data.activitiesByUserId.map(
-                    (activity: any, index: number) => (
-                      <div
-                        key={index}
-                        style={{ width: '100%', maxWidth: '800px' }}
-                        className="card mb-0 pb-0"
-                      >
-                        <div className="container-fluid">
-                          <div className="row">
-                            <div className="col-2">
-                              <div className="d-flex flex-column mr-10">
-                                <div className="text-center">
-                                  <img
-                                    className="img-fluid rounded-circle w-auto h-auto w-sm-three-quarter w-md-half"
-                                    src={
-                                      activity.user.img
-                                        ? activity.user.img
-                                        : 'default-user-avatar.png'
-                                    }
-                                    alt="user avatar"
-                                  ></img>
-                                </div>
-                                <FontAwesomeIcon
-                                  className="m-auto pt-5"
-                                  size="2x"
-                                  icon={faBicycle}
-                                />
-                              </div>
-                            </div>
-
-                            <div className="col-10">
-                              <p className="font-weight-bold m-0">
-                                {activity?.user.name}
-                              </p>
-                              <p className="m-0">
-                                {activityTime(activity?.startTime)}
-                              </p>
-                              <h1 className="card-title font-weight-bolder font-size-20 mt-5 text-primary mb-5">
-                                {activity?.title}
-                              </h1>
-                              {activity?.description !== '' && (
-                                <p className="mb-10 font-size-12">
-                                  {activity?.description}
-                                </p>
-                              )}
-                              <MetricRow
-                                geoJson={activity?.geoJson}
-                                duration={activity?.duration}
-                                elevation={activity?.elevation}
-                                distance={activity?.distance}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          className="align-center mt-10"
-                          style={{
-                            width: '100%',
-                          }}
-                        >
+    <ThemeContext.Consumer>
+      {(ctx) => (
+        <div>
+          {data &&
+            data.myActivities.map((activity, index) => (
+              <div
+                key={index}
+                style={{ width: '100%', maxWidth: '800px' }}
+                className="card mb-0 pb-0"
+              >
+                <div className="container-fluid">
+                  <div className="row">
+                    <div className="col-2">
+                      <div className="d-flex flex-column mr-10">
+                        <div className="text-center">
                           <img
-                            src={activityImg(
-                              activity?.polyline,
-                              ctx.darkMode,
-                              strokeColor
-                            )}
-                            width="100%"
-                            className="img-fluid rounded w-full h-full"
-                            alt="activity route"
-                          />
+                            className="img-fluid rounded-circle w-auto h-auto w-sm-three-quarter w-md-half"
+                            src={
+                              activity.user.img
+                                ? activity.user.img
+                                : 'default-user-avatar.png'
+                            }
+                            alt="user avatar"
+                          ></img>
                         </div>
-                        <div className="clearfix pt-5">
-                          <div className="float-right d-inline-block">
-                            {/* <button className="btn">
-               <FontAwesomeIcon className="m-auto" icon={faThumbsUp} />
-             </button> */}
-                            <button
-                              className="btn ml-5"
-                              onMouseDown={(e) => e.preventDefault()}
-                              onClick={() =>
-                                activity?.id &&
-                                toggleComment({
-                                  activityId: activity?.id,
-                                  enabled: !commentEnabled?.enabled,
-                                })
-                              }
-                            >
-                              <FontAwesomeIcon
-                                className="m-auto"
-                                icon={faComment}
-                              />
-                            </button>
-                          </div>
-                        </div>
-
-                        <ActivityComments
-                          comments={activity.comments.map((comment: any) => ({
-                            id: comment.id,
-                            comment: comment.comment,
-                            userName: comment.user.name,
-                            userImg: comment.user.img,
-                          }))}
-                        />
-
-                        <ActivityCommentBox
-                          hidden={
-                            !(
-                              commentEnabled?.enabled &&
-                              activity.id === commentEnabled.activityId
-                            )
-                          }
-                          activityId={activity?.id}
-                          toggleComment={toggleComment}
+                        <FontAwesomeIcon
+                          className="m-auto pt-5"
+                          size="2x"
+                          icon={faBicycle}
                         />
                       </div>
+                    </div>
+
+                    <div className="col-10">
+                      <p className="font-weight-bold m-0">
+                        {activity?.user.name}
+                      </p>
+                      <p className="m-0">{activityTime(activity.startTime)}</p>
+                      <h1 className="card-title font-weight-bolder font-size-20 mt-5 text-primary mb-5">
+                        {activity?.title}
+                      </h1>
+                      {activity?.description !== '' && (
+                        <p className="mb-10 font-size-12">
+                          {activity.description}
+                        </p>
+                      )}
+                      <MetricRow
+                        duration={activity?.duration}
+                        elevation={activity?.elevation}
+                        distance={activity?.distance}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="align-center mt-10"
+                  style={{
+                    width: '100%',
+                  }}
+                >
+                  <img
+                    src={activityImg(
+                      activity?.polyline,
+                      ctx.darkMode,
+                      strokeColor
+                    )}
+                    width="100%"
+                    className="img-fluid rounded w-full h-full"
+                    alt="activity route"
+                  />
+                </div>
+                <div className="clearfix pt-5">
+                  <div className="float-right d-inline-block">
+                    {/* <button className="btn">
+           <FontAwesomeIcon className="m-auto" icon={faThumbsUp} />
+         </button> */}
+                    <button
+                      className="btn ml-5"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() =>
+                        activity?.id &&
+                        toggleComment({
+                          activityId: activity.id,
+                          enabled: !commentEnabled?.enabled,
+                        })
+                      }
+                    >
+                      <FontAwesomeIcon className="m-auto" icon={faComment} />
+                    </button>
+                  </div>
+                </div>
+
+                <ActivityComments
+                  comments={activity.activityComment.map((comment: any) => ({
+                    id: comment.id,
+                    comment: comment.comment,
+                    userName: comment.user.name,
+                    userImg: comment.user.img,
+                  }))}
+                />
+
+                <ActivityCommentBox
+                  hidden={
+                    !(
+                      commentEnabled?.enabled &&
+                      activity.id === commentEnabled.activityId
                     )
-                  )}
+                  }
+                  activityId={activity?.id}
+                  toggleComment={toggleComment}
+                />
               </div>
-            )}
-          </ThemeContext.Consumer>
-        )
-      }}
-    </ActivitiesByUserIdComponent>
+            ))}
+        </div>
+      )}
+    </ThemeContext.Consumer>
   )
 }
 
