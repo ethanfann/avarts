@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query myActivities {
-    myActivities {
+  query myActivities($limit: Int, $offset: Int) {
+    myActivities(limit: $limit, offset: $offset) {
       id
       title
       description
