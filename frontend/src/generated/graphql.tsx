@@ -1,12 +1,10 @@
-import gql from 'graphql-tag';
-import * as ApolloReactCommon from '@apollo/react-common';
-import * as React from 'react';
-import * as ApolloReactComponents from '@apollo/react-components';
-import * as ApolloReactHoc from '@apollo/react-hoc';
-import * as ApolloReactHooks from '@apollo/react-hooks';
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -159,6 +157,12 @@ export type Query = {
 
 export type QueryActivitiesByUserIdArgs = {
   userId: Scalars['ID'];
+};
+
+
+export type QueryMyActivitiesArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
 };
 
 
@@ -333,7 +337,10 @@ export type MeQuery = (
   )> }
 );
 
-export type MyActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
+export type MyActivitiesQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+}>;
 
 
 export type MyActivitiesQuery = (
@@ -363,26 +370,7 @@ export const AddActivityCommentDocument = gql`
   }
 }
     `;
-export type AddActivityCommentMutationFn = ApolloReactCommon.MutationFunction<AddActivityCommentMutation, AddActivityCommentMutationVariables>;
-export type AddActivityCommentComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<AddActivityCommentMutation, AddActivityCommentMutationVariables>, 'mutation'>;
-
-    export const AddActivityCommentComponent = (props: AddActivityCommentComponentProps) => (
-      <ApolloReactComponents.Mutation<AddActivityCommentMutation, AddActivityCommentMutationVariables> mutation={AddActivityCommentDocument} {...props} />
-    );
-    
-export type AddActivityCommentProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
-      [key in TDataName]: ApolloReactCommon.MutationFunction<AddActivityCommentMutation, AddActivityCommentMutationVariables>
-    } & TChildProps;
-export function withAddActivityComment<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  AddActivityCommentMutation,
-  AddActivityCommentMutationVariables,
-  AddActivityCommentProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withMutation<TProps, AddActivityCommentMutation, AddActivityCommentMutationVariables, AddActivityCommentProps<TChildProps, TDataName>>(AddActivityCommentDocument, {
-      alias: 'addActivityComment',
-      ...operationOptions
-    });
-};
+export type AddActivityCommentMutationFn = Apollo.MutationFunction<AddActivityCommentMutation, AddActivityCommentMutationVariables>;
 
 /**
  * __useAddActivityCommentMutation__
@@ -403,12 +391,13 @@ export function withAddActivityComment<TProps, TChildProps = {}, TDataName exten
  *   },
  * });
  */
-export function useAddActivityCommentMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddActivityCommentMutation, AddActivityCommentMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddActivityCommentMutation, AddActivityCommentMutationVariables>(AddActivityCommentDocument, baseOptions);
+export function useAddActivityCommentMutation(baseOptions?: Apollo.MutationHookOptions<AddActivityCommentMutation, AddActivityCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddActivityCommentMutation, AddActivityCommentMutationVariables>(AddActivityCommentDocument, options);
       }
 export type AddActivityCommentMutationHookResult = ReturnType<typeof useAddActivityCommentMutation>;
-export type AddActivityCommentMutationResult = ApolloReactCommon.MutationResult<AddActivityCommentMutation>;
-export type AddActivityCommentMutationOptions = ApolloReactCommon.BaseMutationOptions<AddActivityCommentMutation, AddActivityCommentMutationVariables>;
+export type AddActivityCommentMutationResult = Apollo.MutationResult<AddActivityCommentMutation>;
+export type AddActivityCommentMutationOptions = Apollo.BaseMutationOptions<AddActivityCommentMutation, AddActivityCommentMutationVariables>;
 export const DeleteActivityCommentDocument = gql`
     mutation DeleteActivityComment($commentId: ID!) {
   deleteActivityComment(commentId: $commentId) {
@@ -416,26 +405,7 @@ export const DeleteActivityCommentDocument = gql`
   }
 }
     `;
-export type DeleteActivityCommentMutationFn = ApolloReactCommon.MutationFunction<DeleteActivityCommentMutation, DeleteActivityCommentMutationVariables>;
-export type DeleteActivityCommentComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<DeleteActivityCommentMutation, DeleteActivityCommentMutationVariables>, 'mutation'>;
-
-    export const DeleteActivityCommentComponent = (props: DeleteActivityCommentComponentProps) => (
-      <ApolloReactComponents.Mutation<DeleteActivityCommentMutation, DeleteActivityCommentMutationVariables> mutation={DeleteActivityCommentDocument} {...props} />
-    );
-    
-export type DeleteActivityCommentProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
-      [key in TDataName]: ApolloReactCommon.MutationFunction<DeleteActivityCommentMutation, DeleteActivityCommentMutationVariables>
-    } & TChildProps;
-export function withDeleteActivityComment<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  DeleteActivityCommentMutation,
-  DeleteActivityCommentMutationVariables,
-  DeleteActivityCommentProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withMutation<TProps, DeleteActivityCommentMutation, DeleteActivityCommentMutationVariables, DeleteActivityCommentProps<TChildProps, TDataName>>(DeleteActivityCommentDocument, {
-      alias: 'deleteActivityComment',
-      ...operationOptions
-    });
-};
+export type DeleteActivityCommentMutationFn = Apollo.MutationFunction<DeleteActivityCommentMutation, DeleteActivityCommentMutationVariables>;
 
 /**
  * __useDeleteActivityCommentMutation__
@@ -454,12 +424,13 @@ export function withDeleteActivityComment<TProps, TChildProps = {}, TDataName ex
  *   },
  * });
  */
-export function useDeleteActivityCommentMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteActivityCommentMutation, DeleteActivityCommentMutationVariables>) {
-        return ApolloReactHooks.useMutation<DeleteActivityCommentMutation, DeleteActivityCommentMutationVariables>(DeleteActivityCommentDocument, baseOptions);
+export function useDeleteActivityCommentMutation(baseOptions?: Apollo.MutationHookOptions<DeleteActivityCommentMutation, DeleteActivityCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteActivityCommentMutation, DeleteActivityCommentMutationVariables>(DeleteActivityCommentDocument, options);
       }
 export type DeleteActivityCommentMutationHookResult = ReturnType<typeof useDeleteActivityCommentMutation>;
-export type DeleteActivityCommentMutationResult = ApolloReactCommon.MutationResult<DeleteActivityCommentMutation>;
-export type DeleteActivityCommentMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteActivityCommentMutation, DeleteActivityCommentMutationVariables>;
+export type DeleteActivityCommentMutationResult = Apollo.MutationResult<DeleteActivityCommentMutation>;
+export type DeleteActivityCommentMutationOptions = Apollo.BaseMutationOptions<DeleteActivityCommentMutation, DeleteActivityCommentMutationVariables>;
 export const LoginDocument = gql`
     mutation login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
@@ -467,26 +438,7 @@ export const LoginDocument = gql`
   }
 }
     `;
-export type LoginMutationFn = ApolloReactCommon.MutationFunction<LoginMutation, LoginMutationVariables>;
-export type LoginComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<LoginMutation, LoginMutationVariables>, 'mutation'>;
-
-    export const LoginComponent = (props: LoginComponentProps) => (
-      <ApolloReactComponents.Mutation<LoginMutation, LoginMutationVariables> mutation={LoginDocument} {...props} />
-    );
-    
-export type LoginProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
-      [key in TDataName]: ApolloReactCommon.MutationFunction<LoginMutation, LoginMutationVariables>
-    } & TChildProps;
-export function withLogin<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  LoginMutation,
-  LoginMutationVariables,
-  LoginProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withMutation<TProps, LoginMutation, LoginMutationVariables, LoginProps<TChildProps, TDataName>>(LoginDocument, {
-      alias: 'login',
-      ...operationOptions
-    });
-};
+export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
  * __useLoginMutation__
@@ -506,12 +458,13 @@ export function withLogin<TProps, TChildProps = {}, TDataName extends string = '
  *   },
  * });
  */
-export function useLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-        return ApolloReactHooks.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions);
+export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
       }
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
-export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
-export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const SignUpDocument = gql`
     mutation signUp($email: String!, $firstName: String!, $lastName: String!, $password: String!, $passwordConfirmation: String!) {
   signUp(attributes: {email: $email, firstName: $firstName, lastName: $lastName, password: $password, passwordConfirmation: $passwordConfirmation}) {
@@ -519,26 +472,7 @@ export const SignUpDocument = gql`
   }
 }
     `;
-export type SignUpMutationFn = ApolloReactCommon.MutationFunction<SignUpMutation, SignUpMutationVariables>;
-export type SignUpComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<SignUpMutation, SignUpMutationVariables>, 'mutation'>;
-
-    export const SignUpComponent = (props: SignUpComponentProps) => (
-      <ApolloReactComponents.Mutation<SignUpMutation, SignUpMutationVariables> mutation={SignUpDocument} {...props} />
-    );
-    
-export type SignUpProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
-      [key in TDataName]: ApolloReactCommon.MutationFunction<SignUpMutation, SignUpMutationVariables>
-    } & TChildProps;
-export function withSignUp<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  SignUpMutation,
-  SignUpMutationVariables,
-  SignUpProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withMutation<TProps, SignUpMutation, SignUpMutationVariables, SignUpProps<TChildProps, TDataName>>(SignUpDocument, {
-      alias: 'signUp',
-      ...operationOptions
-    });
-};
+export type SignUpMutationFn = Apollo.MutationFunction<SignUpMutation, SignUpMutationVariables>;
 
 /**
  * __useSignUpMutation__
@@ -561,12 +495,13 @@ export function withSignUp<TProps, TChildProps = {}, TDataName extends string = 
  *   },
  * });
  */
-export function useSignUpMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SignUpMutation, SignUpMutationVariables>) {
-        return ApolloReactHooks.useMutation<SignUpMutation, SignUpMutationVariables>(SignUpDocument, baseOptions);
+export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignUpMutation, SignUpMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignUpMutation, SignUpMutationVariables>(SignUpDocument, options);
       }
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
-export type SignUpMutationResult = ApolloReactCommon.MutationResult<SignUpMutation>;
-export type SignUpMutationOptions = ApolloReactCommon.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
+export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
+export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
 export const UpdateUserImgDocument = gql`
     mutation updateUserImg($img: Upload!) {
   updateImg(img: $img) {
@@ -574,26 +509,7 @@ export const UpdateUserImgDocument = gql`
   }
 }
     `;
-export type UpdateUserImgMutationFn = ApolloReactCommon.MutationFunction<UpdateUserImgMutation, UpdateUserImgMutationVariables>;
-export type UpdateUserImgComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<UpdateUserImgMutation, UpdateUserImgMutationVariables>, 'mutation'>;
-
-    export const UpdateUserImgComponent = (props: UpdateUserImgComponentProps) => (
-      <ApolloReactComponents.Mutation<UpdateUserImgMutation, UpdateUserImgMutationVariables> mutation={UpdateUserImgDocument} {...props} />
-    );
-    
-export type UpdateUserImgProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
-      [key in TDataName]: ApolloReactCommon.MutationFunction<UpdateUserImgMutation, UpdateUserImgMutationVariables>
-    } & TChildProps;
-export function withUpdateUserImg<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  UpdateUserImgMutation,
-  UpdateUserImgMutationVariables,
-  UpdateUserImgProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withMutation<TProps, UpdateUserImgMutation, UpdateUserImgMutationVariables, UpdateUserImgProps<TChildProps, TDataName>>(UpdateUserImgDocument, {
-      alias: 'updateUserImg',
-      ...operationOptions
-    });
-};
+export type UpdateUserImgMutationFn = Apollo.MutationFunction<UpdateUserImgMutation, UpdateUserImgMutationVariables>;
 
 /**
  * __useUpdateUserImgMutation__
@@ -612,12 +528,13 @@ export function withUpdateUserImg<TProps, TChildProps = {}, TDataName extends st
  *   },
  * });
  */
-export function useUpdateUserImgMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateUserImgMutation, UpdateUserImgMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateUserImgMutation, UpdateUserImgMutationVariables>(UpdateUserImgDocument, baseOptions);
+export function useUpdateUserImgMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserImgMutation, UpdateUserImgMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserImgMutation, UpdateUserImgMutationVariables>(UpdateUserImgDocument, options);
       }
 export type UpdateUserImgMutationHookResult = ReturnType<typeof useUpdateUserImgMutation>;
-export type UpdateUserImgMutationResult = ApolloReactCommon.MutationResult<UpdateUserImgMutation>;
-export type UpdateUserImgMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateUserImgMutation, UpdateUserImgMutationVariables>;
+export type UpdateUserImgMutationResult = Apollo.MutationResult<UpdateUserImgMutation>;
+export type UpdateUserImgMutationOptions = Apollo.BaseMutationOptions<UpdateUserImgMutation, UpdateUserImgMutationVariables>;
 export const UpdateUserNameDocument = gql`
     mutation updateUserName($firstName: String!, $lastName: String!) {
   updateName(firstName: $firstName, lastName: $lastName) {
@@ -625,26 +542,7 @@ export const UpdateUserNameDocument = gql`
   }
 }
     `;
-export type UpdateUserNameMutationFn = ApolloReactCommon.MutationFunction<UpdateUserNameMutation, UpdateUserNameMutationVariables>;
-export type UpdateUserNameComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<UpdateUserNameMutation, UpdateUserNameMutationVariables>, 'mutation'>;
-
-    export const UpdateUserNameComponent = (props: UpdateUserNameComponentProps) => (
-      <ApolloReactComponents.Mutation<UpdateUserNameMutation, UpdateUserNameMutationVariables> mutation={UpdateUserNameDocument} {...props} />
-    );
-    
-export type UpdateUserNameProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
-      [key in TDataName]: ApolloReactCommon.MutationFunction<UpdateUserNameMutation, UpdateUserNameMutationVariables>
-    } & TChildProps;
-export function withUpdateUserName<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  UpdateUserNameMutation,
-  UpdateUserNameMutationVariables,
-  UpdateUserNameProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withMutation<TProps, UpdateUserNameMutation, UpdateUserNameMutationVariables, UpdateUserNameProps<TChildProps, TDataName>>(UpdateUserNameDocument, {
-      alias: 'updateUserName',
-      ...operationOptions
-    });
-};
+export type UpdateUserNameMutationFn = Apollo.MutationFunction<UpdateUserNameMutation, UpdateUserNameMutationVariables>;
 
 /**
  * __useUpdateUserNameMutation__
@@ -664,12 +562,13 @@ export function withUpdateUserName<TProps, TChildProps = {}, TDataName extends s
  *   },
  * });
  */
-export function useUpdateUserNameMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateUserNameMutation, UpdateUserNameMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateUserNameMutation, UpdateUserNameMutationVariables>(UpdateUserNameDocument, baseOptions);
+export function useUpdateUserNameMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserNameMutation, UpdateUserNameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserNameMutation, UpdateUserNameMutationVariables>(UpdateUserNameDocument, options);
       }
 export type UpdateUserNameMutationHookResult = ReturnType<typeof useUpdateUserNameMutation>;
-export type UpdateUserNameMutationResult = ApolloReactCommon.MutationResult<UpdateUserNameMutation>;
-export type UpdateUserNameMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateUserNameMutation, UpdateUserNameMutationVariables>;
+export type UpdateUserNameMutationResult = Apollo.MutationResult<UpdateUserNameMutation>;
+export type UpdateUserNameMutationOptions = Apollo.BaseMutationOptions<UpdateUserNameMutation, UpdateUserNameMutationVariables>;
 export const UploadActivityDocument = gql`
     mutation uploadActivity($title: String!, $description: String!, $fitFile: Upload!, $userId: ID!) {
   upload(title: $title, description: $description, fitFile: $fitFile, userId: $userId) {
@@ -677,26 +576,7 @@ export const UploadActivityDocument = gql`
   }
 }
     `;
-export type UploadActivityMutationFn = ApolloReactCommon.MutationFunction<UploadActivityMutation, UploadActivityMutationVariables>;
-export type UploadActivityComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<UploadActivityMutation, UploadActivityMutationVariables>, 'mutation'>;
-
-    export const UploadActivityComponent = (props: UploadActivityComponentProps) => (
-      <ApolloReactComponents.Mutation<UploadActivityMutation, UploadActivityMutationVariables> mutation={UploadActivityDocument} {...props} />
-    );
-    
-export type UploadActivityProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
-      [key in TDataName]: ApolloReactCommon.MutationFunction<UploadActivityMutation, UploadActivityMutationVariables>
-    } & TChildProps;
-export function withUploadActivity<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  UploadActivityMutation,
-  UploadActivityMutationVariables,
-  UploadActivityProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withMutation<TProps, UploadActivityMutation, UploadActivityMutationVariables, UploadActivityProps<TChildProps, TDataName>>(UploadActivityDocument, {
-      alias: 'uploadActivity',
-      ...operationOptions
-    });
-};
+export type UploadActivityMutationFn = Apollo.MutationFunction<UploadActivityMutation, UploadActivityMutationVariables>;
 
 /**
  * __useUploadActivityMutation__
@@ -718,12 +598,13 @@ export function withUploadActivity<TProps, TChildProps = {}, TDataName extends s
  *   },
  * });
  */
-export function useUploadActivityMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UploadActivityMutation, UploadActivityMutationVariables>) {
-        return ApolloReactHooks.useMutation<UploadActivityMutation, UploadActivityMutationVariables>(UploadActivityDocument, baseOptions);
+export function useUploadActivityMutation(baseOptions?: Apollo.MutationHookOptions<UploadActivityMutation, UploadActivityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UploadActivityMutation, UploadActivityMutationVariables>(UploadActivityDocument, options);
       }
 export type UploadActivityMutationHookResult = ReturnType<typeof useUploadActivityMutation>;
-export type UploadActivityMutationResult = ApolloReactCommon.MutationResult<UploadActivityMutation>;
-export type UploadActivityMutationOptions = ApolloReactCommon.BaseMutationOptions<UploadActivityMutation, UploadActivityMutationVariables>;
+export type UploadActivityMutationResult = Apollo.MutationResult<UploadActivityMutation>;
+export type UploadActivityMutationOptions = Apollo.BaseMutationOptions<UploadActivityMutation, UploadActivityMutationVariables>;
 export const ActivitiesByUserIdDocument = gql`
     query activitiesByUserId($userId: ID!) {
   activitiesByUserId(userId: $userId) {
@@ -751,25 +632,6 @@ export const ActivitiesByUserIdDocument = gql`
   }
 }
     `;
-export type ActivitiesByUserIdComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>, 'query'> & ({ variables: ActivitiesByUserIdQueryVariables; skip?: boolean; } | { skip: boolean; });
-
-    export const ActivitiesByUserIdComponent = (props: ActivitiesByUserIdComponentProps) => (
-      <ApolloReactComponents.Query<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables> query={ActivitiesByUserIdDocument} {...props} />
-    );
-    
-export type ActivitiesByUserIdProps<TChildProps = {}, TDataName extends string = 'data'> = {
-      [key in TDataName]: ApolloReactHoc.DataValue<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>
-    } & TChildProps;
-export function withActivitiesByUserId<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  ActivitiesByUserIdQuery,
-  ActivitiesByUserIdQueryVariables,
-  ActivitiesByUserIdProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withQuery<TProps, ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables, ActivitiesByUserIdProps<TChildProps, TDataName>>(ActivitiesByUserIdDocument, {
-      alias: 'activitiesByUserId',
-      ...operationOptions
-    });
-};
 
 /**
  * __useActivitiesByUserIdQuery__
@@ -787,15 +649,17 @@ export function withActivitiesByUserId<TProps, TChildProps = {}, TDataName exten
  *   },
  * });
  */
-export function useActivitiesByUserIdQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>) {
-        return ApolloReactHooks.useQuery<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>(ActivitiesByUserIdDocument, baseOptions);
+export function useActivitiesByUserIdQuery(baseOptions: Apollo.QueryHookOptions<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>(ActivitiesByUserIdDocument, options);
       }
-export function useActivitiesByUserIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>(ActivitiesByUserIdDocument, baseOptions);
+export function useActivitiesByUserIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>(ActivitiesByUserIdDocument, options);
         }
 export type ActivitiesByUserIdQueryHookResult = ReturnType<typeof useActivitiesByUserIdQuery>;
 export type ActivitiesByUserIdLazyQueryHookResult = ReturnType<typeof useActivitiesByUserIdLazyQuery>;
-export type ActivitiesByUserIdQueryResult = ApolloReactCommon.QueryResult<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>;
+export type ActivitiesByUserIdQueryResult = Apollo.QueryResult<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>;
 export const MeDocument = gql`
     query me {
   me {
@@ -815,25 +679,6 @@ export const MeDocument = gql`
   }
 }
     `;
-export type MeComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<MeQuery, MeQueryVariables>, 'query'>;
-
-    export const MeComponent = (props: MeComponentProps) => (
-      <ApolloReactComponents.Query<MeQuery, MeQueryVariables> query={MeDocument} {...props} />
-    );
-    
-export type MeProps<TChildProps = {}, TDataName extends string = 'data'> = {
-      [key in TDataName]: ApolloReactHoc.DataValue<MeQuery, MeQueryVariables>
-    } & TChildProps;
-export function withMe<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  MeQuery,
-  MeQueryVariables,
-  MeProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withQuery<TProps, MeQuery, MeQueryVariables, MeProps<TChildProps, TDataName>>(MeDocument, {
-      alias: 'me',
-      ...operationOptions
-    });
-};
 
 /**
  * __useMeQuery__
@@ -850,18 +695,20 @@ export function withMe<TProps, TChildProps = {}, TDataName extends string = 'dat
  *   },
  * });
  */
-export function useMeQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<MeQuery, MeQueryVariables>) {
-        return ApolloReactHooks.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, options);
       }
-export function useMeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options);
         }
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
-export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
+export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
 export const MyActivitiesDocument = gql`
-    query myActivities {
-  myActivities {
+    query myActivities($limit: Int, $offset: Int) {
+  myActivities(limit: $limit, offset: $offset) {
     id
     title
     description
@@ -896,25 +743,6 @@ export const MyActivitiesDocument = gql`
   }
 }
     `;
-export type MyActivitiesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<MyActivitiesQuery, MyActivitiesQueryVariables>, 'query'>;
-
-    export const MyActivitiesComponent = (props: MyActivitiesComponentProps) => (
-      <ApolloReactComponents.Query<MyActivitiesQuery, MyActivitiesQueryVariables> query={MyActivitiesDocument} {...props} />
-    );
-    
-export type MyActivitiesProps<TChildProps = {}, TDataName extends string = 'data'> = {
-      [key in TDataName]: ApolloReactHoc.DataValue<MyActivitiesQuery, MyActivitiesQueryVariables>
-    } & TChildProps;
-export function withMyActivities<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  MyActivitiesQuery,
-  MyActivitiesQueryVariables,
-  MyActivitiesProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withQuery<TProps, MyActivitiesQuery, MyActivitiesQueryVariables, MyActivitiesProps<TChildProps, TDataName>>(MyActivitiesDocument, {
-      alias: 'myActivities',
-      ...operationOptions
-    });
-};
 
 /**
  * __useMyActivitiesQuery__
@@ -928,15 +756,19 @@ export function withMyActivities<TProps, TChildProps = {}, TDataName extends str
  * @example
  * const { data, loading, error } = useMyActivitiesQuery({
  *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
  *   },
  * });
  */
-export function useMyActivitiesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<MyActivitiesQuery, MyActivitiesQueryVariables>) {
-        return ApolloReactHooks.useQuery<MyActivitiesQuery, MyActivitiesQueryVariables>(MyActivitiesDocument, baseOptions);
+export function useMyActivitiesQuery(baseOptions?: Apollo.QueryHookOptions<MyActivitiesQuery, MyActivitiesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MyActivitiesQuery, MyActivitiesQueryVariables>(MyActivitiesDocument, options);
       }
-export function useMyActivitiesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<MyActivitiesQuery, MyActivitiesQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<MyActivitiesQuery, MyActivitiesQueryVariables>(MyActivitiesDocument, baseOptions);
+export function useMyActivitiesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyActivitiesQuery, MyActivitiesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MyActivitiesQuery, MyActivitiesQueryVariables>(MyActivitiesDocument, options);
         }
 export type MyActivitiesQueryHookResult = ReturnType<typeof useMyActivitiesQuery>;
 export type MyActivitiesLazyQueryHookResult = ReturnType<typeof useMyActivitiesLazyQuery>;
-export type MyActivitiesQueryResult = ApolloReactCommon.QueryResult<MyActivitiesQuery, MyActivitiesQueryVariables>;
+export type MyActivitiesQueryResult = Apollo.QueryResult<MyActivitiesQuery, MyActivitiesQueryVariables>;

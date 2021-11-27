@@ -1,5 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CommentActionButton from './CommentActionButton'
+import {
+  useDeleteActivityCommentMutation,
+  useAddActivityCommentMutation,
+} from '../../generated/graphql'
+import ActivityCommentBox from './ActivityCommentBox'
+import { CommentEnabledType } from '../../types/types'
 
 type CommentType = {
   id: string
@@ -10,14 +16,48 @@ type CommentType = {
 
 type Props = {
   comments: Array<CommentType>
+  activityId: string
+  commentEnabled: CommentEnabledType | undefined
+  enableComment: any
+  toggleComment: any
 }
 
 const ActivityComments = (props: Props) => {
-  const { comments } = props
+  const {
+    comments,
+    activityId,
+    commentEnabled,
+    enableComment,
+    toggleComment,
+  } = props
+
+  const [myComments, setMyComments] = useState([...comments])
+  const [deleteComment] = useDeleteActivityCommentMutation()
+  const [addComment] = useAddActivityCommentMutation()
+
+  const handleDeleteComment = async (
+    e: React.FormEvent,
+    activityCommentId: string
+  ) => {
+    e.preventDefault()
+    try {
+      await deleteComment({
+        variables: {
+          commentId: activityCommentId,
+        },
+      })
+    } catch (error) {
+      console.log(error)
+    }
+
+    setMyComments([
+      ...myComments.filter((comment: any) => comment.id !== activityCommentId),
+    ])
+  }
 
   return (
     <>
-      {comments.map((comment: CommentType, index: number) => (
+      {myComments.map((comment: CommentType, index: number) => (
         <div key={index} className="d-flex align-items-center mt-5">
           <img
             style={{
@@ -38,9 +78,24 @@ const ActivityComments = (props: Props) => {
             </span>
             <div className="font-size-12">{comment.comment}</div>
           </div>
-          {comment.id && <CommentActionButton activityCommentId={comment.id} />}
+          {comment.id && (
+            <CommentActionButton
+              activityCommentId={comment.id}
+              handleDelete={handleDeleteComment}
+            />
+          )}
         </div>
       ))}
+
+      <ActivityCommentBox
+        hidden={
+          !(commentEnabled?.enabled && activityId === commentEnabled.activityId)
+        }
+        activityId={activityId}
+        toggleComment={toggleComment}
+        myComments={myComments}
+        setMyComments={setMyComments}
+      />
     </>
   )
 }

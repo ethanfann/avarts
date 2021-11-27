@@ -1,64 +1,17 @@
-import { faBicycle, faComment } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import DayJs from 'dayjs'
 import React, { useState } from 'react'
 import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader'
 import { useMyActivitiesQuery } from '../../generated/graphql'
-import { staticRideImg } from '../../utils/mapbox'
-import ActivityCommentBox from './ActivityCommentBox'
-import ActivityComments from './ActivityComments'
-import MetricRow from './MetricRow'
 import ThemeContext from '../../themeContext'
+import { CommentEnabledType } from '../../types/types'
+import Activity from './Activity'
+import UserContext from '../../userContext'
 
-type CommentEnabledType = {
-  activityId: String
-  enabled: boolean
-}
-
-type PropsType = {
-  strokeColor: string
-}
-
-const TimeLine = (props: PropsType) => {
-  const { strokeColor } = props
+const TimeLine = () => {
   const [commentEnabled, enableComment] = useState<CommentEnabledType>()
 
-  const { loading, error, data } = useMyActivitiesQuery()
-
-  const activityTime = (startTime: number) => {
-    const timeStr = DayJs.unix(startTime).format('MMMM D, YYYY--h:mm A')
-    const timeStrSplit = timeStr.split('--')
-
-    return DayJs(timeStrSplit[0]).isSame(DayJs(), 'day')
-      ? `Today at ${timeStrSplit[1]}`
-      : timeStrSplit[0] + ` at ${timeStrSplit[1]}`
-  }
-
-  // TODO: This is the thing that really needs to be tested first. We need to use just the right tolerance factor,
-  // IE: most detail, without making the requst to mapbox fail.
-  const activityImg = (
-    polyline: string,
-    darkMode: boolean,
-    strokeColor: string
-  ) => {
-    return staticRideImg(polyline, darkMode, strokeColor)
-  }
-
-  const toggleComment = (comment: CommentEnabledType) => {
-    let enabled = comment.enabled
-
-    if (
-      commentEnabled?.enabled &&
-      comment.activityId !== commentEnabled.activityId
-    ) {
-      enabled = true
-    }
-
-    enableComment({
-      activityId: comment.activityId,
-      enabled: enabled,
-    })
-  }
+  const { loading, error, data, fetchMore } = useMyActivitiesQuery({
+    variables: { limit: 10, offset: 0 },
+  })
 
   if (loading) {
     return (
@@ -79,113 +32,60 @@ const TimeLine = (props: PropsType) => {
   }
 
   return (
-    <ThemeContext.Consumer>
-      {(ctx) => (
-        <div>
-          {data &&
-            data.myActivities.map((activity, index) => (
-              <div
-                key={index}
-                style={{ maxWidth: '800px' }}
-                className="card mb-0 pb-0"
-              >
-                <div className="container-fluid">
-                  <div className="row">
-                    <div className="col-2">
-                      <div className="d-flex flex-column mr-10">
-                        <div className="text-center">
-                          <img
-                            className="img-fluid rounded-circle w-auto h-auto w-sm-three-quarter w-md-half"
-                            src={
-                              activity.user.img
-                                ? activity.user.img
-                                : 'default-user-avatar.png'
-                            }
-                            alt="user avatar"
-                          ></img>
-                        </div>
-                        <FontAwesomeIcon
-                          className="m-auto pt-5"
-                          size="2x"
-                          icon={faBicycle}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="col-10">
-                      <p className="font-weight-bold m-0">
-                        {activity?.user.name}
-                      </p>
-                      <p className="m-0">{activityTime(activity.startTime)}</p>
-                      <h1 className="card-title font-weight-bolder font-size-20 mt-5 text-primary mb-5">
-                        {activity?.title}
-                      </h1>
-                      {activity?.description !== '' && (
-                        <p className="mb-10 font-size-12">
-                          {activity.description}
-                        </p>
-                      )}
-                      <MetricRow
-                        duration={activity?.duration}
-                        elevation={activity?.elevation}
-                        distance={activity?.distance}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="align-center mt-10">
-                  <img
-                    src={activityImg(
-                      activity.polyline,
-                      ctx.darkMode,
-                      strokeColor
-                    )}
-                    className="img-fluid rounded w-full h-full"
-                    alt="activity route"
+    <UserContext.Consumer>
+      {(userCtx) => (
+        <ThemeContext.Consumer>
+          {(themeCtx) => (
+            <div>
+              {data &&
+                data.myActivities.map((activity, index) => (
+                  <Activity
+                    key={index}
+                    id={activity.id}
+                    img={activity.user.img}
+                    name={activity.user.name}
+                    startTime={activity.startTime}
+                    title={activity.title}
+                    description={activity.description}
+                    polyline={activity.polyline}
+                    duration={activity.duration}
+                    elevation={activity.elevation}
+                    distance={activity.distance}
+                    darkMode={themeCtx.darkMode}
+                    strokeColor={userCtx.user.strokeColor}
+                    comments={activity.activityComment}
+                    commentEnabled={commentEnabled}
+                    enableComment={enableComment}
                   />
-                </div>
-                <div className="clearfix pt-5">
-                  <div className="float-right d-inline-block">
+                ))}
+
+              <div
+                style={{
+                  margin: 40,
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
+              >
+                {data &&
+                  data.myActivities &&
+                  data.myActivities.length !== userCtx.user.activityCount && (
                     <button
-                      className="btn ml-5"
-                      onMouseDown={(e) => e.preventDefault()}
-                      onClick={() =>
-                        activity?.id &&
-                        toggleComment({
-                          activityId: activity.id,
-                          enabled: !commentEnabled?.enabled,
+                      className="btn"
+                      onClick={async () =>
+                        fetchMore({
+                          variables: { offset: data.myActivities.length },
                         })
                       }
                     >
-                      <FontAwesomeIcon className="m-auto" icon={faComment} />
+                      Load More
                     </button>
-                  </div>
-                </div>
-
-                <ActivityComments
-                  comments={activity.activityComment.map((comment: any) => ({
-                    id: comment.id,
-                    comment: comment.comment,
-                    userName: comment.user.name,
-                    userImg: comment.user.img,
-                  }))}
-                />
-
-                <ActivityCommentBox
-                  hidden={
-                    !(
-                      commentEnabled?.enabled &&
-                      activity.id === commentEnabled.activityId
-                    )
-                  }
-                  activityId={activity?.id}
-                  toggleComment={toggleComment}
-                />
+                  )}
               </div>
-            ))}
-        </div>
+            </div>
+          )}
+        </ThemeContext.Consumer>
       )}
-    </ThemeContext.Consumer>
+    </UserContext.Consumer>
   )
 }
 

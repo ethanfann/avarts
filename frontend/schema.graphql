@@ -101,7 +101,7 @@ type Query {
   """
   Returns the current user's activities
   """
-  myActivities: [Activity!]!
+  myActivities(limit: Int, offset: Int): [Activity!]!
 
   """
   Ping Pong
