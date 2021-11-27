@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { createUploadLink } from 'apollo-upload-client'
+import { offsetLimitPagination } from '@apollo/client/utilities'
 
 const uri =
   process.env.NODE_ENV === 'production'
@@ -28,7 +29,15 @@ const authLink = setContext((_, { headers }) => {
 
 export const client = new ApolloClient({
   link: authLink.concat(uploadLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          myActivities: offsetLimitPagination(),
+        },
+      },
+    },
+  }),
 })
 
 ReactDOM.render(

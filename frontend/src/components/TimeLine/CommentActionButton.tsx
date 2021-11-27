@@ -1,29 +1,14 @@
 import { faEllipsisV, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { useDeleteActivityCommentMutation } from '../../generated/graphql'
 
 type Props = {
   activityCommentId: string
+  handleDelete: any
 }
 
 const CommentActionButton = (props: Props) => {
-  const { activityCommentId } = props
-  const [deleteComment] = useDeleteActivityCommentMutation()
-
-  const handleDeleteComment = async (e: React.FormEvent) => {
-    e.preventDefault()
-    try {
-      await deleteComment({
-        variables: {
-          commentId: activityCommentId,
-        },
-        refetchQueries: ['myActivities'],
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const { activityCommentId, handleDelete } = props
 
   return (
     <>
@@ -45,7 +30,7 @@ const CommentActionButton = (props: Props) => {
             <button
               className="btn btn-danger btn-sm"
               onMouseDown={(e) => e.preventDefault()}
-              onClick={(e) => handleDeleteComment(e)}
+              onClick={(e) => handleDelete(e, activityCommentId)}
             >
               <FontAwesomeIcon icon={faTrash} />
             </button>

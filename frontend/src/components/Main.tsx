@@ -6,15 +6,7 @@ import TimeLine from './TimeLine'
 const Main = () => {
   return (
     <UserContext.Consumer>
-      {(ctx) => (
-        <>
-          {ctx.user ? (
-            <TimeLine strokeColor={ctx.user.strokeColor} />
-          ) : (
-            <SignUp />
-          )}
-        </>
-      )}
+      {(ctx) => <>{ctx.user ? <TimeLine /> : <SignUp />}</>}
     </UserContext.Consumer>
   )
 }

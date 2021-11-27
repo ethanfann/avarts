@@ -6,10 +6,12 @@ type Props = {
   activityId: string | undefined
   hidden: boolean | undefined | null
   toggleComment: any
+  myComments: any
+  setMyComments: any
 }
 
 export const ActivityCommentBox = (props: Props) => {
-  const { activityId, hidden, toggleComment } = props
+  const { activityId, hidden, toggleComment, myComments, setMyComments } = props
   const [comment, setComment] = useState('')
   const [addActivityCommentMutation] = useAddActivityCommentMutation()
 
@@ -36,14 +38,25 @@ export const ActivityCommentBox = (props: Props) => {
   const addComment = async (e: React.FormEvent, currentUser: UserType) => {
     e.preventDefault()
     if (currentUser && currentUser.id && activityId) {
-      await addActivityCommentMutation({
+      const results = await addActivityCommentMutation({
         variables: {
           comment: comment,
           userId: currentUser.id,
           activityId: activityId,
         },
-        refetchQueries: ['myActivities'],
       })
+
+      if (results && results.data && results.data.addActivityComment) {
+        setMyComments([
+          ...myComments,
+          {
+            id: results.data.addActivityComment.id,
+            comment: comment,
+            userName: currentUser.name,
+            userImg: currentUser.img,
+          },
+        ])
+      }
     }
 
     setComment('')
