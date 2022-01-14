@@ -148,6 +148,8 @@ export type Query = {
   activitiesByUserId?: Maybe<Array<Activity>>;
   /** Returns the current user */
   me?: Maybe<User>;
+  /** Returns the activities for the previous month */
+  monthlyActivity: Array<Activity>;
   /** Returns the current user's activities */
   myActivities: Array<Activity>;
   /** Ping Pong */
@@ -334,6 +336,17 @@ export type MeQuery = (
       { __typename?: 'Activity' }
       & Pick<Activity, 'title' | 'createdAt' | 'startTime'>
     )> }
+  )> }
+);
+
+export type MonthlyActivityQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MonthlyActivityQuery = (
+  { __typename?: 'Query' }
+  & { monthlyActivity: Array<(
+    { __typename?: 'Activity' }
+    & Pick<Activity, 'distance' | 'createdAt' | 'startTime'>
   )> }
 );
 
@@ -706,6 +719,42 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const MonthlyActivityDocument = gql`
+    query monthlyActivity {
+  monthlyActivity {
+    distance
+    createdAt
+    startTime
+  }
+}
+    `;
+
+/**
+ * __useMonthlyActivityQuery__
+ *
+ * To run a query within a React component, call `useMonthlyActivityQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMonthlyActivityQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMonthlyActivityQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMonthlyActivityQuery(baseOptions?: Apollo.QueryHookOptions<MonthlyActivityQuery, MonthlyActivityQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MonthlyActivityQuery, MonthlyActivityQueryVariables>(MonthlyActivityDocument, options);
+      }
+export function useMonthlyActivityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MonthlyActivityQuery, MonthlyActivityQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MonthlyActivityQuery, MonthlyActivityQueryVariables>(MonthlyActivityDocument, options);
+        }
+export type MonthlyActivityQueryHookResult = ReturnType<typeof useMonthlyActivityQuery>;
+export type MonthlyActivityLazyQueryHookResult = ReturnType<typeof useMonthlyActivityLazyQuery>;
+export type MonthlyActivityQueryResult = Apollo.QueryResult<MonthlyActivityQuery, MonthlyActivityQueryVariables>;
 export const MyActivitiesDocument = gql`
     query myActivities($limit: Int, $offset: Int) {
   myActivities(limit: $limit, offset: $offset) {

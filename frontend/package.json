@@ -31,6 +31,7 @@
     "graphql-tag": "^2.11.0",
     "halfmoon": "^1.1.1",
     "react": "^16.13.1",
+    "react-calendar-heatmap": "^1.8.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^6.4.1",
@@ -70,6 +71,7 @@
     "@graphql-codegen/typescript-operations": "^1.18.4",
     "@graphql-codegen/typescript-react-apollo": "^3.2.1",
     "@types/node": "^12.12.54",
+    "@types/react-calendar-heatmap": "^1.6.3",
     "prettier": "2.0.5"
   },
   "importSort": {

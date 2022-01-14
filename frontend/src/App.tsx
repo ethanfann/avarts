@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import SignUp from './components/SignUp'
 import UserSettings from './components/UserSettings'
 import UploadForm from './components/UploadForm'
+import MonthHeatMap from './components/MonthHeatMap/index'
 
 const halfmoon = require('halfmoon')
 
@@ -104,6 +105,7 @@ const App: React.FC = () => {
                 <div className="sidebar-overlay" onClick={toggleSidebar}></div>
                 <div className="sidebar border-0">
                   <UserCard />
+                  <MonthHeatMap />
                   {data.me.id !== '0' && <UploadForm userId={data.me.id} />}
                 </div>
 

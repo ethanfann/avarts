@@ -99,6 +99,11 @@ type Query {
   me: User
 
   """
+  Returns the activities for the previous month
+  """
+  monthlyActivity: [Activity!]!
+
+  """
   Returns the current user's activities
   """
   myActivities(limit: Int, offset: Int): [Activity!]!
