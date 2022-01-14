@@ -33,7 +33,7 @@ const MonthHeatMap = () => {
               startDate={formatDate(thirtyDaysAgo)}
               endDate={formatDate(today)}
               values={data.monthlyActivity.map((activity) => ({
-                date: formatDate(dayjs(activity.startTime)),
+                date: formatDate(dayjs.unix(activity.startTime * 1000)),
                 count: 1,
               }))}
               gutterSize={2}
