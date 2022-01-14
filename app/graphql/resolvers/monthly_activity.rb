@@ -10,7 +10,7 @@ class Resolvers::MonthlyActivity < GraphQL::Schema::Resolver
     
     Activity
       .where(user_id: context[:current_user].id)
-      .where('created_at > ?', 30.days.ago)
+      .where('start_time > ?', 30.days.ago.to_i)
       .order('created_at DESC')
   end
 end
