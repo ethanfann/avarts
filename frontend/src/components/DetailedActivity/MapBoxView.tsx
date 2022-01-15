@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
+import './styles.css'
+import 'mapbox-gl/dist/mapbox-gl.css'
 const polyline = require('@mapbox/polyline')
 require('dotenv').config()
 
@@ -69,13 +71,11 @@ export const MapBoxView = (props: MapBoxViewProps) => {
         map.current.fitBounds(bounds, {
           padding: 20,
         })
+        map.current.scrollZoom.disable()
+        map.current.addControl(new mapboxgl.NavigationControl(), 'top-right')
       }
     })
   })
 
-  return (
-    <div>
-      <div style={{ height: 400, width: '100%' }} ref={mapContainer} />
-    </div>
-  )
+  return <div ref={mapContainer} className="mapboxgl-map map-container" />
 }
