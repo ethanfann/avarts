@@ -94,6 +94,11 @@ type Query {
   activitiesByUserId(userId: ID!): [Activity!]
 
   """
+  Returns the activity for a given id
+  """
+  activityById(id: ID!): Activity!
+
+  """
   Returns the current user
   """
   me: User

@@ -11,6 +11,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@mapbox/polyline": "^1.1.1",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^7.2.1",
@@ -70,6 +71,7 @@
     "@graphql-codegen/typescript": "^1.23.0",
     "@graphql-codegen/typescript-operations": "^1.18.4",
     "@graphql-codegen/typescript-react-apollo": "^3.2.1",
+    "@types/mapbox-gl": "^2.6.0",
     "@types/node": "^12.12.54",
     "@types/react-calendar-heatmap": "^1.6.3",
     "prettier": "2.0.5"

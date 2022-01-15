@@ -6,6 +6,7 @@ import ActivityComments from './ActivityComments'
 import MetricRow from './MetricRow'
 import { staticRideImg } from '../../utils/mapbox'
 import { CommentEnabledType } from '../../types/types'
+import { Link } from 'react-router-dom'
 
 type ActivityProps = {
   id: string
@@ -104,9 +105,11 @@ const Activity = (props: ActivityProps) => {
             <div className="col-10">
               <p className="font-weight-bold m-0">{name}</p>
               <p className="m-0">{activityTime(startTime)}</p>
-              <h1 className="card-title font-weight-bolder font-size-20 mt-5 text-primary mb-5">
-                {title}
-              </h1>
+              <Link to={`/activity/${id}`}>
+                <h1 className="card-title font-weight-bolder font-size-20 mt-5 text-primary mb-5">
+                  {title}
+                </h1>
+              </Link>
               {description !== '' && (
                 <p className="mb-10 font-size-12">{description}</p>
               )}

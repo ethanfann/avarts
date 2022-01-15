@@ -5,5 +5,6 @@ module Types
     field :ping, resolver: Resolvers::Ping
     field :my_activities, resolver: Resolvers::MyActivities
     field :monthly_activity, resolver: Resolvers::MonthlyActivity
+    field :activity_by_id, resolver: Resolvers::ActivityById
   end
 end

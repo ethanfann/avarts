@@ -146,6 +146,8 @@ export type Query = {
   __typename?: 'Query';
   /** Returns the activities belonging to the specified user_id */
   activitiesByUserId?: Maybe<Array<Activity>>;
+  /** Returns the activity for a given id */
+  activityById: Activity;
   /** Returns the current user */
   me?: Maybe<User>;
   /** Returns the activities for the previous month */
@@ -159,6 +161,11 @@ export type Query = {
 
 export type QueryActivitiesByUserIdArgs = {
   userId: Scalars['ID'];
+};
+
+
+export type QueryActivityByIdArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -322,6 +329,23 @@ export type ActivitiesByUserIdQuery = (
       ) }
     )> }
   )>> }
+);
+
+export type ActivityByIdQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ActivityByIdQuery = (
+  { __typename?: 'Query' }
+  & { activityById: (
+    { __typename?: 'Activity' }
+    & Pick<Activity, 'id' | 'title' | 'description' | 'polyline' | 'startTime' | 'duration' | 'elevation' | 'distance' | 'createdAt'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'name' | 'img'>
+    ) }
+  ) }
 );
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
@@ -673,6 +697,53 @@ export function useActivitiesByUserIdLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type ActivitiesByUserIdQueryHookResult = ReturnType<typeof useActivitiesByUserIdQuery>;
 export type ActivitiesByUserIdLazyQueryHookResult = ReturnType<typeof useActivitiesByUserIdLazyQuery>;
 export type ActivitiesByUserIdQueryResult = Apollo.QueryResult<ActivitiesByUserIdQuery, ActivitiesByUserIdQueryVariables>;
+export const ActivityByIdDocument = gql`
+    query activityById($id: ID!) {
+  activityById(id: $id) {
+    id
+    title
+    description
+    polyline
+    startTime
+    duration
+    elevation
+    distance
+    createdAt
+    user {
+      name
+      img
+    }
+  }
+}
+    `;
+
+/**
+ * __useActivityByIdQuery__
+ *
+ * To run a query within a React component, call `useActivityByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useActivityByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useActivityByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useActivityByIdQuery(baseOptions: Apollo.QueryHookOptions<ActivityByIdQuery, ActivityByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ActivityByIdQuery, ActivityByIdQueryVariables>(ActivityByIdDocument, options);
+      }
+export function useActivityByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActivityByIdQuery, ActivityByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ActivityByIdQuery, ActivityByIdQueryVariables>(ActivityByIdDocument, options);
+        }
+export type ActivityByIdQueryHookResult = ReturnType<typeof useActivityByIdQuery>;
+export type ActivityByIdLazyQueryHookResult = ReturnType<typeof useActivityByIdLazyQuery>;
+export type ActivityByIdQueryResult = Apollo.QueryResult<ActivityByIdQuery, ActivityByIdQueryVariables>;
 export const MeDocument = gql`
     query me {
   me {

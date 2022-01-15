@@ -11,6 +11,7 @@ import SignUp from './components/SignUp'
 import UserSettings from './components/UserSettings'
 import UploadForm from './components/UploadForm'
 import MonthHeatMap from './components/MonthHeatMap/index'
+import DetailedActivity from './components/DetailedActivity/DetailedActivity'
 
 const halfmoon = require('halfmoon')
 
@@ -118,6 +119,10 @@ const App: React.FC = () => {
                         <div className="d-flex justify-content-center">
                           <Switch>
                             <Route path="/settings" component={UserSettings} />
+                            <Route
+                              path="/activity/:id"
+                              component={DetailedActivity}
+                            />
                             <Route path="/" component={Main} />
                           </Switch>
                         </div>
