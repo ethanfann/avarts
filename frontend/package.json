@@ -31,6 +31,7 @@
     "graphql": "^15.3.0",
     "graphql-tag": "^2.11.0",
     "halfmoon": "^1.1.1",
+    "mapbox-gl": "^2.6.1",
     "react": "^16.13.1",
     "react-calendar-heatmap": "^1.8.1",
     "react-dom": "^16.13.1",
