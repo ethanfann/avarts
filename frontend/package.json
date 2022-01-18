@@ -79,6 +79,7 @@
     "@types/react-helmet": "^6.1.0",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.2",
+    "mini-css-extract-plugin": "2.4.5",
     "prettier": "2.0.5"
   },
   "importSort": {
@@ -90,5 +91,8 @@
     "node": "16.x"
   },
   "proxy": "http://localhost:3001",
-  "prettier": "@ethancord/prettier-config"
+  "prettier": "@ethancord/prettier-config",
+  "overrides": {
+    "mini-css-extract-plugin": "2.4.5"
+  }
 }
