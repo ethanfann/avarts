@@ -4,6 +4,7 @@ import { useActivityByIdQuery } from '../../generated/graphql'
 import { MapBoxView } from './MapBoxView'
 import MetricRow from '../TimeLine/MetricRow'
 import DayJs from 'dayjs'
+import styled from 'styled-components'
 
 type DetailedActivityParams = {
   id: string
@@ -26,21 +27,18 @@ const DetailedActivity = () => {
   }
 
   return (
-    <>
+    <StyledContainer>
       {data && data.activityById && (
-        <div className="w-full w-lg-three-quarter">
-          <div className="card p-0 border-0">
-            <div className="px-card py-10 border-bottom">
-              <p
-                style={{ fontSize: 34 }}
-                className="m-0 pl-10 font-weight-bold"
-              >
+        <div className="w-full w-lg">
+          <div className="card border-0">
+            <div className="px-card border-bottom">
+              <p style={{ fontSize: 34 }} className="m-0 font-weight-bold">
                 {data.activityById.user.name} - Ride
               </p>
             </div>
             <div className="content">
               <div className="container-fluid">
-                <div className="row mb-5">
+                <div className="row mb-20">
                   <div className="col-2">
                     <div className="d-flex flex-column">
                       <img
@@ -80,8 +78,12 @@ const DetailedActivity = () => {
           </div>
         </div>
       )}
-    </>
+    </StyledContainer>
   )
 }
+
+const StyledContainer = styled.div`
+  max-width: 1200px;
+`
 
 export default DetailedActivity

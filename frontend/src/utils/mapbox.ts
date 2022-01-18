@@ -1,5 +1,4 @@
 const urlencode = require('urlencode')
-require('dotenv').config()
 
 const strokeWidth = 3
 const mapboxToken = process.env.REACT_APP_MAPBOX_TOKEN

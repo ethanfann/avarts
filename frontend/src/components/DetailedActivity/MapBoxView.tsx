@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react'
-import mapboxgl from 'mapbox-gl'
-import './styles.css'
-import 'mapbox-gl/dist/mapbox-gl.css'
-const polyline = require('@mapbox/polyline')
-require('dotenv').config()
+import React from 'react'
+import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet'
+import L from 'leaflet'
+import styled from 'styled-components'
+import * as greenIconUrl from '../../images/marker-icon-2x-green.png'
+import * as redIconUrl from '../../images/marker-icon-2x-red.png'
+import * as shadowIconUrl from '../../images/marker-shadow.png'
+import 'leaflet/dist/leaflet.css'
 
-mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
-  ? process.env.REACT_APP_MAPBOX_TOKEN
-  : ''
+const polyline = require('@mapbox/polyline')
 
 type MapBoxViewProps = {
   initPolyline: string
@@ -16,66 +16,47 @@ type MapBoxViewProps = {
 export const MapBoxView = (props: MapBoxViewProps) => {
   const { initPolyline } = props
 
-  const coords = polyline
-    .decode(initPolyline)
-    .map((coord: number[]) => [coord[1], coord[0]])
+  const mapboxToken = process.env.REACT_APP_MAPBOX_TOKEN
 
-  const mapContainer = useRef<any>(null)
-  const map = useRef<mapboxgl.Map | null>(null)
-  const [lng, setLng] = useState(coords[0][0])
-  const [lat, setLat] = useState(coords[0][1])
-  const [zoom, setZoom] = useState(9)
+  const coords = polyline.decode(initPolyline)
+  const start: L.LatLngExpression = [coords[0][0], coords[0][1]]
+  const end: L.LatLngExpression = [
+    coords[coords.length - 1][0],
+    coords[coords.length - 1][1],
+  ]
+  const bounds = new L.LatLngBounds(coords)
 
-  useEffect(() => {
-    if (map.current) return // initialize map only once
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [lng, lat],
-      zoom: zoom,
-      attributionControl: false,
-    })
-
-    const bounds = new mapboxgl.LngLatBounds(coords[0], coords[0])
-
-    for (const coord of coords) {
-      bounds.extend(coord)
-    }
-
-    map.current.on('load', () => {
-      if (map.current) {
-        map.current.addSource('route', {
-          type: 'geojson',
-          data: {
-            type: 'Feature',
-            properties: {},
-            geometry: {
-              type: 'LineString',
-              coordinates: coords,
-            },
-          },
-        })
-        map.current.addLayer({
-          id: 'route',
-          type: 'line',
-          source: 'route',
-          layout: {
-            'line-join': 'round',
-            'line-cap': 'round',
-          },
-          paint: {
-            'line-color': '#FF7F50',
-            'line-width': 4,
-          },
-        })
-        map.current.fitBounds(bounds, {
-          padding: 20,
-        })
-        map.current.scrollZoom.disable()
-        map.current.addControl(new mapboxgl.NavigationControl(), 'top-right')
-      }
-    })
+  const greenIcon = new L.Icon({
+    iconUrl: greenIconUrl.default,
+    shadowUrl: shadowIconUrl.default,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    shadowSize: [41, 41],
   })
 
-  return <div ref={mapContainer} className="mapboxgl-map map-container" />
+  const redIcon = new L.Icon({
+    iconUrl: redIconUrl.default,
+    shadowUrl: shadowIconUrl.default,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    shadowSize: [41, 41],
+  })
+
+  return (
+    <StyledMapContainer bounds={bounds} scrollWheelZoom={false}>
+      <TileLayer
+        attribution='&copy; <a href="">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        url={`https://api.mapbox.com/styles/v1/mapbox/outdoors-v9/tiles/{z}/{x}/{y}?access_token=${mapboxToken}`}
+      />
+      <Marker position={start} icon={greenIcon} />
+      <Marker position={end} icon={redIcon} />
+      <Polyline positions={coords} color="red" />
+    </StyledMapContainer>
+  )
 }
+
+const StyledMapContainer = styled(MapContainer)`
+  height: 400px;
+  width: 100%;
+  z-index: 1;
+`
