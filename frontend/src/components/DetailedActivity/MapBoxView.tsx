@@ -1,5 +1,5 @@
 import React from 'react'
-import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet'
+import { Map as MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet'
 import L from 'leaflet'
 import styled from 'styled-components'
 import * as greenIconUrl from '../../images/marker-icon-2x-green.png'
