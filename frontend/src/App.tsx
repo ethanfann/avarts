@@ -6,7 +6,7 @@ import { useMeQuery } from './generated/graphql'
 import UserContext from './userContext'
 import ThemeContext from './themeContext'
 import { toggleSidebar } from './utils/sideBar'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import SignUp from './components/SignUp'
 import UserSettings from './components/UserSettings'
 import UploadForm from './components/UploadForm'
@@ -110,26 +110,24 @@ const App: React.FC = () => {
                   {data.me.id !== '0' && <UploadForm userId={data.me.id} />}
                 </div>
 
-                <Router>
-                  <Header />
+                <Header />
 
-                  <>
-                    <div className="content-wrapper">
-                      <div className="container-fluid">
-                        <div className="d-flex justify-content-center">
-                          <Switch>
-                            <Route path="/settings" component={UserSettings} />
-                            <Route
-                              path="/activity/:id"
-                              component={DetailedActivity}
-                            />
-                            <Route path="/" component={Main} />
-                          </Switch>
-                        </div>
+                <>
+                  <div className="content-wrapper">
+                    <div className="container-fluid">
+                      <div className="d-flex justify-content-center">
+                        <Routes>
+                          <Route path="/settings" element={<UserSettings />} />
+                          <Route
+                            path="/activity/:id"
+                            element={<DetailedActivity />}
+                          />
+                          <Route path="/" element={<Main />} />
+                        </Routes>
                       </div>
                     </div>
-                  </>
-                </Router>
+                  </div>
+                </>
               </div>
             </>
           </UserContext.Provider>
@@ -138,17 +136,15 @@ const App: React.FC = () => {
             id="pageWrapper"
             className="page-wrapper with-navbar" //with-sidebar
           >
-            <Router>
-              <Header />
+            <Header />
 
-              <div className="content-wrapper">
-                <div className="container-fluid">
-                  <div className="d-flex justify-content-center">
-                    <SignUp />
-                  </div>
+            <div className="content-wrapper">
+              <div className="container-fluid">
+                <div className="d-flex justify-content-center">
+                  <SignUp />
                 </div>
               </div>
-            </Router>
+            </div>
           </div>
         )}
       </div>

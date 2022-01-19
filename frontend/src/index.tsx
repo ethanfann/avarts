@@ -6,6 +6,7 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { createUploadLink } from 'apollo-upload-client'
 import { offsetLimitPagination } from '@apollo/client/utilities'
+import { BrowserRouter } from 'react-router-dom'
 
 const uri =
   process.env.NODE_ENV === 'production'
@@ -43,7 +44,9 @@ export const client = new ApolloClient({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <React.StrictMode>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>
   </ApolloProvider>,
   document.getElementById('root')

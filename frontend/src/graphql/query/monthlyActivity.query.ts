@@ -6,6 +6,8 @@ export default gql`
       distance
       createdAt
       startTime
+      title
+      id
     }
   }
 `

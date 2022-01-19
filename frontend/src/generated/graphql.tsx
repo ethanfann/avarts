@@ -4,7 +4,7 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -370,7 +370,7 @@ export type MonthlyActivityQuery = (
   { __typename?: 'Query' }
   & { monthlyActivity: Array<(
     { __typename?: 'Activity' }
-    & Pick<Activity, 'distance' | 'createdAt' | 'startTime'>
+    & Pick<Activity, 'distance' | 'createdAt' | 'startTime' | 'title' | 'id'>
   )> }
 );
 
@@ -504,7 +504,9 @@ export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const SignUpDocument = gql`
     mutation signUp($email: String!, $firstName: String!, $lastName: String!, $password: String!, $passwordConfirmation: String!) {
-  signUp(attributes: {email: $email, firstName: $firstName, lastName: $lastName, password: $password, passwordConfirmation: $passwordConfirmation}) {
+  signUp(
+    attributes: {email: $email, firstName: $firstName, lastName: $lastName, password: $password, passwordConfirmation: $passwordConfirmation}
+  ) {
     token
   }
 }
@@ -608,7 +610,12 @@ export type UpdateUserNameMutationResult = Apollo.MutationResult<UpdateUserNameM
 export type UpdateUserNameMutationOptions = Apollo.BaseMutationOptions<UpdateUserNameMutation, UpdateUserNameMutationVariables>;
 export const UploadActivityDocument = gql`
     mutation uploadActivity($title: String!, $description: String!, $fitFile: Upload!, $userId: ID!) {
-  upload(title: $title, description: $description, fitFile: $fitFile, userId: $userId) {
+  upload(
+    title: $title
+    description: $description
+    fitFile: $fitFile
+    userId: $userId
+  ) {
     id
   }
 }
@@ -796,6 +803,8 @@ export const MonthlyActivityDocument = gql`
     distance
     createdAt
     startTime
+    title
+    id
   }
 }
     `;
