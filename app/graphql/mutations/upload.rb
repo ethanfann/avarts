@@ -39,7 +39,7 @@ module Mutations
             { x: record[:position_long], y: record[:position_lat] }
           end,
           factor,
-          true
+          true,
         )
       distance = Distance.calculate(coordinates)
       elevation = Elevation.calculate(coordinates)
@@ -50,6 +50,30 @@ module Mutations
           .to_datetime
       time_delta = ((end_time - start_time) * 24 * 60 * 60).to_i
 
+      polyline =
+        Polylines::Encoder.encode_points(
+          simplified.map { |record| [record[:y], record[:x]] },
+        )
+
+      read_image_light =
+        Mapbox::StaticMap.new.download(polyline, false, '#FF7F50')
+      read_image_dark =
+        Mapbox::StaticMap.new.download(polyline, true, '#FF7F50')
+
+      blob_light =
+        ActiveStorage::Blob.create_and_upload!(
+          io: read_image_light,
+          filename: read_image_light.original_filename + '.jpg',
+          content_type: read_image_light.content_type,
+        )
+
+      blob_dark =
+        ActiveStorage::Blob.create_and_upload!(
+          io: read_image_dark,
+          filename: read_image_dark.original_filename + '.jpg',
+          content_type: read_image_dark.content_type,
+        )
+
       Activity.create!(
         title: title,
         description: description,
@@ -57,11 +81,10 @@ module Mutations
         elevation: elevation,
         duration: time_delta,
         start_time: callbacks.activities[:records][0][:timestamp],
-        polyline:
-          Polylines::Encoder.encode_points(
-            simplified.map { |record| [record[:y], record[:x]] }
-          ),
-        user_id: user_id
+        polyline: polyline,
+        user_id: user_id,
+        map_img_dark: blob_dark,
+        map_img_light: blob_light,
       )
     end
   end
