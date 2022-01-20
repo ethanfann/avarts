@@ -60,6 +60,8 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     apollo_upload_server (2.0.1)
       graphql (>= 1.8)
       rails (>= 4.2)
@@ -108,6 +110,8 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
+    down (5.2.4)
+      addressable (~> 2.8)
     dry-auto_inject (0.7.0)
       dry-container (>= 0.3.4)
     dry-configurable (0.12.1)
@@ -162,6 +166,7 @@ GEM
     pg (1.2.3)
     polylines (0.4.0)
     prettier (2.0.0)
+    public_suffix (4.0.6)
     puma (5.2.2)
       nio4r (~> 2.0)
     racc (1.5.2)
@@ -277,6 +282,7 @@ DEPENDENCIES
   devise
   devise-jwt
   dotenv-rails
+  down
   factory_bot_rails
   faker
   graphql (~> 1.11.5)

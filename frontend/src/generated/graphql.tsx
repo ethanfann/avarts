@@ -26,6 +26,8 @@ export type Activity = {
   duration: Scalars['Int'];
   elevation: Scalars['Int'];
   id: Scalars['ID'];
+  mapImgDark: Scalars['String'];
+  mapImgLight: Scalars['String'];
   polyline: Scalars['String'];
   startTime: Scalars['Int'];
   title: Scalars['String'];
@@ -384,7 +386,7 @@ export type MyActivitiesQuery = (
   { __typename?: 'Query' }
   & { myActivities: Array<(
     { __typename?: 'Activity' }
-    & Pick<Activity, 'id' | 'title' | 'description' | 'polyline' | 'startTime' | 'duration' | 'elevation' | 'distance' | 'createdAt' | 'updatedAt'>
+    & Pick<Activity, 'id' | 'title' | 'description' | 'polyline' | 'startTime' | 'duration' | 'elevation' | 'distance' | 'createdAt' | 'updatedAt' | 'mapImgDark' | 'mapImgLight'>
     & { user: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'name' | 'img' | 'strokeColor' | 'token'>
@@ -504,9 +506,7 @@ export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const SignUpDocument = gql`
     mutation signUp($email: String!, $firstName: String!, $lastName: String!, $password: String!, $passwordConfirmation: String!) {
-  signUp(
-    attributes: {email: $email, firstName: $firstName, lastName: $lastName, password: $password, passwordConfirmation: $passwordConfirmation}
-  ) {
+  signUp(attributes: {email: $email, firstName: $firstName, lastName: $lastName, password: $password, passwordConfirmation: $passwordConfirmation}) {
     token
   }
 }
@@ -610,12 +610,7 @@ export type UpdateUserNameMutationResult = Apollo.MutationResult<UpdateUserNameM
 export type UpdateUserNameMutationOptions = Apollo.BaseMutationOptions<UpdateUserNameMutation, UpdateUserNameMutationVariables>;
 export const UploadActivityDocument = gql`
     mutation uploadActivity($title: String!, $description: String!, $fitFile: Upload!, $userId: ID!) {
-  upload(
-    title: $title
-    description: $description
-    fitFile: $fitFile
-    userId: $userId
-  ) {
+  upload(title: $title, description: $description, fitFile: $fitFile, userId: $userId) {
     id
   }
 }
@@ -848,6 +843,8 @@ export const MyActivitiesDocument = gql`
     distance
     createdAt
     updatedAt
+    mapImgDark
+    mapImgLight
     user {
       id
       name

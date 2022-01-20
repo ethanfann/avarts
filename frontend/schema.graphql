@@ -6,6 +6,8 @@ type Activity {
   duration: Int!
   elevation: Int!
   id: ID!
+  mapImgDark: String!
+  mapImgLight: String!
   polyline: String!
   startTime: Int!
   title: String!
