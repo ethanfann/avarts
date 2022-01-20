@@ -56,6 +56,8 @@ const TimeLine = () => {
                     comments={activity.activityComment}
                     commentEnabled={commentEnabled}
                     enableComment={enableComment}
+                    mapImgLight={activity.mapImgLight}
+                    mapImgDark={activity.mapImgDark}
                   />
                 ))}
 

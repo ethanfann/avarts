@@ -13,6 +13,8 @@ export default gql`
       distance
       createdAt
       updatedAt
+      mapImgDark
+      mapImgLight
       user {
         id
         name

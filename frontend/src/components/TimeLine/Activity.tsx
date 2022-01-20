@@ -24,6 +24,8 @@ type ActivityProps = {
   comments: any
   commentEnabled: CommentEnabledType | undefined
   enableComment: any
+  mapImgDark: string
+  mapImgLight: string
 }
 
 const Activity = (props: ActivityProps) => {
@@ -43,6 +45,8 @@ const Activity = (props: ActivityProps) => {
     comments,
     commentEnabled,
     enableComment,
+    mapImgLight,
+    mapImgDark,
   } = props
 
   const activityTime = (startTime: number) => {
@@ -59,8 +63,14 @@ const Activity = (props: ActivityProps) => {
   const activityImg = (
     polyline: string,
     darkMode: boolean,
-    strokeColor: string
+    strokeColor: string,
+    mapImgLight: string,
+    mapImgDark: string
   ) => {
+    if (mapImgDark !== '' && mapImgLight !== '') {
+      return darkMode ? mapImgDark : mapImgLight
+    }
+
     return staticRideImg(polyline, darkMode, strokeColor)
   }
 
@@ -123,7 +133,13 @@ const Activity = (props: ActivityProps) => {
         </div>
         <div className="align-center mt-10">
           <img
-            src={activityImg(polyline, darkMode, strokeColor)}
+            src={activityImg(
+              polyline,
+              darkMode,
+              strokeColor,
+              mapImgLight,
+              mapImgDark
+            )}
             className="img-fluid rounded w-full h-full"
             alt="activity route"
           />
