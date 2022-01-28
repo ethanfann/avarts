@@ -75,6 +75,16 @@ module Mutations
           content_type: read_image_dark.content_type,
         )
 
+      nonZeroCadence =
+        callbacks.activities[:records].select do |record|
+          record[:cadence] != nil && record[:cadence] != 0
+        end
+
+      nonZeroHr =
+        callbacks.activities[:records].select do |record|
+          record[:heart_rate] != nil && record[:heart_rate] != 0
+        end
+
       Activity.create!(
         title: title,
         description: description,
@@ -94,9 +104,10 @@ module Mutations
         min_elev: callbacks.activities[:min_elev],
         max_cadence: callbacks.activities[:max_cadence],
         avg_speed: callbacks.activities[:speed_total] / coords_length,
-        avg_hr: callbacks.activities[:hr_total] / coords_length,
+        avg_hr: callbacks.activities[:hr_total] / nonZeroHr.length,
         avg_power: callbacks.activities[:power_total] / coords_length,
-        avg_cadence: callbacks.activities[:cadence_total] / coords_length,
+        avg_cadence:
+          callbacks.activities[:cadence_total] / nonZeroCadence.length,
       )
     end
   end

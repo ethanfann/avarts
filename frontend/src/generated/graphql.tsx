@@ -353,7 +353,7 @@ export type ActivityByIdQuery = (
   { __typename?: 'Query' }
   & { activityById: (
     { __typename?: 'Activity' }
-    & Pick<Activity, 'id' | 'title' | 'description' | 'polyline' | 'startTime' | 'duration' | 'elevation' | 'distance' | 'createdAt'>
+    & Pick<Activity, 'id' | 'title' | 'description' | 'polyline' | 'startTime' | 'duration' | 'elevation' | 'distance' | 'createdAt' | 'maxPower' | 'avgPower' | 'maxSpeed' | 'avgSpeed' | 'maxHr' | 'minHr' | 'avgHr' | 'maxCadence' | 'avgCadence'>
     & { user: (
       { __typename?: 'User' }
       & Pick<User, 'name' | 'img'>
@@ -722,6 +722,15 @@ export const ActivityByIdDocument = gql`
     elevation
     distance
     createdAt
+    maxPower
+    avgPower
+    maxSpeed
+    avgSpeed
+    maxHr
+    minHr
+    avgHr
+    maxCadence
+    avgCadence
     user {
       name
       img

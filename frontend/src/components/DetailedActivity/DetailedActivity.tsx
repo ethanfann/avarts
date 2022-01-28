@@ -5,6 +5,7 @@ import { MapBoxView } from './MapBoxView'
 import MetricRow from '../TimeLine/MetricRow'
 import DayJs from 'dayjs'
 import styled from 'styled-components'
+import { formatSpeed } from '../../utils/conversions'
 
 type DetailedActivityParams = {
   id: string
@@ -40,33 +41,76 @@ const DetailedActivity = () => {
               <div className="container-fluid">
                 <div className="row mb-20">
                   <div className="col-2">
-                    <div className="d-flex flex-column">
-                      <img
-                        className="img-fluid rounded-circle mr-10"
-                        src={
-                          data.activityById.user.img
-                            ? data.activityById.user.img
-                            : 'default-user-avatar.png'
-                        }
-                        alt="user avatar"
-                      />
+                    <div className="d-flex flex-column mr-10">
+                      <div className="text-center">
+                        <img
+                          className="img-fluid rounded-circle"
+                          src={
+                            data.activityById.user.img
+                              ? data.activityById.user.img
+                              : 'default-user-avatar.png'
+                          }
+                          width={100}
+                          height={100}
+                          alt="user avatar"
+                        ></img>
+                      </div>
                     </div>
                   </div>
-                  <div className="col-10">
-                    {activityTime(data.activityById.startTime)}
-                    <p className="font-weight-bold m-0 font-size-24">
-                      {data.activityById.title}
-                    </p>
-                    {data.activityById.description !== '' && (
-                      <p className="mb-10 font-size-12">
-                        {data.activityById.description}
+                  <div className="col-4">
+                    <div className="m-5">
+                      {activityTime(data.activityById.startTime)}
+                      <p className="font-weight-bold m-0 font-size-24">
+                        {data.activityById.title}
                       </p>
-                    )}
-                    <MetricRow
-                      duration={data.activityById.duration}
-                      elevation={data.activityById.elevation}
-                      distance={data.activityById.distance}
-                    />
+                      {data.activityById.description !== '' && (
+                        <p className="mb-10 font-size-12">
+                          {data.activityById.description}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <div className="d-flex justify-content-center">
+                      <MetricRow
+                        duration={data.activityById.duration}
+                        elevation={data.activityById.elevation}
+                        distance={data.activityById.distance}
+                      />
+                    </div>
+                    <div className="table-responsive">
+                      <table className="table mt-20">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Avg</th>
+                            <th>Max</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Speed (mph)</td>
+                            <td>{formatSpeed(data.activityById.avgSpeed)}</td>
+                            <td>{formatSpeed(data.activityById.maxSpeed)}</td>
+                          </tr>
+                          <tr>
+                            <td>Power (w)</td>
+                            <td>{data.activityById.avgPower}</td>
+                            <td>{data.activityById.maxPower}</td>
+                          </tr>
+                          <tr>
+                            <td>Heart Rate</td>
+                            <td>{data.activityById.avgHr}</td>
+                            <td>{data.activityById.maxHr}</td>
+                          </tr>
+                          <tr>
+                            <td>Cadence</td>
+                            <td>{data.activityById.avgCadence}</td>
+                            <td>{data.activityById.maxCadence}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>

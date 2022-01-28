@@ -12,6 +12,15 @@ export default gql`
       elevation
       distance
       createdAt
+      maxPower
+      avgPower
+      maxSpeed
+      avgSpeed
+      maxHr
+      minHr
+      avgHr
+      maxCadence
+      avgCadence
       user {
         name
         img

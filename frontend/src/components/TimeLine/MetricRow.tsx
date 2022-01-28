@@ -29,37 +29,32 @@ const MetricRow = (props: Props) => {
   }
 
   return (
-    <>
-      <div className="d-flex w-sm-full w-md-three-quarter">
-        <div>
-          <Metric
-            header="Distance"
-            value={
-              <>
-                {(distance * 0.000621371).toFixed(2)}
-                <abbr>mi</abbr>
-              </>
-            }
-          />
-        </div>
-        <Divider />
-        <div className="">
-          <Metric
-            header="Elev Gain"
-            value={
-              <>
-                {elevGain(elevation).toString()}
-                <abbr>ft</abbr>
-              </>
-            }
-          />
-        </div>
-        <Divider />
-        <div className="">
-          <Metric header="Time" value={elapsedTime(duration)} />
-        </div>
-      </div>
-    </>
+    <div
+      style={{ minWidth: 190 }}
+      className="d-flex w-sm-full w-md-three-quarter"
+    >
+      <Metric
+        header="Distance"
+        value={
+          <>
+            {(distance * 0.000621371).toFixed(2)}
+            <abbr>mi</abbr>
+          </>
+        }
+      />
+      <Divider />
+      <Metric
+        header="Elev Gain"
+        value={
+          <>
+            {elevGain(elevation).toString()}
+            <abbr>ft</abbr>
+          </>
+        }
+      />
+      <Divider />
+      <Metric header="Time" value={elapsedTime(duration)} />
+    </div>
   )
 }
 
