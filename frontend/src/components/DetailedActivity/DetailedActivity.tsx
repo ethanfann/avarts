@@ -14,7 +14,7 @@ const DetailedActivity = () => {
   const { id } = useParams<DetailedActivityParams>()
 
   const { loading, error, data } = useActivityByIdQuery({
-    variables: { id: id },
+    variables: { id: id ? id : '' },
   })
 
   const activityTime = (startTime: number) => {
@@ -70,10 +70,11 @@ const DetailedActivity = () => {
                   </div>
                 </div>
               </div>
-
-              {data && data.activityById && (
-                <MapBoxView initPolyline={data.activityById.polyline} />
-              )}
+              <div style={{ height: '400px', width: '100%' }}>
+                {data && data.activityById && (
+                  <MapBoxView initPolyline={data.activityById.polyline} />
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -83,6 +84,7 @@ const DetailedActivity = () => {
 }
 
 const StyledContainer = styled.div`
+  width: 100%;
   max-width: 1200px;
 `
 

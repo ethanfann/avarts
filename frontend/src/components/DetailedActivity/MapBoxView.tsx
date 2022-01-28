@@ -1,7 +1,6 @@
 import React from 'react'
 import { Map as MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet'
 import L from 'leaflet'
-import styled from 'styled-components'
 import * as greenIconUrl from '../../images/marker-icon-2x-green.png'
 import * as redIconUrl from '../../images/marker-icon-2x-red.png'
 import * as shadowIconUrl from '../../images/marker-shadow.png'
@@ -43,20 +42,19 @@ export const MapBoxView = (props: MapBoxViewProps) => {
   })
 
   return (
-    <StyledMapContainer bounds={bounds} scrollWheelZoom={false}>
+    <MapContainer
+      bounds={bounds}
+      scrollWheelZoom={false}
+      style={{ height: '400px', width: '100%', zIndex: 1 }}
+      zoom={13}
+    >
       <TileLayer
-        attribution='&copy; <a href="">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        attribution='&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url={`https://api.mapbox.com/styles/v1/mapbox/outdoors-v9/tiles/{z}/{x}/{y}?access_token=${mapboxToken}`}
       />
       <Marker position={start} icon={greenIcon} />
       <Marker position={end} icon={redIcon} />
       <Polyline positions={coords} color="red" />
-    </StyledMapContainer>
+    </MapContainer>
   )
 }
-
-const StyledMapContainer = styled(MapContainer)`
-  height: 400px;
-  width: 100%;
-  z-index: 1;
-`
