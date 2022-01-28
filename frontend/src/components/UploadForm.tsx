@@ -122,7 +122,7 @@ const UploadForm = (props: Props) => {
                     e.target.files && handleFileChosen(e.target.files[0])
                   }}
                 />
-                <p className="text-muted font-size-12">
+                <p className="text-muted font-size-12 text-truncate">
                   {selectedFile ? selectedFile.name : 'No file selected'}
                 </p>
               </div>
