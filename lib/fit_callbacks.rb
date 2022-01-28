@@ -50,7 +50,10 @@ class FitCallbacks
       cp[:speed] = msg['speed'] if msg['speed']
       cp[:temperature] = msg['temperature'] if msg['temperature']
 
-      @activity[:speed_total] += cp[:speed] if cp[:speed]
+      if cp[:speed]
+        @activity[:max_speed] = cp[:speed] if cp[:speed] > @activity[:max_speed]
+        @activity[:speed_total] += cp[:speed]
+      end
 
       if cp[:power]
         @activity[:max_power] = cp[:power] if cp[:power] > @activity[:max_power]
