@@ -20,6 +20,10 @@ export type Scalars = {
 export type Activity = {
   __typename?: 'Activity';
   activityComment: Array<ActivityComment>;
+  avgCadence: Scalars['Int'];
+  avgHr: Scalars['Int'];
+  avgPower: Scalars['Int'];
+  avgSpeed: Scalars['Int'];
   createdAt: Scalars['ISO8601DateTime'];
   description: Scalars['String'];
   distance: Scalars['Int'];
@@ -28,6 +32,13 @@ export type Activity = {
   id: Scalars['ID'];
   mapImgDark: Scalars['String'];
   mapImgLight: Scalars['String'];
+  maxCadence: Scalars['Int'];
+  maxElev: Scalars['Int'];
+  maxHr: Scalars['Int'];
+  maxPower: Scalars['Int'];
+  maxSpeed: Scalars['Int'];
+  minElev: Scalars['Int'];
+  minHr: Scalars['Int'];
   polyline: Scalars['String'];
   startTime: Scalars['Int'];
   title: Scalars['String'];

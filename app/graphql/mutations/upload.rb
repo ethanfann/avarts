@@ -13,14 +13,15 @@ module Mutations
       callbacks = FitCallbacks.new
       parser = RubyFit::FitParser.new(callbacks)
       parser.parse(fit_file.read)
-      coords_length = callbacks.activities[:records].length
+
+      byebug
 
       coordinates =
         callbacks.activities[:records].map do |record|
           [record[:position_long], record[:position_lat], record[:altitude]]
         end
 
-      data_points = coords_length
+      coords_length = callbacks.activities[:records].length
       if (coords_length > 10_000)
         factor = 0.0099
       elsif (coords_length > 5000)
@@ -85,6 +86,17 @@ module Mutations
         user_id: user_id,
         map_img_dark: blob_dark,
         map_img_light: blob_light,
+        max_power: callbacks.activities[:max_power],
+        max_speed: callbacks.activities[:max_speed],
+        max_hr: callbacks.activities[:max_hr],
+        min_hr: callbacks.activities[:min_hr],
+        max_elev: callbacks.activities[:max_elev],
+        min_elev: callbacks.activities[:min_elev],
+        max_cadence: callbacks.activities[:max_cadence],
+        avg_speed: callbacks.activities[:speed_total] / coords_length,
+        avg_hr: callbacks.activities[:hr_total] / coords_length,
+        avg_power: callbacks.activities[:power_total] / coords_length,
+        avg_cadence: callbacks.activities[:cadence_total] / coords_length,
       )
     end
   end

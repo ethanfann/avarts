@@ -1,5 +1,9 @@
 type Activity {
   activityComment: [ActivityComment!]!
+  avgCadence: Int!
+  avgHr: Int!
+  avgPower: Int!
+  avgSpeed: Int!
   createdAt: ISO8601DateTime!
   description: String!
   distance: Int!
@@ -8,6 +12,13 @@ type Activity {
   id: ID!
   mapImgDark: String!
   mapImgLight: String!
+  maxCadence: Int!
+  maxElev: Int!
+  maxHr: Int!
+  maxPower: Int!
+  maxSpeed: Int!
+  minElev: Int!
+  minHr: Int!
   polyline: String!
   startTime: Int!
   title: String!
