@@ -29,10 +29,7 @@ const MetricRow = (props: Props) => {
   }
 
   return (
-    <div
-      style={{ minWidth: 190 }}
-      className="d-flex w-sm-full w-md-three-quarter"
-    >
+    <div style={{ minWidth: 190 }} className="d-flex w-full">
       <Metric
         header="Distance"
         value={
