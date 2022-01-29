@@ -5,6 +5,7 @@ export type UserType = {
   name: string
   img: string
   latestActivity: {
+    id: string
     title: string
     createdAt: string
     startTime: number
@@ -26,6 +27,7 @@ const UserContext = createContext<ContextType>({
     name: '',
     img: '',
     latestActivity: {
+      id: '',
       title: '',
       createdAt: '',
       startTime: 0,

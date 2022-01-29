@@ -371,7 +371,7 @@ export type MeQuery = (
     & Pick<User, 'id' | 'name' | 'email' | 'img' | 'activityCount' | 'firstName' | 'lastName' | 'strokeColor'>
     & { latestActivity?: Maybe<(
       { __typename?: 'Activity' }
-      & Pick<Activity, 'title' | 'createdAt' | 'startTime'>
+      & Pick<Activity, 'id' | 'title' | 'createdAt' | 'startTime'>
     )> }
   )> }
 );
@@ -774,6 +774,7 @@ export const MeDocument = gql`
     email
     img
     latestActivity {
+      id
       title
       createdAt
       startTime

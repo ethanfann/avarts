@@ -1,6 +1,7 @@
 import DayJs from 'dayjs'
 import React from 'react'
 import UserContext from '../userContext'
+import { Link } from 'react-router-dom'
 
 const UserCard: React.FC = () => {
   return (
@@ -33,7 +34,10 @@ const UserCard: React.FC = () => {
                     Latest Activity
                   </p>
                   <p className=" text-left mt-0 pt-0 font-size 12">
-                    <strong>{ctx.user.latestActivity.title} • </strong>
+                    <Link to={`/activity/${ctx.user.latestActivity.id}`}>
+                      <strong>{ctx.user.latestActivity.title}</strong>
+                    </Link>
+                    <strong> • </strong>
                     <span className="font-weight-normal">
                       {DayJs.unix(ctx.user.latestActivity.startTime).format(
                         'MMMM D, YYYY'

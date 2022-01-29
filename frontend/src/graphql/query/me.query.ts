@@ -8,6 +8,7 @@ export default gql`
       email
       img
       latestActivity {
+        id
         title
         createdAt
         startTime
