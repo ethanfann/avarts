@@ -14,8 +14,6 @@ module Mutations
       parser = RubyFit::FitParser.new(callbacks)
       parser.parse(fit_file.read)
 
-      byebug
-
       coordinates =
         callbacks.activities[:records].map do |record|
           [record[:position_long], record[:position_lat], record[:altitude]]
