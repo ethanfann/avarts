@@ -1,4 +1,3 @@
-<br />
 <p align="center">
   <a href="https://github.com/ethanfann/avarts">
   </a>
@@ -6,11 +5,15 @@
   <h3 align="center">Avarts</h3>
 
   <p align="center">
-		Avarts is a Covid-19 mini-project to recreate some of the basic features of https://strava.com.
+		Avarts (name change pending) is an open-source, self-hostable, and private fitness app with some of the basic features from <a href="https://strava.com">Strava</a>.
   </p>
 </p>
 
+<br />
+
 <a href="https://imgur.com/bP3Xszb"><img src="https://i.imgur.com/bP3Xszb.gif" title="source: imgur.com" /></a>
+
+<br />
 
 ## About The Project
 
