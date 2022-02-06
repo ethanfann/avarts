@@ -198,6 +198,7 @@ export type User = {
   img: Scalars['String'];
   lastName: Scalars['String'];
   latestActivity?: Maybe<Activity>;
+  measurementPreference: Scalars['String'];
   name: Scalars['String'];
   strokeColor: Scalars['String'];
   token: Scalars['String'];
@@ -368,7 +369,7 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'name' | 'email' | 'img' | 'activityCount' | 'firstName' | 'lastName' | 'strokeColor'>
+    & Pick<User, 'id' | 'name' | 'email' | 'img' | 'activityCount' | 'firstName' | 'lastName' | 'strokeColor' | 'measurementPreference'>
     & { latestActivity?: Maybe<(
       { __typename?: 'Activity' }
       & Pick<Activity, 'id' | 'title' | 'createdAt' | 'startTime'>
@@ -783,6 +784,7 @@ export const MeDocument = gql`
     firstName
     lastName
     strokeColor
+    measurementPreference
   }
 }
     `;
