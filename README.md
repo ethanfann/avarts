@@ -11,7 +11,7 @@
 
 <br />
 
-<a href="https://imgur.com/bP3Xszb"><img src="https://i.imgur.com/bP3Xszb.gif" title="source: imgur.com" /></a>
+<img src="https://i.imgur.com/sBIw5x8.gif" title="source: imgur.com" />
 
 <br />
 
