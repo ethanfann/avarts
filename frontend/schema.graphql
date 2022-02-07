@@ -89,6 +89,11 @@ type Mutation {
   updateImg(img: Upload!): User
 
   """
+  Update user measurement preference
+  """
+  updateMeasurementPreference(measurementPreference: String): User
+
+  """
   Update user name
   """
   updateName(firstName: String, lastName: String): User

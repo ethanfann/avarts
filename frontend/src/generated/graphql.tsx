@@ -78,6 +78,8 @@ export type Mutation = {
   unlock: Scalars['Boolean'];
   /** Update user img */
   updateImg?: Maybe<User>;
+  /** Update user measurement preference */
+  updateMeasurementPreference?: Maybe<User>;
   /** Update user name */
   updateName?: Maybe<User>;
   /** Update user */
@@ -133,6 +135,11 @@ export type MutationUnlockArgs = {
 
 export type MutationUpdateImgArgs = {
   img: Scalars['Upload'];
+};
+
+
+export type MutationUpdateMeasurementPreferenceArgs = {
+  measurementPreference?: Maybe<Scalars['String']>;
 };
 
 
@@ -302,6 +309,19 @@ export type UpdateUserNameMutation = (
   & { updateName?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'name'>
+  )> }
+);
+
+export type UpdateMeasurementPreferenceMutationVariables = Exact<{
+  measurementPreference: Scalars['String'];
+}>;
+
+
+export type UpdateMeasurementPreferenceMutation = (
+  { __typename?: 'Mutation' }
+  & { updateMeasurementPreference?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'measurementPreference'>
   )> }
 );
 
@@ -620,6 +640,39 @@ export function useUpdateUserNameMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateUserNameMutationHookResult = ReturnType<typeof useUpdateUserNameMutation>;
 export type UpdateUserNameMutationResult = Apollo.MutationResult<UpdateUserNameMutation>;
 export type UpdateUserNameMutationOptions = Apollo.BaseMutationOptions<UpdateUserNameMutation, UpdateUserNameMutationVariables>;
+export const UpdateMeasurementPreferenceDocument = gql`
+    mutation updateMeasurementPreference($measurementPreference: String!) {
+  updateMeasurementPreference(measurementPreference: $measurementPreference) {
+    measurementPreference
+  }
+}
+    `;
+export type UpdateMeasurementPreferenceMutationFn = Apollo.MutationFunction<UpdateMeasurementPreferenceMutation, UpdateMeasurementPreferenceMutationVariables>;
+
+/**
+ * __useUpdateMeasurementPreferenceMutation__
+ *
+ * To run a mutation, you first call `useUpdateMeasurementPreferenceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateMeasurementPreferenceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateMeasurementPreferenceMutation, { data, loading, error }] = useUpdateMeasurementPreferenceMutation({
+ *   variables: {
+ *      measurementPreference: // value for 'measurementPreference'
+ *   },
+ * });
+ */
+export function useUpdateMeasurementPreferenceMutation(baseOptions?: Apollo.MutationHookOptions<UpdateMeasurementPreferenceMutation, UpdateMeasurementPreferenceMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateMeasurementPreferenceMutation, UpdateMeasurementPreferenceMutationVariables>(UpdateMeasurementPreferenceDocument, options);
+      }
+export type UpdateMeasurementPreferenceMutationHookResult = ReturnType<typeof useUpdateMeasurementPreferenceMutation>;
+export type UpdateMeasurementPreferenceMutationResult = Apollo.MutationResult<UpdateMeasurementPreferenceMutation>;
+export type UpdateMeasurementPreferenceMutationOptions = Apollo.BaseMutationOptions<UpdateMeasurementPreferenceMutation, UpdateMeasurementPreferenceMutationVariables>;
 export const UploadActivityDocument = gql`
     mutation uploadActivity($title: String!, $description: String!, $fitFile: Upload!, $userId: ID!) {
   upload(title: $title, description: $description, fitFile: $fitFile, userId: $userId) {

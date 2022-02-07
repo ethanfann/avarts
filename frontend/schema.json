@@ -1006,6 +1006,31 @@
               "deprecationReason": null
             },
             {
+              "name": "updateMeasurementPreference",
+              "description": "Update user measurement preference",
+              "args": [
+                {
+                  "name": "measurementPreference",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "updateName",
               "description": "Update user name",
               "args": [
