@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   useUpdateUserNameMutation,
   useUpdateUserImgMutation,
+  useUpdateMeasurementPreferenceMutation,
 } from '../generated/graphql'
 
 const UserSettings = () => {
@@ -12,10 +13,14 @@ const UserSettings = () => {
 
   const [firstName, setFirstName] = useState(user.firstName)
   const [lastName, setLastName] = useState(user.lastName)
+  const [measurementPreference, setMeasurementPreference] = useState(
+    user.measurementPreference
+  )
   const [edit, setEdit] = useState(false)
 
   const [updateUserName] = useUpdateUserNameMutation()
   const [updateUserImg] = useUpdateUserImgMutation()
+  const [updateMeasurementPreference] = useUpdateMeasurementPreferenceMutation()
 
   const toggleEdit = () => {
     setEdit(!edit)
@@ -48,6 +53,21 @@ const UserSettings = () => {
       await updateUserImg({
         variables: {
           img: img,
+        },
+        refetchQueries: ['me'],
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleMeasurementPreferenceChange = async (
+    measurementPreference: string
+  ) => {
+    try {
+      await updateMeasurementPreference({
+        variables: {
+          measurementPreference: measurementPreference,
         },
         refetchQueries: ['me'],
       })
@@ -144,6 +164,36 @@ const UserSettings = () => {
                   />
                 </form>
               )}
+            </div>
+
+            <p className="font-weight-bold">Measurement Preference</p>
+            <div className="custom-radio d-inline-block mr-10">
+              <input
+                type="radio"
+                name="radio-set-1"
+                id="radio-1"
+                value="feet"
+                checked={measurementPreference === 'feet'}
+                onChange={(e) => {
+                  setMeasurementPreference(e.target.value)
+                  handleMeasurementPreferenceChange(e.target.value)
+                }}
+              />
+              <label htmlFor="radio-1">Imperial (feet)</label>
+            </div>
+            <div className="custom-radio d-inline-block">
+              <input
+                type="radio"
+                name="radio-set-1"
+                id="radio-2"
+                value="meters"
+                checked={measurementPreference === 'meters'}
+                onChange={(e) => {
+                  setMeasurementPreference(e.target.value)
+                  handleMeasurementPreferenceChange(e.target.value)
+                }}
+              />
+              <label htmlFor="radio-2">Metric (meters)</label>
             </div>
           </div>
         </div>
