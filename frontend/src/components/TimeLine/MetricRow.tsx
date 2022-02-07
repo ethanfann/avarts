@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import UserContext from '../../userContext'
 import Metric from './Metric'
 
 type Props = {
@@ -10,9 +11,18 @@ type Props = {
 
 const MetricRow = (props: Props) => {
   const { distance, elevation, duration } = props
+  const { user } = useContext(UserContext)
 
   const elevGain = (elevation: number) => {
-    return Math.round(elevation * 3.28084)
+    return user.measurementPreference === 'feet'
+      ? Math.round(elevation * 3.28084)
+      : elevation
+  }
+
+  const formatDistance = (distance: number) => {
+    return user.measurementPreference === 'feet'
+      ? (distance * 0.000621371).toFixed(2)
+      : (distance / 1000).toFixed(2)
   }
 
   const elapsedTime = (duration: number) => {
@@ -34,8 +44,8 @@ const MetricRow = (props: Props) => {
         header="Distance"
         value={
           <>
-            {(distance * 0.000621371).toFixed(2)}
-            <abbr>mi</abbr>
+            {formatDistance(distance)}
+            <abbr>{user.measurementPreference === 'feet' ? 'mi' : 'km'}</abbr>
           </>
         }
       />
@@ -45,7 +55,7 @@ const MetricRow = (props: Props) => {
         value={
           <>
             {elevGain(elevation).toString()}
-            <abbr>ft</abbr>
+            <abbr>{user.measurementPreference === 'feet' ? 'ft' : 'm'}</abbr>
           </>
         }
       />

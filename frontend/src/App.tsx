@@ -92,6 +92,7 @@ const App: React.FC = () => {
                 firstName: data.me.firstName,
                 lastName: data.me.lastName,
                 strokeColor: data.me.strokeColor,
+                measurementPreference: data.me.measurementPreference,
               },
               refetch: refetch,
             }}
