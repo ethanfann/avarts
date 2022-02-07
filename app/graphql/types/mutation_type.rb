@@ -17,5 +17,7 @@ module Types
     field :delete_activity_comment, mutation: Mutations::DeleteActivityComment
     field :update_name, mutation: Mutations::User::UpdateName
     field :update_img, mutation: Mutations::User::UpdateImg
+    field :update_measurement_preference,
+          mutation: Mutations::User::UpdateMeasurementPreference
   end
 end
