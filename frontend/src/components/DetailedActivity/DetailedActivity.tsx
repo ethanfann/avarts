@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useActivityByIdQuery } from '../../generated/graphql'
 import { MapBoxView } from './MapBoxView'
@@ -6,6 +6,7 @@ import MetricRow from '../TimeLine/MetricRow'
 import DayJs from 'dayjs'
 import styled from 'styled-components'
 import { formatSpeed } from '../../utils/conversions'
+import UserContext from '../../userContext'
 
 type DetailedActivityParams = {
   id: string
@@ -14,6 +15,7 @@ type DetailedActivityParams = {
 const DetailedActivity = () => {
   const { id } = useParams<DetailedActivityParams>()
   const [width, setWidth] = useState<number>(window.innerWidth)
+  const { user } = useContext(UserContext)
 
   const handleWindowSizeChange = () => {
     setWidth(window.innerWidth)
@@ -106,9 +108,25 @@ const DetailedActivity = () => {
                           </thead>
                           <tbody>
                             <tr>
-                              <td>Speed (mph)</td>
-                              <td>{formatSpeed(data.activityById.avgSpeed)}</td>
-                              <td>{formatSpeed(data.activityById.maxSpeed)}</td>
+                              <td>
+                                Speed (
+                                {user.measurementPreference === 'feet'
+                                  ? 'mph'
+                                  : 'kph'}
+                                )
+                              </td>
+                              <td>
+                                {formatSpeed(
+                                  data.activityById.avgSpeed,
+                                  user.measurementPreference
+                                )}
+                              </td>
+                              <td>
+                                {formatSpeed(
+                                  data.activityById.maxSpeed,
+                                  user.measurementPreference
+                                )}
+                              </td>
                             </tr>
                             <tr>
                               <td>Power (w)</td>
@@ -205,9 +223,25 @@ const DetailedActivity = () => {
                           </thead>
                           <tbody>
                             <tr>
-                              <td>Speed (mph)</td>
-                              <td>{formatSpeed(data.activityById.avgSpeed)}</td>
-                              <td>{formatSpeed(data.activityById.maxSpeed)}</td>
+                              <td>
+                                Speed (
+                                {user.measurementPreference === 'feet'
+                                  ? 'mph'
+                                  : 'kph'}
+                                )
+                              </td>
+                              <td>
+                                {formatSpeed(
+                                  data.activityById.avgSpeed,
+                                  user.measurementPreference
+                                )}
+                              </td>
+                              <td>
+                                {formatSpeed(
+                                  data.activityById.maxSpeed,
+                                  user.measurementPreference
+                                )}
+                              </td>
                             </tr>
                             <tr>
                               <td>Power (w)</td>
