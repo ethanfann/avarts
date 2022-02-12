@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader'
 import { useMyActivitiesQuery } from '../../generated/graphql'
 import ThemeContext from '../../themeContext'
@@ -8,6 +8,8 @@ import UserContext from '../../userContext'
 
 const TimeLine = () => {
   const [commentEnabled, enableComment] = useState<CommentEnabledType>()
+  const { user } = useContext(UserContext)
+  const { darkMode } = useContext(ThemeContext)
 
   const { loading, error, data, fetchMore } = useMyActivitiesQuery({
     variables: { limit: 10, offset: 0 },
@@ -32,62 +34,55 @@ const TimeLine = () => {
   }
 
   return (
-    <UserContext.Consumer>
-      {(userCtx) => (
-        <ThemeContext.Consumer>
-          {(themeCtx) => (
-            <div>
-              {data &&
-                data.myActivities.map((activity, index) => (
-                  <Activity
-                    key={index}
-                    id={activity.id}
-                    img={activity.user.img}
-                    name={activity.user.name}
-                    startTime={activity.startTime}
-                    title={activity.title}
-                    description={activity.description}
-                    polyline={activity.polyline}
-                    duration={activity.duration}
-                    elevation={activity.elevation}
-                    distance={activity.distance}
-                    darkMode={themeCtx.darkMode}
-                    strokeColor={userCtx.user.strokeColor}
-                    comments={activity.activityComment}
-                    commentEnabled={commentEnabled}
-                    enableComment={enableComment}
-                    mapImgLight={activity.mapImgLight}
-                    mapImgDark={activity.mapImgDark}
-                  />
-                ))}
+    <div>
+      {data &&
+        data.myActivities.map((activity, index) => (
+          <Activity
+            key={index}
+            id={activity.id}
+            img={activity.user.img}
+            name={activity.user.name}
+            startTime={activity.startTime}
+            title={activity.title}
+            description={activity.description}
+            polyline={activity.polyline}
+            duration={activity.duration}
+            elevation={activity.elevation}
+            distance={activity.distance}
+            darkMode={darkMode}
+            strokeColor={user.strokeColor}
+            comments={activity.activityComment}
+            commentEnabled={commentEnabled}
+            enableComment={enableComment}
+            mapImgLight={activity.mapImgLight}
+            mapImgDark={activity.mapImgDark}
+            mapboxToken={user.mapboxToken}
+          />
+        ))}
 
-              <div
-                style={{
-                  margin: 40,
-                  display: 'flex',
-                  justifyContent: 'center',
-                }}
-              >
-                {data &&
-                  data.myActivities &&
-                  data.myActivities.length !== userCtx.user.activityCount && (
-                    <button
-                      className="btn"
-                      onClick={async () =>
-                        fetchMore({
-                          variables: { offset: data.myActivities.length },
-                        })
-                      }
-                    >
-                      Load More
-                    </button>
-                  )}
-              </div>
-            </div>
+      <div
+        style={{
+          margin: 40,
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        {data &&
+          data.myActivities &&
+          data.myActivities.length !== user.activityCount && (
+            <button
+              className="btn"
+              onClick={async () =>
+                fetchMore({
+                  variables: { offset: data.myActivities.length },
+                })
+              }
+            >
+              Load More
+            </button>
           )}
-        </ThemeContext.Consumer>
-      )}
-    </UserContext.Consumer>
+      </div>
+    </div>
   )
 }
 

@@ -6,5 +6,6 @@ module Types
     field :my_activities, resolver: Resolvers::MyActivities
     field :monthly_activity, resolver: Resolvers::MonthlyActivity
     field :activity_by_id, resolver: Resolvers::ActivityById
+    field :mapbox_token, resolver: Resolvers::MapboxToken
   end
 end

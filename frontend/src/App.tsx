@@ -93,6 +93,7 @@ const App: React.FC = () => {
                 lastName: data.me.lastName,
                 strokeColor: data.me.strokeColor,
                 measurementPreference: data.me.measurementPreference,
+                mapboxToken: data.mapboxToken,
               },
               refetch: refetch,
             }}

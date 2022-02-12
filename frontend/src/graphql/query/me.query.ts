@@ -19,5 +19,6 @@ export default gql`
       strokeColor
       measurementPreference
     }
+    mapboxToken
   }
 `
