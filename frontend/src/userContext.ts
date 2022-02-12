@@ -15,6 +15,7 @@ export type UserType = {
   lastName: string
   strokeColor: string
   measurementPreference: string
+  mapboxToken: string
 }
 
 export type ContextType = {
@@ -38,6 +39,7 @@ const UserContext = createContext<ContextType>({
     lastName: '',
     strokeColor: '',
     measurementPreference: '',
+    mapboxToken: '',
   },
   refetch: () => {},
 })
