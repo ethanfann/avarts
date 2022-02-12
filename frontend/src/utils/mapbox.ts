@@ -1,7 +1,6 @@
 const urlencode = require('urlencode')
 
 const strokeWidth = 3
-const mapboxToken = process.env.REACT_APP_MAPBOX_TOKEN
 
 function makePath(polyline: string, strokeColor: string) {
   return `path-${strokeWidth}+${strokeColor.replace('#', '')}(${polyline})`
@@ -10,7 +9,8 @@ function makePath(polyline: string, strokeColor: string) {
 export function staticRideImg(
   polyline: string,
   darkMode: boolean,
-  strokeColor: string
+  strokeColor: string,
+  mapboxToken: string
 ) {
   const mapType: string = darkMode === true ? 'dark-v10' : 'outdoors-v11'
 

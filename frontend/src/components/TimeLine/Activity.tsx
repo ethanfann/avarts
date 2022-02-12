@@ -26,6 +26,7 @@ type ActivityProps = {
   enableComment: any
   mapImgDark: string
   mapImgLight: string
+  mapboxToken: string
 }
 
 const Activity = (props: ActivityProps) => {
@@ -47,6 +48,7 @@ const Activity = (props: ActivityProps) => {
     enableComment,
     mapImgLight,
     mapImgDark,
+    mapboxToken,
   } = props
 
   const activityTime = (startTime: number) => {
@@ -65,13 +67,14 @@ const Activity = (props: ActivityProps) => {
     darkMode: boolean,
     strokeColor: string,
     mapImgLight: string,
-    mapImgDark: string
+    mapImgDark: string,
+    mapboxToken: string
   ) => {
     if (mapImgDark !== '' && mapImgLight !== '') {
       return darkMode ? mapImgDark : mapImgLight
     }
 
-    return staticRideImg(polyline, darkMode, strokeColor)
+    return staticRideImg(polyline, darkMode, strokeColor, mapboxToken)
   }
 
   const toggleComment = (comment: CommentEnabledType) => {
@@ -138,7 +141,8 @@ const Activity = (props: ActivityProps) => {
               darkMode,
               strokeColor,
               mapImgLight,
-              mapImgDark
+              mapImgDark,
+              mapboxToken
             )}
             className="img-fluid rounded w-full h-full"
             alt="activity route"

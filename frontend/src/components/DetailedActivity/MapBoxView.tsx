@@ -11,13 +11,12 @@ const polyline = require('@mapbox/polyline')
 
 type MapBoxViewProps = {
   initPolyline: string
+  mapboxToken: string
 }
 
 export const MapBoxView = (props: MapBoxViewProps) => {
-  const { initPolyline } = props
+  const { initPolyline, mapboxToken } = props
   const { darkMode } = useContext(ThemeContext)
-
-  const mapboxToken = process.env.REACT_APP_MAPBOX_TOKEN
 
   const coords = polyline.decode(initPolyline)
   const start: L.LatLngExpression = [coords[0][0], coords[0][1]]

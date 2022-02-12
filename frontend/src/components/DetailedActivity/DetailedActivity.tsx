@@ -151,7 +151,10 @@ const DetailedActivity = () => {
                 </div>
                 <div style={{ height: '400px', width: '100%' }}>
                   {data && data.activityById && (
-                    <MapBoxView initPolyline={data.activityById.polyline} />
+                    <MapBoxView
+                      initPolyline={data.activityById.polyline}
+                      mapboxToken={user.mapboxToken}
+                    />
                   )}
                 </div>
               </div>
@@ -266,7 +269,10 @@ const DetailedActivity = () => {
                 </div>
                 <div style={{ height: '400px', width: '100%' }}>
                   {data && data.activityById && (
-                    <MapBoxView initPolyline={data.activityById.polyline} />
+                    <MapBoxView
+                      initPolyline={data.activityById.polyline}
+                      mapboxToken={user.mapboxToken}
+                    />
                   )}
                 </div>
               </div>
