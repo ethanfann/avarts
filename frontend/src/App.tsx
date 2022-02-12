@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Header from './components/Header'
-import Main from './components/Main'
 import UserCard from './components/UserCard'
 import { useMeQuery } from './generated/graphql'
 import UserContext from './userContext'
@@ -8,6 +7,7 @@ import ThemeContext from './themeContext'
 import { toggleSidebar } from './utils/sideBar'
 import { Routes, Route } from 'react-router-dom'
 import SignUp from './components/SignUp'
+import TimeLine from './components/TimeLine'
 import UserSettings from './components/UserSettings'
 import UploadForm from './components/UploadForm'
 import DetailedActivity from './components/DetailedActivity/DetailedActivity'
@@ -112,22 +112,18 @@ const App: React.FC = () => {
 
                 <Header />
 
-                <>
-                  <div className="content-wrapper">
-                    <div className="container-fluid">
-                      <div className="d-flex justify-content-center">
-                        <Routes>
-                          <Route path="/settings" element={<UserSettings />} />
-                          <Route
-                            path="/activity/:id"
-                            element={<DetailedActivity />}
-                          />
-                          <Route path="/" element={<Main />} />
-                        </Routes>
-                      </div>
-                    </div>
+                <div className="content-wrapper">
+                  <div className="container">
+                    <Routes>
+                      <Route path="/settings" element={<UserSettings />} />
+                      <Route
+                        path="/activity/:id"
+                        element={<DetailedActivity />}
+                      />
+                      <Route path="/" element={<TimeLine />} />
+                    </Routes>
                   </div>
-                </>
+                </div>
               </div>
             </>
           </UserContext.Provider>

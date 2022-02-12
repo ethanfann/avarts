@@ -77,8 +77,8 @@ const UserSettings = () => {
   }
 
   return (
-    <div className="w-full w-lg-three-quarter">
-      <div className="card p-0 border-0">
+    <div className="w-full">
+      <div className="card border-0">
         <div className="px-card py-10 border-bottom">
           <p style={{ fontSize: 34 }} className="m-0 pl-10 font-weight-bold">
             My Profile
