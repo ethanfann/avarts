@@ -5,6 +5,7 @@ import ThemeContext from '../../themeContext'
 import { CommentEnabledType } from '../../types/types'
 import Activity from './Activity'
 import UserContext from '../../userContext'
+import styled from 'styled-components'
 
 const TimeLine = () => {
   const [commentEnabled, enableComment] = useState<CommentEnabledType>()
@@ -34,7 +35,7 @@ const TimeLine = () => {
   }
 
   return (
-    <div>
+    <TimelineContainer>
       {data &&
         data.myActivities.map((activity, index) => (
           <Activity
@@ -82,8 +83,13 @@ const TimeLine = () => {
             </button>
           )}
       </div>
-    </div>
+    </TimelineContainer>
   )
 }
+
+const TimelineContainer = styled.div`
+  margin: auto;
+  width: 80%;
+`
 
 export default TimeLine

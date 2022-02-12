@@ -46,7 +46,7 @@ export const MapBoxView = (props: MapBoxViewProps) => {
     <MapContainer
       bounds={bounds}
       scrollWheelZoom={false}
-      style={{ height: '400px', width: '100%', zIndex: 1 }}
+      style={{ height: '500px', width: '100%', zIndex: 1 }}
       zoom={13}
     >
       <TileLayer

@@ -4,7 +4,6 @@ import { useActivityByIdQuery } from '../../generated/graphql'
 import { MapBoxView } from './MapBoxView'
 import MetricRow from '../TimeLine/MetricRow'
 import DayJs from 'dayjs'
-import styled from 'styled-components'
 import { formatSpeed } from '../../utils/conversions'
 import UserContext from '../../userContext'
 
@@ -45,7 +44,7 @@ const DetailedActivity = () => {
 
   if (isMobile) {
     return (
-      <StyledContainer>
+      <div>
         {data && data.activityById && (
           <div className="w-full w-lg">
             <div className="card border-0">
@@ -161,11 +160,11 @@ const DetailedActivity = () => {
             </div>
           </div>
         )}
-      </StyledContainer>
+      </div>
     )
   } else {
     return (
-      <StyledContainer>
+      <div>
         {data && data.activityById && (
           <div className="w-full w-lg">
             <div className="card border-0">
@@ -279,14 +278,9 @@ const DetailedActivity = () => {
             </div>
           </div>
         )}
-      </StyledContainer>
+      </div>
     )
   }
 }
-
-const StyledContainer = styled.div`
-  width: 100%;
-  max-width: 1200px;
-`
 
 export default DetailedActivity

@@ -7,6 +7,7 @@ import MetricRow from './MetricRow'
 import { staticRideImg } from '../../utils/mapbox'
 import { CommentEnabledType } from '../../types/types'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 type ActivityProps = {
   id: string
@@ -94,93 +95,99 @@ const Activity = (props: ActivityProps) => {
   }
 
   return (
-    <div>
-      <div style={{ maxWidth: '800px' }} className="card mb-0 pb-0">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-2">
-              <div className="d-flex flex-column mr-10">
-                <div className="text-center">
-                  <img
-                    className="img-fluid rounded-circle w-auto h-auto w-sm-three-quarter w-md-half"
-                    src={img ? img : 'default-user-avatar.png'}
-                    alt="user avatar"
-                  ></img>
-                </div>
-                <FontAwesomeIcon
-                  className="m-auto pt-5"
-                  size="2x"
-                  icon={faBicycle}
-                />
+    <div className="card">
+      <div className="container-fluid mb-10">
+        <div className="row">
+          <div className="col-2">
+            <div className="d-flex flex-column mr-10">
+              <div className="text-center">
+                <img
+                  className="img-fluid rounded-circle w-auto h-auto w-sm-three-quarter w-md-half"
+                  src={img ? img : 'default-user-avatar.png'}
+                  alt="user avatar"
+                ></img>
               </div>
-            </div>
-
-            <div className="col-10">
-              <p className="font-weight-bold m-0">{name}</p>
-              <p className="m-0">{activityTime(startTime)}</p>
-              <Link to={`/activity/${id}`}>
-                <h1 className="card-title font-weight-bolder font-size-20 mt-5 text-primary mb-5">
-                  {title}
-                </h1>
-              </Link>
-              {description !== '' && (
-                <p className="mb-10 font-size-12">{description}</p>
-              )}
-              <MetricRow
-                duration={duration}
-                elevation={elevation}
-                distance={distance}
+              <FontAwesomeIcon
+                className="m-auto pt-5"
+                size="2x"
+                icon={faBicycle}
               />
             </div>
           </div>
-        </div>
-        <div className="align-center mt-10">
-          <img
-            src={activityImg(
-              polyline,
-              darkMode,
-              strokeColor,
-              mapImgLight,
-              mapImgDark,
-              mapboxToken
+
+          <div className="col-10">
+            <p className="font-weight-bold m-0">{name}</p>
+            <p className="m-0">{activityTime(startTime)}</p>
+            <Link to={`/activity/${id}`}>
+              <h1 className="card-title font-weight-bolder font-size-20 mt-5 text-primary mb-5">
+                {title}
+              </h1>
+            </Link>
+            {description !== '' && (
+              <p className="mb-10 font-size-12">{description}</p>
             )}
-            className="img-fluid rounded w-full h-full"
-            alt="activity route"
-          />
-        </div>
-        <div className="clearfix pt-5">
-          <div className="float-right d-inline-block">
-            <button
-              className="btn ml-5"
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() =>
-                id &&
-                toggleComment({
-                  activityId: id,
-                  enabled: !commentEnabled?.enabled,
-                })
-              }
-            >
-              <FontAwesomeIcon className="m-auto" icon={faComment} />
-            </button>
+            <MetricRow
+              duration={duration}
+              elevation={elevation}
+              distance={distance}
+            />
           </div>
         </div>
-
-        <ActivityComments
-          comments={comments.map((comment: any) => ({
-            id: comment.id,
-            comment: comment.comment,
-            userName: comment.user.name,
-            userImg: comment.user.img,
-          }))}
-          commentEnabled={commentEnabled}
-          activityId={id}
-          enableComment={enableComment}
-          toggleComment={toggleComment}
-        />
       </div>
+      <StyledImage
+        src={activityImg(
+          polyline,
+          darkMode,
+          strokeColor,
+          mapImgLight,
+          mapImgDark,
+          mapboxToken
+        )}
+        width={1500}
+        height={600}
+        className="rounded"
+        alt="activity route"
+        loading="lazy"
+      />
+
+      <div className="clearfix pt-5">
+        <div className="float-right d-inline-block">
+          <button
+            className="btn ml-5"
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() =>
+              id &&
+              toggleComment({
+                activityId: id,
+                enabled: !commentEnabled?.enabled,
+              })
+            }
+          >
+            <FontAwesomeIcon className="m-auto" icon={faComment} />
+          </button>
+        </div>
+      </div>
+
+      <ActivityComments
+        comments={comments.map((comment: any) => ({
+          id: comment.id,
+          comment: comment.comment,
+          userName: comment.user.name,
+          userImg: comment.user.img,
+        }))}
+        commentEnabled={commentEnabled}
+        activityId={id}
+        enableComment={enableComment}
+        toggleComment={toggleComment}
+      />
     </div>
   )
 }
+
+const StyledImage = styled.img`
+  aspect-ratio: attr(width) / attr(height);
+  height: auto;
+  max-width: 100%;
+`
 
 export default Activity
