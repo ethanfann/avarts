@@ -168,6 +168,8 @@ export type Query = {
   activitiesByUserId?: Maybe<Array<Activity>>;
   /** Returns the activity for a given id */
   activityById: Activity;
+  /** Retrieve the mapbox token */
+  mapboxToken: Scalars['String'];
   /** Returns the current user */
   me?: Maybe<User>;
   /** Returns the activities for the previous month */
@@ -387,6 +389,7 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = (
   { __typename?: 'Query' }
+  & Pick<Query, 'mapboxToken'>
   & { me?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'name' | 'email' | 'img' | 'activityCount' | 'firstName' | 'lastName' | 'strokeColor' | 'measurementPreference'>
@@ -839,6 +842,7 @@ export const MeDocument = gql`
     strokeColor
     measurementPreference
   }
+  mapboxToken
 }
     `;
 

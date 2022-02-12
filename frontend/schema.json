@@ -1265,6 +1265,24 @@
               "deprecationReason": null
             },
             {
+              "name": "mapboxToken",
+              "description": "Retrieve the mapbox token",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "me",
               "description": "Returns the current user",
               "args": [
