@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Map as MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet'
+import ThemeContext from '../../themeContext'
 import L from 'leaflet'
 import * as greenIconUrl from '../../images/marker-icon-2x-green.png'
 import * as redIconUrl from '../../images/marker-icon-2x-red.png'
@@ -14,6 +15,7 @@ type MapBoxViewProps = {
 
 export const MapBoxView = (props: MapBoxViewProps) => {
   const { initPolyline } = props
+  const { darkMode } = useContext(ThemeContext)
 
   const mapboxToken = process.env.REACT_APP_MAPBOX_TOKEN
 
@@ -50,7 +52,9 @@ export const MapBoxView = (props: MapBoxViewProps) => {
     >
       <TileLayer
         attribution='&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url={`https://api.mapbox.com/styles/v1/mapbox/outdoors-v9/tiles/{z}/{x}/{y}?access_token=${mapboxToken}`}
+        url={`https://api.mapbox.com/styles/v1/mapbox/${
+          darkMode ? 'dark-v10' : 'outdoors-v11'
+        }/tiles/{z}/{x}/{y}?access_token=${mapboxToken}`}
       />
       <Marker position={start} icon={greenIcon} />
       <Marker position={end} icon={redIcon} />
