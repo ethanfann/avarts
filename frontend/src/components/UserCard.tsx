@@ -14,10 +14,8 @@ const UserCard: React.FC = () => {
                 src={ctx.user?.img ? ctx.user.img : 'default-user-avatar.png'}
                 className="img-fluid rounded-circle"
                 style={{
-                  width: '100%',
-                  height: '100%',
-                  maxWidth: 100,
-                  maxHeight: 100,
+                  width: 100,
+                  height: 100,
                 }}
                 alt="user avatar"
               />

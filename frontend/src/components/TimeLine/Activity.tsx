@@ -104,6 +104,9 @@ const Activity = (props: ActivityProps) => {
                 <img
                   className="img-fluid rounded-circle w-auto h-auto w-sm-three-quarter w-md-half"
                   src={img ? img : 'default-user-avatar.png'}
+                  height={75}
+                  width={75}
+                  loading="lazy"
                   alt="user avatar"
                 ></img>
               </div>
