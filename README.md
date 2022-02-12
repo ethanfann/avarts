@@ -55,12 +55,6 @@ Copy `.env.example` to `.env` for local development. Rails will run on port `300
 cp .env.example .env
 ```
 
-Copy `frontend/.env.example` to `frontend/.env`. This contains the Mapbox token used for activity static image creation:
-
-```sh
-cp frontend/.env.example frontend/.env
-```
-
 Install Ruby gems:
 
 ```sh
