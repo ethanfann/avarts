@@ -59,7 +59,7 @@ const DetailedActivity = () => {
         },
       })
       if (result && result.data && result.data.deleteActivity) {
-        navigate('/')
+        navigate('/', { replace: true })
       }
     } catch (error) {
       console.log(error)
