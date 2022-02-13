@@ -177,8 +177,8 @@ const DetailedActivity = () => {
     return (
       <div>
         {data && data.activityById && (
-          <div className="w-full w-lg">
-            <div className="card border-0">
+          <div className="w-full">
+            <div className="card border-0 mt-0">
               <div className="px-card border-bottom">
                 <p style={{ fontSize: 34 }} className="m-0 font-weight-bold">
                   {data.activityById.user.name} - Ride
@@ -277,7 +277,9 @@ const DetailedActivity = () => {
                     </div>
                   </div>
                 </div>
-                <div style={{ height: '400px', width: '100%' }}>
+                <div
+                  style={{ height: '400px', width: '100%', marginBottom: 10 }}
+                >
                   {data && data.activityById && (
                     <MapBoxView
                       initPolyline={data.activityById.polyline}
