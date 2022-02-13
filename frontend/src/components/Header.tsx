@@ -6,6 +6,7 @@ import UserContext from '../userContext'
 import { toggleSidebar } from '../utils/sideBar'
 import AvatarDropdown from './AvatarDropdown'
 import { Link } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 const Header: React.FC = () => {
   const [email, setEmail] = useState('')
@@ -23,7 +24,9 @@ const Header: React.FC = () => {
         refetchQueries: ['me'],
       })
       if (result && result.data && result.data.login?.token) {
-        localStorage.setItem('token', result.data.login.token)
+        Cookies.set('token', result.data.login.token, {
+          sameSite: 'strict',
+        })
       }
     } catch (error) {
       console.log(error)

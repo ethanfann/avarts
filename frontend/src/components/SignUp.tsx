@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSignUpMutation } from '../generated/graphql'
+import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
 
 type FormData = {
   firstName: string
@@ -16,6 +18,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
+  const navigate = useNavigate()
 
   const { register, handleSubmit } = useForm<FormData>()
 
@@ -47,8 +50,10 @@ const SignUp = () => {
         },
       })
       if (result && result.data && result.data.signUp) {
-        localStorage.setItem('token', result.data.signUp.token)
-        window.location.reload()
+        Cookies.set('token', result.data.signUp.token, {
+          sameSite: 'strict',
+        })
+        navigate('/')
       }
     } catch (error) {
       console.log(error)
