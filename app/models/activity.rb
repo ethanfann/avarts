@@ -14,7 +14,11 @@ class Activity < ApplicationRecord
         base_path = 'http://127.0.0.1:3000'
         base_path + blob_path
       else
-        map_img_light.url
+        if ENV['CDN_HOST']
+          return "#{ENV['CDN_HOST']}/#{map_img_light.key}"
+        else
+          return map_img_light.url
+        end
       end
     else
       ''
@@ -30,7 +34,11 @@ class Activity < ApplicationRecord
         base_path = 'http://127.0.0.1:3000'
         base_path + blob_path
       else
-        map_img_dark.url
+        if ENV['CDN_HOST']
+          return "#{ENV['CDN_HOST']}/#{map_img_light.key}"
+        else
+          return map_img_light.url
+        end
       end
     else
       ''

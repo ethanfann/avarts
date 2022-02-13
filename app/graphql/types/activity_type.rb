@@ -33,7 +33,11 @@ module Types
           base_path = 'http://127.0.0.1:3000'
           base_path + blob_path
         else
-          object.map_img_light.url
+          if ENV['CDN_HOST']
+            return "#{ENV['CDN_HOST']}/#{object.map_img_light.key}"
+          else
+            return object.map_img_light.url
+          end
         end
       else
         ''
@@ -49,7 +53,11 @@ module Types
           base_path = 'http://127.0.0.1:3000'
           base_path + blob_path
         else
-          object.map_img_dark.url
+          if ENV['CDN_HOST']
+            return "#{ENV['CDN_HOST']}/#{object.map_img_dark.key}"
+          else
+            return object.map_img_dark.url
+          end
         end
       else
         ''

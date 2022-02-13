@@ -55,13 +55,17 @@ class User < ApplicationRecord
   def img_url
     if img.present?
       # Use disc storage served from rails for local development or test
-      # Otherwise, serve from S3.
+      # Otherwise, serve from Cloudfront/S3.
       if Rails.env.development? || Rails.env.test?
         blob_path = rails_blob_path(img, only_path: true)
         base_path = 'http://127.0.0.1:3000'
         base_path + blob_path
       else
-        object.img.url
+        if ENV['CDN_HOST']
+          "#{ENV['CDN_HOST']}/#{object.img.key}"
+        else
+          object.img.url
+        end
       end
     else
       ''
