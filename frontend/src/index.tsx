@@ -7,19 +7,17 @@ import * as serviceWorker from './serviceWorker'
 import { createUploadLink } from 'apollo-upload-client'
 import { offsetLimitPagination } from '@apollo/client/utilities'
 import { BrowserRouter } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
-const uri =
-  process.env.NODE_ENV === 'production'
-    ? 'https://avarts.ethanfann.com/graphql'
-    : 'http://localhost:3000/graphql'
+const uri = process.env.REACT_APP_SERVER_URL
 
 const uploadLink = createUploadLink({
   uri: uri,
-  credentials: 'same-origin',
+  credentials: 'include',
 })
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('token')
+  const token = Cookies.get('token')
   return {
     headers: {
       ...headers,

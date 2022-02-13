@@ -4,6 +4,7 @@ import React from 'react'
 import UserContext from '../userContext'
 import DarkModeToggleButton from './DarkModeToggleButton'
 import { Link } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 export const AvatarDropdown = () => {
   return (
@@ -60,8 +61,8 @@ export const AvatarDropdown = () => {
               <button
                 className="btn mt-5"
                 onClick={() => {
-                  localStorage.removeItem('token')
-                  ctx.refetch()
+                  Cookies.remove('token')
+                  window.location.reload()
                 }}
               >
                 Sign Out
