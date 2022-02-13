@@ -150,7 +150,6 @@ const Activity = (props: ActivityProps) => {
         height={600}
         className="rounded"
         alt="activity route"
-        loading="lazy"
       />
 
       <div className="clearfix pt-5">
@@ -158,6 +157,7 @@ const Activity = (props: ActivityProps) => {
           <button
             className="btn ml-5"
             onMouseDown={(e) => e.preventDefault()}
+            aria-label={'toggle comment button'}
             onClick={() =>
               id &&
               toggleComment({

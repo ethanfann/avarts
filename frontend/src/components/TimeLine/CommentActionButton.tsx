@@ -18,6 +18,7 @@ const CommentActionButton = (props: Props) => {
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
+          aria-label="more actions button"
         >
           <FontAwesomeIcon size="1x" icon={faEllipsisV} />
         </button>
@@ -31,6 +32,7 @@ const CommentActionButton = (props: Props) => {
               className="btn btn-danger btn-sm"
               onMouseDown={(e) => e.preventDefault()}
               onClick={(e) => handleDelete(e, activityCommentId)}
+              aria-label={'comment delete button'}
             >
               <FontAwesomeIcon icon={faTrash} />
             </button>

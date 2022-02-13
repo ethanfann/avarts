@@ -22,26 +22,28 @@ const UserCard: React.FC = () => {
               <h1 className="card-title text-center font-weight-bold font-size-22 text-primary mt-10 mb-10">
                 {ctx.user?.name}
               </h1>
-              <p className="font-weight-bold mb-0 pb-0 mt-0 font-size-14">
+              <p className="font-weight-bold mb-0 pb-0 mt-0 font-size-16">
                 {ctx.user.activityCount} activities
               </p>
               <hr />
               {ctx.user.latestActivity.title !== '' && (
                 <>
-                  <p className="text-left mb-5 font-weight-semi-bold font-size-14">
+                  <p className="text-left mb-5 font-weight-semi-bold font-size-16">
                     Latest Activity
                   </p>
-                  <p className=" text-left mt-0 pt-0 font-size 12">
+                  <div className="text-left mt-0 pt-0">
                     <Link to={`/activity/${ctx.user.latestActivity.id}`}>
-                      <strong>{ctx.user.latestActivity.title}</strong>
+                      <span className="text-primary font-weight-bolder font-size-14">
+                        {ctx.user.latestActivity.title}
+                      </span>
                     </Link>
-                    <strong> • </strong>
-                    <span className="font-weight-normal">
+                    <strong className="font-size-14"> • </strong>
+                    <span className="font-weight-normal font-size-14">
                       {DayJs.unix(ctx.user.latestActivity.startTime).format(
                         'MMMM D, YYYY'
                       )}
                     </span>
-                  </p>
+                  </div>
                 </>
               )}
             </div>

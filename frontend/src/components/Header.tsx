@@ -40,6 +40,7 @@ const Header: React.FC = () => {
                 id="toggleSidebarButton"
                 className="btn"
                 onClick={toggleSidebar}
+                aria-label={'toggle sidebar'}
               >
                 <FontAwesomeIcon icon={faBars} />
               </button>
