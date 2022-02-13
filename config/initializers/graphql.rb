@@ -1,11 +1,11 @@
-GraphQL::Errors.configure(GraphqlSchema) do
+GraphQL::Errors.configure(GraphQL::Schema) do
   rescue_from ActiveRecord::RecordNotFound do |exception|
     nil
   end
 
   rescue_from ActiveRecord::RecordInvalid do |exception|
     GraphQL::ExecutionError.new(
-      exception.record.errors.full_messages.join("\n")
+      exception.record.errors.full_messages.join("\n"),
     )
   end
 
