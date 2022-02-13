@@ -181,14 +181,16 @@ const DetailedActivity = () => {
                       </div>
                     </div>
                   </div>
-                </div>
-                <div style={{ height: '400px', width: '100%' }}>
-                  {data && data.activityById && (
-                    <MapBoxView
-                      initPolyline={data.activityById.polyline}
-                      mapboxToken={user.mapboxToken}
-                    />
-                  )}
+                  <div
+                    style={{ height: '100%', width: '100%', marginBottom: 10 }}
+                  >
+                    {data && data.activityById && (
+                      <MapBoxView
+                        initPolyline={data.activityById.polyline}
+                        mapboxToken={user.mapboxToken}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -329,16 +331,16 @@ const DetailedActivity = () => {
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  style={{ height: '400px', width: '100%', marginBottom: 10 }}
-                >
-                  {data && data.activityById && (
-                    <MapBoxView
-                      initPolyline={data.activityById.polyline}
-                      mapboxToken={user.mapboxToken}
-                    />
-                  )}
+                  <div
+                    style={{ height: '100%', width: '100%', marginBottom: 10 }}
+                  >
+                    {data && data.activityById && (
+                      <MapBoxView
+                        initPolyline={data.activityById.polyline}
+                        mapboxToken={user.mapboxToken}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
