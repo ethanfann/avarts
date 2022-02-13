@@ -13,3 +13,4 @@ variable "dev_bucket_name" {
   default = "avarts-dev"
 }
 
+

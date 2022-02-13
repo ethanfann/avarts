@@ -14,7 +14,7 @@ amazon:
   region: <%= ENV['AWS_REGION'] %>
   bucket: <%= ENV['AWS_S3_PRODUCTION_BUCKET_NAME'] %>
   upload:
-    acl: "private"
+    acl: "public-read"
 
 amazon_dev:
   service: S3
@@ -23,7 +23,7 @@ amazon_dev:
   region: <%= ENV['AWS_REGION'] %>
   bucket: <%= ENV['AWS_S3_DEV_BUCKET_NAME'] %>
   upload:
-    acl: "private"
+    acl: "public-read"
 # Remember not to checkin your GCS keyfile to a repository
 # google:
 #   service: GCS
