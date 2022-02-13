@@ -80,7 +80,7 @@ const DetailedActivity = () => {
     return (
       <div>
         {data && data.activityById && (
-          <div className="w-full w-lg">
+          <div className="w-full w-lg mt-10">
             <div className="card border-0">
               <div className="px-card border-bottom">
                 <p style={{ fontSize: 34 }} className="m-0 font-weight-bold">
@@ -202,7 +202,7 @@ const DetailedActivity = () => {
     return (
       <div>
         {data && data.activityById && (
-          <div className="w-full">
+          <div className="w-full mt-10">
             <div className="card border-0 mt-0">
               <div className="px-card border-bottom d-flex">
                 <p
