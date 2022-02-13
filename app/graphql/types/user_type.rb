@@ -17,14 +17,6 @@ module Types
         # Use disc storage served from rails for local development or test
         # Otherwise, serve from Cloudfront/S3.
         if Rails.env.development? || Rails.env.test?
-          if ENV['USE_S3_IN_DEV'] === 'true'
-            if ENV['CDN_HOST']
-              return "#{ENV['CDN_HOST']}/#{object.img.key}"
-            else
-              return object.img.url
-            end
-          end
-
           blob_path = rails_blob_path(object.img, only_path: true)
           base_path = 'http://127.0.0.1:3000'
           base_path + blob_path
