@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useUploadActivityMutation } from '../generated/graphql'
 import { useForm } from 'react-hook-form'
 

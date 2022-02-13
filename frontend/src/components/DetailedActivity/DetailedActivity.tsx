@@ -6,6 +6,7 @@ import MetricRow from '../TimeLine/MetricRow'
 import DayJs from 'dayjs'
 import { formatSpeed } from '../../utils/conversions'
 import UserContext from '../../userContext'
+import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader'
 
 type DetailedActivityParams = {
   id: string
@@ -41,6 +42,16 @@ const DetailedActivity = () => {
       ? `Today at ${timeStrSplit[1]}`
       : timeStrSplit[0] + ` at ${timeStrSplit[1]}`
   }
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center mt-20">
+        <ClimbingBoxLoader color="grey" />
+      </div>
+    )
+  }
+
+  if (error) return <div>Error</div>
 
   if (isMobile) {
     return (

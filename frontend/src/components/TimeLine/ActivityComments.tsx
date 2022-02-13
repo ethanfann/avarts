@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import CommentActionButton from './CommentActionButton'
-import {
-  useDeleteActivityCommentMutation,
-  useAddActivityCommentMutation,
-} from '../../generated/graphql'
+import { useDeleteActivityCommentMutation } from '../../generated/graphql'
 import ActivityCommentBox from './ActivityCommentBox'
 import { CommentEnabledType } from '../../types/types'
 
@@ -23,17 +20,10 @@ type Props = {
 }
 
 const ActivityComments = (props: Props) => {
-  const {
-    comments,
-    activityId,
-    commentEnabled,
-    enableComment,
-    toggleComment,
-  } = props
+  const { comments, activityId, commentEnabled, toggleComment } = props
 
   const [myComments, setMyComments] = useState([...comments])
   const [deleteComment] = useDeleteActivityCommentMutation()
-  const [addComment] = useAddActivityCommentMutation()
 
   const handleDeleteComment = async (
     e: React.FormEvent,

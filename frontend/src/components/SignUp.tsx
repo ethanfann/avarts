@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSignUpMutation } from '../generated/graphql'
-import { emailValidation } from '../utils/validation'
 
 type FormData = {
   firstName: string
@@ -105,7 +104,6 @@ const SignUp = () => {
                   name="email"
                   ref={register({
                     required: true,
-                    pattern: emailValidation,
                   })}
                   type="text"
                   className="form-control"
