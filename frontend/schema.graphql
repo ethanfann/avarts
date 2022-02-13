@@ -41,6 +41,7 @@ scalar ISO8601DateTime
 
 type Mutation {
   addActivityComment(activityId: ID!, comment: String!, userId: ID!): ActivityComment
+  deleteActivity(activityId: ID!): Activity
   deleteActivityComment(commentId: ID!): ActivityComment
 
   """

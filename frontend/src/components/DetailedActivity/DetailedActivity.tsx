@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { useParams } from 'react-router-dom'
-import { useActivityByIdQuery } from '../../generated/graphql'
+import { useParams, useNavigate } from 'react-router-dom'
+import {
+  useActivityByIdQuery,
+  useDeleteActivityMutation,
+} from '../../generated/graphql'
 import { MapBoxView } from './MapBoxView'
 import MetricRow from '../TimeLine/MetricRow'
 import DayJs from 'dayjs'
 import { formatSpeed } from '../../utils/conversions'
 import UserContext from '../../userContext'
 import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader'
+import { faEllipsisV, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 type DetailedActivityParams = {
   id: string
@@ -16,6 +21,8 @@ const DetailedActivity = () => {
   const { id } = useParams<DetailedActivityParams>()
   const [width, setWidth] = useState<number>(window.innerWidth)
   const { user } = useContext(UserContext)
+  const [deleteActivity] = useDeleteActivityMutation()
+  const navigate = useNavigate()
 
   const handleWindowSizeChange = () => {
     setWidth(window.innerWidth)
@@ -41,6 +48,22 @@ const DetailedActivity = () => {
     return DayJs(timeStrSplit[0]).isSame(DayJs(), 'day')
       ? `Today at ${timeStrSplit[1]}`
       : timeStrSplit[0] + ` at ${timeStrSplit[1]}`
+  }
+
+  const handleDelete = async (e: React.FormEvent, id: string) => {
+    e.preventDefault()
+    try {
+      const result = await deleteActivity({
+        variables: {
+          activityId: id,
+        },
+      })
+      if (result && result.data && result.data.deleteActivity) {
+        navigate('/', { replace: true })
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   if (loading) {
@@ -179,10 +202,40 @@ const DetailedActivity = () => {
         {data && data.activityById && (
           <div className="w-full">
             <div className="card border-0 mt-0">
-              <div className="px-card border-bottom">
-                <p style={{ fontSize: 34 }} className="m-0 font-weight-bold">
+              <div className="px-card border-bottom d-flex">
+                <p
+                  style={{ fontSize: 34 }}
+                  className="m-0 font-weight-bold w-full"
+                >
                   {data.activityById.user.name} - Ride
                 </p>
+                <div className="flex-shrink-1">
+                  <div className="dropdown dropdown with-arrow">
+                    <button
+                      className="btn"
+                      data-toggle="dropdown"
+                      type="button"
+                      id="..."
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <FontAwesomeIcon icon={faEllipsisV} />
+                    </button>
+                    <div
+                      className="dropdown-menu dropdown-menu-center"
+                      aria-labelledby="..."
+                    >
+                      <div className="dropdown-content">
+                        <button
+                          className="btn btn-block"
+                          onClick={(e) => handleDelete(e, data.activityById.id)}
+                        >
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="content">
                 <div className="container-fluid">

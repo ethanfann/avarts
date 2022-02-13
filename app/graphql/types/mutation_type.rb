@@ -19,5 +19,6 @@ module Types
     field :update_img, mutation: Mutations::User::UpdateImg
     field :update_measurement_preference,
           mutation: Mutations::User::UpdateMeasurementPreference
+    field :delete_activity, mutation: Mutations::DeleteActivity
   end
 end

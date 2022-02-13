@@ -1,6 +1,6 @@
 class Activity < ApplicationRecord
   belongs_to :user
-  has_many :activity_comment
+  has_many :activity_comment, dependent: :destroy
   has_one_attached :map_img_light
   has_one_attached :map_img_dark
   include Rails.application.routes.url_helpers
