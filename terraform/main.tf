@@ -42,7 +42,7 @@ resource "aws_cloudfront_distribution" "avarts-distribution" {
     cached_methods         = ["GET", "HEAD"]
     target_origin_id       = aws_s3_bucket.avarts.id
     viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
+    min_ttl                = 3600
     default_ttl            = 3600
     max_ttl                = 86400
 
@@ -81,7 +81,7 @@ resource "aws_cloudfront_distribution" "avarts-dev-distribution" {
     cached_methods         = ["GET", "HEAD"]
     target_origin_id       = aws_s3_bucket.avarts-dev.id
     viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
+    min_ttl                = 3600
     default_ttl            = 3600
     max_ttl                = 86400
 
