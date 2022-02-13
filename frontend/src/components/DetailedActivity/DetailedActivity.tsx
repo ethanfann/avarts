@@ -57,6 +57,7 @@ const DetailedActivity = () => {
         variables: {
           activityId: id,
         },
+        refetchQueries: ['me'],
       })
       if (result && result.data && result.data.deleteActivity) {
         navigate('/', { replace: true })
