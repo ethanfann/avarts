@@ -89,7 +89,10 @@ const TimeLine = () => {
 
 const TimelineContainer = styled.div`
   margin: auto;
-  width: 90%;
+  max-width: 80%;
+  @media (max-width: 769px) {
+    max-width: 100%;
+  }
 `
 
 export default TimeLine

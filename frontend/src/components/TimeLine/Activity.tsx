@@ -95,7 +95,7 @@ const Activity = (props: ActivityProps) => {
   }
 
   return (
-    <div className="card">
+    <div className="card ml-0 mr-0">
       <div className="container-fluid mb-10">
         <div className="row">
           <div className="col-2">
