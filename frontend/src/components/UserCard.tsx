@@ -23,7 +23,8 @@ const UserCard: React.FC = () => {
                 {ctx.user?.name}
               </h1>
               <p className="font-weight-bold mb-0 pb-0 mt-0 font-size-16">
-                {ctx.user.activityCount} activities
+                {ctx.user.activityCount}{' '}
+                {ctx.user.activityCount === 1 ? 'activity' : 'activities'}
               </p>
               <hr />
               {ctx.user.latestActivity.title !== '' && (
