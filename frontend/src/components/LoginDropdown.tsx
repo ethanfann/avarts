@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import Cookies from 'js-cookie'
 import { useLoginMutation } from '../generated/graphql'
+import { useNavigate } from 'react-router-dom'
 
 const LoginDropdown = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [signinMutation] = useLoginMutation()
+  const navigate = useNavigate()
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,7 +23,7 @@ const LoginDropdown = () => {
         Cookies.set('token', result.data.login.token, {
           sameSite: 'strict',
         })
-        window.location.reload()
+        navigate(0)
       }
     } catch (error) {
       console.log(error)

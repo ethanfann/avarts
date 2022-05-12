@@ -5,8 +5,11 @@ import UserContext from '../userContext'
 import DarkModeToggleButton from './DarkModeToggleButton'
 import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
 
 export const AvatarDropdown = () => {
+  const navigate = useNavigate()
+
   return (
     <UserContext.Consumer>
       {(ctx) => (
@@ -62,7 +65,7 @@ export const AvatarDropdown = () => {
                 className="btn mt-5"
                 onClick={() => {
                   Cookies.remove('token')
-                  window.location.reload()
+                  navigate(0)
                 }}
               >
                 Sign Out

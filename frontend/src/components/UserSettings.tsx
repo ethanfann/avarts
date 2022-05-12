@@ -195,6 +195,9 @@ const UserSettings = () => {
               />
               <label htmlFor="radio-2">Metric (meters)</label>
             </div>
+            <div>
+              <button className="btn" />
+            </div>
           </div>
         </div>
       </div>
