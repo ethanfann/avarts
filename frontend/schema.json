@@ -748,6 +748,20 @@
               "deprecationReason": null
             },
             {
+              "name": "deleteUser",
+              "description": "Delete a user and their data",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "login",
               "description": "Login for users",
               "args": [

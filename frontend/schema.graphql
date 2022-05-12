@@ -45,6 +45,11 @@ type Mutation {
   deleteActivityComment(commentId: ID!): ActivityComment
 
   """
+  Delete a user and their data
+  """
+  deleteUser: User
+
+  """
   Login for users
   """
   login(email: String!, password: String!): User

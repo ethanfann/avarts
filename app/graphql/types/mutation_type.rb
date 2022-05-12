@@ -20,5 +20,6 @@ module Types
     field :update_measurement_preference,
           mutation: Mutations::User::UpdateMeasurementPreference
     field :delete_activity, mutation: Mutations::DeleteActivity
+    field :delete_user, mutation: Mutations::User::Delete
   end
 end

@@ -6,7 +6,9 @@ import {
   useUpdateUserNameMutation,
   useUpdateUserImgMutation,
   useUpdateMeasurementPreferenceMutation,
+  useDeleteUserMutation,
 } from '../generated/graphql'
+import { useNavigate } from 'react-router-dom'
 
 const UserSettings = () => {
   const { user } = useContext(UserContext)
@@ -21,6 +23,21 @@ const UserSettings = () => {
   const [updateUserName] = useUpdateUserNameMutation()
   const [updateUserImg] = useUpdateUserImgMutation()
   const [updateMeasurementPreference] = useUpdateMeasurementPreferenceMutation()
+  const [deleteUser] = useDeleteUserMutation()
+  const navigate = useNavigate()
+
+  const handleUserDelete = async (e: MouseEvent) => {
+    e.preventDefault()
+
+    try {
+      const result = await deleteUser()
+      if (result && result.data && result.data.deleteUser?.id) {
+        navigate(0)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const toggleEdit = () => {
     setEdit(!edit)
@@ -181,7 +198,7 @@ const UserSettings = () => {
               />
               <label htmlFor="radio-1">Imperial (feet)</label>
             </div>
-            <div className="custom-radio d-inline-block">
+            <div className="custom-radio d-inline-block pb-20">
               <input
                 type="radio"
                 name="radio-set-1"
@@ -196,7 +213,14 @@ const UserSettings = () => {
               <label htmlFor="radio-2">Metric (meters)</label>
             </div>
             <div>
-              <button className="btn" />
+              <button
+                className="btn btn-danger"
+                type="button"
+                aria-label="Delete User and Data"
+                onClick={(e) => handleUserDelete(e)}
+              >
+                Delete
+              </button>
             </div>
           </div>
         </div>
