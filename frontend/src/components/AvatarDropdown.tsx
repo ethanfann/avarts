@@ -35,7 +35,7 @@ export const AvatarDropdown = () => {
                   src={
                     ctx.user && ctx.user.img !== ''
                       ? ctx.user?.img
-                      : 'https://kctherapy.com/wp-content/uploads/2019/09/default-user-avatar-e1569863570634.png'
+                      : 'default-user-avatar.png'
                   }
                   className="rounded-circle"
                   alt="..."
