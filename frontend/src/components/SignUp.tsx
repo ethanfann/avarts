@@ -53,7 +53,7 @@ const SignUp = () => {
         Cookies.set('token', result.data.signUp.token, {
           sameSite: 'strict',
         })
-        navigate('/')
+        navigate(0)
       }
     } catch (error) {
       console.log(error)
