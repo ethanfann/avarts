@@ -39,7 +39,7 @@ const TimeLine = () => {
       {data &&
         data.myActivities.map((activity, index) => (
           <Activity
-            key={index}
+            key={activity.id}
             id={activity.id}
             img={activity.user.img}
             name={activity.user.name}

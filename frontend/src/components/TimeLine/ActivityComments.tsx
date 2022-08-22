@@ -48,7 +48,7 @@ const ActivityComments = (props: Props) => {
   return (
     <>
       {myComments.map((comment: CommentType, index: number) => (
-        <div key={index} className="d-flex align-items-center mt-5">
+        <div key={comment.id} className="d-flex align-items-center mt-5">
           <img
             style={{
               width: '24px',
