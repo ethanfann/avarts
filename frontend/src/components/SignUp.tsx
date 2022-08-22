@@ -22,10 +22,6 @@ const SignUp = () => {
 
   const { register, handleSubmit } = useForm<FormData>()
 
-  const onSubmit = () => {
-    signup()
-  }
-
   const [signupMutation] = useSignUpMutation()
 
   const passwordMatch = () => {
@@ -76,7 +72,7 @@ const SignUp = () => {
             <h2 className="text-align-center">Sign up for Avarts today.</h2>
             <form
               style={{ height: '50%' }}
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmit(signup)}
               className=""
             >
               <div className="form-row row-eq-spacing-sm">

@@ -29,13 +29,19 @@ const UserSettings = () => {
   const handleUserDelete = async (e: MouseEvent) => {
     e.preventDefault()
 
-    try {
-      const result = await deleteUser()
-      if (result && result.data && result.data.deleteUser?.id) {
-        navigate(0)
+    const confirmation = window.confirm(
+      'Do you wish to delete your account and data? This action is irreversible.'
+    )
+
+    if (confirmation) {
+      try {
+        const result = await deleteUser()
+        if (result && result.data && result.data.deleteUser?.id) {
+          navigate(0)
+        }
+      } catch (error) {
+        console.log(error)
       }
-    } catch (error) {
-      console.log(error)
     }
   }
 
@@ -212,14 +218,14 @@ const UserSettings = () => {
               />
               <label htmlFor="radio-2">Metric (meters)</label>
             </div>
-            <div>
+            <div className="mt-20">
               <button
                 className="btn btn-danger"
                 type="button"
                 aria-label="Delete User and Data"
                 onClick={(e) => handleUserDelete(e)}
               >
-                Delete
+                Delete Account and Data
               </button>
             </div>
           </div>

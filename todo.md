@@ -1,0 +1,1 @@
+- [ ] Investigate bug where a refresh is needed to update activity comments after editing user's name
