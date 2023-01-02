@@ -39,28 +39,30 @@ const MetricRow = (props: Props) => {
   }
 
   return (
-    <div style={{ minWidth: 190 }} className="d-flex w-full">
-      <Metric
-        header="Distance"
-        value={
-          <>
-            {formatDistance(distance)}
-            <abbr>{user.measurementPreference === 'feet' ? 'mi' : 'km'}</abbr>
-          </>
-        }
-      />
-      <Divider />
-      <Metric
-        header="Elev Gain"
-        value={
-          <>
-            {elevGain(elevation).toString()}
-            <abbr>{user.measurementPreference === 'feet' ? 'ft' : 'm'}</abbr>
-          </>
-        }
-      />
-      <Divider />
-      <Metric header="Time" value={elapsedTime(duration)} />
+    <div className="d-flex justify-content-center">
+      <div style={{ minWidth: 190 }} className="d-flex w-full">
+        <Metric
+          header="Distance"
+          value={
+            <>
+              {formatDistance(distance)}
+              <abbr>{user.measurementPreference === 'feet' ? 'mi' : 'km'}</abbr>
+            </>
+          }
+        />
+        <Divider />
+        <Metric
+          header="Elev Gain"
+          value={
+            <>
+              {elevGain(elevation).toString()}
+              <abbr>{user.measurementPreference === 'feet' ? 'ft' : 'm'}</abbr>
+            </>
+          }
+        />
+        <Divider />
+        <Metric header="Time" value={elapsedTime(duration)} />
+      </div>
     </div>
   )
 }

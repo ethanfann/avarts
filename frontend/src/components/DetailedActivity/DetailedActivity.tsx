@@ -7,11 +7,11 @@ import {
 import { MapBoxView } from './MapBoxView'
 import MetricRow from '../TimeLine/MetricRow'
 import DayJs from 'dayjs'
-import { formatSpeed } from '../../utils/conversions'
 import UserContext from '../../userContext'
 import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader'
 import { faEllipsisV, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MetricsTable from './MetricsTable'
 
 type DetailedActivityParams = {
   id: string
@@ -65,53 +65,6 @@ const DetailedActivity = () => {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  const Table = (
-    avgSpeed: number,
-    maxSpeed: number,
-    avgPower: number,
-    maxPower: number,
-    avgHr: number,
-    maxHr: number,
-    avgCadence: number,
-    maxCadence: number
-  ) => {
-    return (
-      <table className="table mt-20">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Avg</th>
-            <th>Max</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              Speed ({user.measurementPreference === 'feet' ? 'mph' : 'kph'})
-            </td>
-            <td>{formatSpeed(avgSpeed, user.measurementPreference)}</td>
-            <td>{formatSpeed(maxSpeed, user.measurementPreference)}</td>
-          </tr>
-          <tr>
-            <td>Power (w)</td>
-            <td>{avgPower}</td>
-            <td>{maxPower}</td>
-          </tr>
-          <tr>
-            <td>Heart Rate</td>
-            <td>{avgHr}</td>
-            <td>{maxHr}</td>
-          </tr>
-          <tr>
-            <td>Cadence</td>
-            <td>{avgCadence}</td>
-            <td>{maxCadence}</td>
-          </tr>
-        </tbody>
-      </table>
-    )
   }
 
   if (loading) {
@@ -197,63 +150,53 @@ const DetailedActivity = () => {
                   </div>
                   {!isMobile && (
                     <div className="col-6">
-                      <div className="d-flex justify-content-center">
-                        <MetricRow
-                          duration={data.activityById.duration}
-                          elevation={data.activityById.elevation}
-                          distance={data.activityById.distance}
-                        />
-                      </div>
-                      <div className="table-responsive">
-                        {Table(
-                          data.activityById.avgSpeed,
-                          data.activityById.maxSpeed,
-                          data.activityById.avgPower,
-                          data.activityById.maxPower,
-                          data.activityById.avgHr,
-                          data.activityById.maxHr,
-                          data.activityById.avgCadence,
-                          data.activityById.maxCadence
-                        )}
-                      </div>
+                      <MetricRow
+                        duration={data.activityById.duration}
+                        elevation={data.activityById.elevation}
+                        distance={data.activityById.distance}
+                      />
+                      <MetricsTable
+                        avgSpeed={data.activityById.avgSpeed}
+                        maxSpeed={data.activityById.maxSpeed}
+                        avgPower={data.activityById.avgPower}
+                        maxPower={data.activityById.maxPower}
+                        avgHr={data.activityById.avgHr}
+                        maxHr={data.activityById.maxHr}
+                        avgCadence={data.activityById.avgCadence}
+                        maxCadence={data.activityById.maxCadence}
+                        measurementPreference={user.measurementPreference}
+                      />
                     </div>
                   )}
                 </div>
                 {isMobile && (
                   <div className="row mb-20">
                     <div className="col-12">
-                      <div className="d-flex justify-content-center">
-                        <MetricRow
-                          duration={data.activityById.duration}
-                          elevation={data.activityById.elevation}
-                          distance={data.activityById.distance}
-                        />
-                      </div>
-                      <div className="table-responsive">
-                        {Table(
-                          data.activityById.avgSpeed,
-                          data.activityById.maxSpeed,
-                          data.activityById.avgPower,
-                          data.activityById.maxPower,
-                          data.activityById.avgHr,
-                          data.activityById.maxHr,
-                          data.activityById.avgCadence,
-                          data.activityById.maxCadence
-                        )}
-                      </div>
+                      <MetricRow
+                        duration={data.activityById.duration}
+                        elevation={data.activityById.elevation}
+                        distance={data.activityById.distance}
+                      />
+                      <MetricsTable
+                        avgSpeed={data.activityById.avgSpeed}
+                        maxSpeed={data.activityById.maxSpeed}
+                        avgPower={data.activityById.avgPower}
+                        maxPower={data.activityById.maxPower}
+                        avgHr={data.activityById.avgHr}
+                        maxHr={data.activityById.maxHr}
+                        avgCadence={data.activityById.avgCadence}
+                        maxCadence={data.activityById.maxCadence}
+                        measurementPreference={user.measurementPreference}
+                      />
                     </div>
                   </div>
                 )}
-                <div
-                  style={{ height: '100%', width: '100%', marginBottom: 10 }}
-                >
-                  {data && data.activityById && (
-                    <MapBoxView
-                      initPolyline={data.activityById.polyline}
-                      mapboxToken={user.mapboxToken}
-                    />
-                  )}
-                </div>
+                {data && data.activityById && (
+                  <MapBoxView
+                    initPolyline={data.activityById.polyline}
+                    mapboxToken={user.mapboxToken}
+                  />
+                )}
               </div>
             </div>
           </div>

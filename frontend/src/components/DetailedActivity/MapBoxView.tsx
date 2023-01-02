@@ -43,21 +43,23 @@ export const MapBoxView = (props: MapBoxViewProps) => {
   })
 
   return (
-    <MapContainer
-      bounds={bounds}
-      scrollWheelZoom={false}
-      style={{ height: '500px', width: '100%', zIndex: 1 }}
-      zoom={13}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url={`https://api.mapbox.com/styles/v1/mapbox/${
-          darkMode ? 'dark-v10' : 'outdoors-v11'
-        }/tiles/{z}/{x}/{y}?access_token=${mapboxToken}`}
-      />
-      <Marker position={start} icon={greenIcon} />
-      <Marker position={end} icon={redIcon} />
-      <Polyline positions={coords} color="red" />
-    </MapContainer>
+    <div style={{ height: '100%', width: '100%', marginBottom: 10 }}>
+      <MapContainer
+        bounds={bounds}
+        scrollWheelZoom={false}
+        style={{ height: '500px', width: '100%', zIndex: 1 }}
+        zoom={13}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url={`https://api.mapbox.com/styles/v1/mapbox/${
+            darkMode ? 'dark-v10' : 'outdoors-v11'
+          }/tiles/{z}/{x}/{y}?access_token=${mapboxToken}`}
+        />
+        <Marker position={start} icon={greenIcon} />
+        <Marker position={end} icon={redIcon} />
+        <Polyline positions={coords} color="red" />
+      </MapContainer>
+    </div>
   )
 }

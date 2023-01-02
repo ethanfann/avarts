@@ -53,7 +53,10 @@ export const AvatarDropdown = () => {
 
                 <div className="flex-shrink-1">
                   <Link to="/settings">
-                    <button className="btn btn-action float-right">
+                    <button
+                      className="btn btn-action float-right"
+                      data-toggle="dropdown"
+                    >
                       <FontAwesomeIcon icon={faCog} />
                     </button>
                   </Link>
@@ -63,6 +66,7 @@ export const AvatarDropdown = () => {
               <div className="dropdown-divider"></div>
               <button
                 className="btn mt-5"
+                data-toggle="dropdown"
                 onClick={() => {
                   Cookies.remove('token')
                   navigate(0)
