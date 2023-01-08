@@ -1,10 +1,10 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.0.2"
+ruby "3.2.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.0.2.2"
+gem "rails", "~> 7.0.4"
 
 # Use postgresql as the database for Active Record
 gem "pg"
@@ -12,8 +12,7 @@ gem "pg"
 gem "devise"                                # Use devise as authentication module
 gem "devise-jwt"                             # Use JWT token authentication with devise
 gem "bcrypt"                    # Use ActiveModel has_secure_password
-gem "graphql", "~> 1.11.5"
-gem "graphql-errors"
+gem "graphql", "~> 2.0.16"
 gem "rack-cors"
 # gem 'graphiql-rails', group: :development
 
@@ -63,6 +62,7 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen"
   gem "rufo"
+  gem "solargraph"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -75,3 +75,4 @@ gem "polylines"
 gem "simplify_rb"
 gem "prettier"
 gem "down"
+gem "sidekiq"
