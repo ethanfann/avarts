@@ -1,0 +1,2 @@
+CREATE USER avarts;
+ALTER USER avarts WITH SUPERUSER;
