@@ -1,2 +1,2 @@
-web: bundle exec rails s
-release: rake db:migrate
+web: docker-compose up
+release: docker-compose run web rake db:migrate
