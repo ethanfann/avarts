@@ -4,9 +4,6 @@
     "node": "16.x"
   },
   "scripts": {
-    "build": "cd frontend && npm install && npm run build && cd ..",
-    "deploy": "cp -a frontend/build/. public/",
-    "postinstall": "npm run build && npm run deploy",
     "codegen": "rake graphql:schema:dump && cd frontend && npm run codegen"
   },
   "devDependencies": {
