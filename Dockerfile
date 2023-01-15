@@ -28,7 +28,5 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 RUN bundle config build.nokogiri --use-system-libraries
 RUN bundle check || bundle install
-# COPY package.json package-lock.json ./
-# RUN npm install
 COPY . ./
 ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]
