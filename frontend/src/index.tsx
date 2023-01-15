@@ -1,5 +1,10 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
-import { setContext } from '@apollo/client/link/context'
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  ApolloLink,
+  concat,
+} from '@apollo/client'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
@@ -16,18 +21,20 @@ const uploadLink = createUploadLink({
   credentials: 'include',
 })
 
-const authLink = setContext((_, { headers }) => {
+const authMiddleware = new ApolloLink((operation, forward) => {
   const token = Cookies.get('token')
-  return {
+  operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
+
       authorization: token ? `Bearer ${token}` : '',
     },
-  }
+  }))
+  return forward(operation)
 })
 
 export const client = new ApolloClient({
-  link: authLink.concat(uploadLink),
+  link: concat(authMiddleware, uploadLink),
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
