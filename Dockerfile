@@ -26,6 +26,7 @@ RUN apk add --update --no-cache \
 RUN gem install bundler -v 2.4.3
 WORKDIR /app
 COPY Gemfile Gemfile.lock ./
+RUN bundle config set without 'development test'
 RUN bundle config build.nokogiri --use-system-libraries
 RUN bundle check || bundle install
 COPY . ./
