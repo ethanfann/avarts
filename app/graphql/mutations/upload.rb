@@ -20,24 +20,13 @@ module Mutations
         end
 
       coords_length = callbacks.activities[:records].length
-      if (coords_length > 10_000)
-        factor = 0.0099
-      elsif (coords_length > 5000)
-        factor = 0.0005
-      elsif (coords_length > 2500)
-        factor = 0.00039
-      elsif (coords_length > 1000)
-        factor = 0.00009
-      else
-        factor = 0.00009
-      end
 
       simplified =
         SimplifyRb::Simplifier.new.process(
           callbacks.activities[:records].map do |record|
             { x: record[:position_long], y: record[:position_lat] }
           end,
-          factor,
+          0.001,
           true,
         )
       distance = Distance.calculate(coordinates)
