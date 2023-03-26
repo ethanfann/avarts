@@ -69,19 +69,19 @@ Copy `frontend/.env.example` to `frontend/.env`. This contains an env variable, 
 cp frontend/.env.example frontend/.env
 ```
 
-Run Docker Compose, which will spin a Rails environment, Postgres database, Redis in-memory cache, and Sidekiq worker.
+Build the Docker image
+
+```sh
+docker compose build
+```
+
+Run Docker compose
 
 ```sh
 docker compose up
 ```
 
-Create, migrate, and seed the database.
-
-```sh
-docker exec -it avarts-app-1 sh -c "rails db:create && rails db:migrate && rails db:seed"
-```
-
-Start the frontend in a separate terminal, which will open a webpage at `localhost:3001` once done.
+Start the frontend in a separate terminal window, which will open a webpage at `localhost:3001` once done.
 
 ```sh
 cd frontend && npm install && npm run start
