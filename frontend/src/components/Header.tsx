@@ -6,13 +6,15 @@ import { toggleSidebar } from '../utils/sideBar'
 import AvatarDropdown from './AvatarDropdown'
 import { Link } from 'react-router-dom'
 import LoginDropdown from './LoginDropdown'
+import DarkModeToggleButton from './DarkModeToggleButton'
+import styled from 'styled-components'
 
 const Header: React.FC = () => {
   return (
     <UserContext.Consumer>
       {(ctx) => (
-        <nav className="navbar">
-          <div className="navbar-content">
+        <nav className="d-flex navbar">
+          <div className="navbar-content mr-auto">
             {ctx.user.id !== '0' && (
               <button
                 id="toggleSidebarButton"
@@ -27,13 +29,16 @@ const Header: React.FC = () => {
               Avarts
             </Link>
           </div>
-          <div className="navbar-content ml-auto">
-            {ctx.user.id === '0' ? <LoginDropdown /> : <AvatarDropdown />}
-          </div>
+          <StyledDarkModeToggle />
+          {ctx.user.id === '0' ? <LoginDropdown /> : <AvatarDropdown />}
         </nav>
       )}
     </UserContext.Consumer>
   )
 }
+
+const StyledDarkModeToggle = styled(DarkModeToggleButton)`
+  margin-right: 10px;
+`
 
 export default Header

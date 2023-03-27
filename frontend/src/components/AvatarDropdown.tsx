@@ -1,11 +1,10 @@
-import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import UserContext from '../userContext'
-import DarkModeToggleButton from './DarkModeToggleButton'
 import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
 export const AvatarDropdown = () => {
   const navigate = useNavigate()
@@ -14,7 +13,7 @@ export const AvatarDropdown = () => {
     <UserContext.Consumer>
       {(ctx) => (
         <>
-          <div className="dropdown with-arrow">
+          <div className="dropdown toggle-on-hover">
             <button
               data-toggle="dropdown"
               id="avatar-popover-toggle"
@@ -25,56 +24,46 @@ export const AvatarDropdown = () => {
                 background: 'none',
               }}
             >
-              <div className="text-center">
-                <img
-                  style={{
-                    verticalAlign: 'middle',
-                    width: '30px',
-                    height: '30px',
-                  }}
-                  src={
-                    ctx.user && ctx.user.img !== ''
-                      ? ctx.user?.img
-                      : 'default-user-avatar.png'
-                  }
-                  className="rounded-circle"
-                  alt="..."
-                />
-              </div>
+              <img
+                style={{
+                  verticalAlign: 'middle',
+                  width: '30px',
+                  height: '30px',
+                }}
+                src={
+                  ctx.user && ctx.user.img !== ''
+                    ? ctx.user?.img
+                    : 'default-user-avatar.png'
+                }
+                className="rounded-circle"
+                alt="profile avatar"
+              />
+              <FontAwesomeIcon
+                className="text-muted position-fixed"
+                icon={faAngleDown}
+              />
             </button>
-            <div
-              className="dropdown-menu dropdown-menu-right mr-5"
-              aria-labelledby="avatar-popover-toggle"
-            >
-              <div className="d-flex d-flex-inline align-items-center">
-                <div className="w-full">
-                  <h5 className="dropdown-header">{ctx.user.name}</h5>
-                </div>
 
-                <div className="flex-shrink-1">
-                  <Link to="/settings">
-                    <button
-                      className="btn btn-action float-right"
-                      data-toggle="dropdown"
-                    >
-                      <FontAwesomeIcon icon={faCog} />
-                    </button>
-                  </Link>
-                </div>
-              </div>
+            <div className="doprdown dropdown-menu dropdown-menu-right">
+              <h5 className="dropdown-header">{ctx.user.name}</h5>
+
+              <Link className="dropdown-item" to="/settings">
+                Settings
+              </Link>
 
               <div className="dropdown-divider"></div>
-              <button
-                className="btn mt-5"
-                data-toggle="dropdown"
-                onClick={() => {
-                  Cookies.remove('token')
-                  navigate(0)
-                }}
-              >
-                Sign Out
-              </button>
-              <DarkModeToggleButton />
+
+              <div className="dropdown-content">
+                <button
+                  className="btn btn-block"
+                  onClick={() => {
+                    Cookies.remove('token')
+                    navigate(0)
+                  }}
+                >
+                  Sign Out
+                </button>
+              </div>
             </div>
           </div>
         </>

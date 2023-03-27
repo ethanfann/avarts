@@ -3,12 +3,16 @@ import { faMoon } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ThemeContext from '../themeContext'
 
-const DarkModeToggleButton = () => {
+type PropTypes = {
+  className?: string
+}
+
+const DarkModeToggleButton = (props: PropTypes) => {
   return (
     <ThemeContext.Consumer>
       {(ctx) => (
         <button
-          className="btn btn-action float-right mt-5"
+          className={`btn btn-action ${props?.className}`}
           type="button"
           onClick={ctx.toggleDarkMode}
           aria-label="Toggle dark mode"
