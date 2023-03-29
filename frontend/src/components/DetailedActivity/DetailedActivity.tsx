@@ -124,9 +124,9 @@ const DetailedActivity = () => {
                         <img
                           className="img-fluid rounded-circle"
                           src={
-                            data.activityById.user.img
+                            data.activityById.user.img !== ''
                               ? data.activityById.user.img
-                              : 'default-user-avatar.png'
+                              : '/default-user-avatar.png'
                           }
                           width={100}
                           height={100}

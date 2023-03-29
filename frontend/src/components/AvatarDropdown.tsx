@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import UserContext from '../userContext'
 import { Link } from 'react-router-dom'
-import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
@@ -33,7 +32,7 @@ export const AvatarDropdown = () => {
                 src={
                   ctx.user && ctx.user.img !== ''
                     ? ctx.user?.img
-                    : 'default-user-avatar.png'
+                    : '/default-user-avatar.png'
                 }
                 className="rounded-circle"
                 alt="profile avatar"
@@ -57,7 +56,7 @@ export const AvatarDropdown = () => {
                 <button
                   className="btn btn-block"
                   onClick={() => {
-                    Cookies.remove('token')
+                    localStorage.removeItem('token')
                     navigate(0)
                   }}
                 >

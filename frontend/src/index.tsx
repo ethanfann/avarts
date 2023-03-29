@@ -12,17 +12,15 @@ import * as serviceWorker from './serviceWorker'
 import { createUploadLink } from 'apollo-upload-client'
 import { offsetLimitPagination } from '@apollo/client/utilities'
 import { BrowserRouter } from 'react-router-dom'
-import Cookies from 'js-cookie'
 
 const uri = process.env.REACT_APP_SERVER_URL
 
 const uploadLink = createUploadLink({
   uri: uri,
-  credentials: 'include',
 })
 
 const authMiddleware = new ApolloLink((operation, forward) => {
-  const token = Cookies.get('token')
+  const token = localStorage.getItem('token')
   operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,

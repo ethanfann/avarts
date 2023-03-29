@@ -11,7 +11,7 @@ const UserCard: React.FC = () => {
           {ctx.user.id !== '0' && (
             <div className="card text-center">
               <img
-                src={ctx.user?.img ? ctx.user.img : 'default-user-avatar.png'}
+                src={ctx.user?.img ? ctx.user.img : '/default-user-avatar.png'}
                 className="img-fluid rounded-circle"
                 style={{
                   width: 100,

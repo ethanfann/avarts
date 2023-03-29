@@ -16,23 +16,23 @@ const halfmoon = require('halfmoon')
 
 require('halfmoon/css/halfmoon.min.css')
 
+const darkModeEnabled = (): boolean => {
+  const darkModePref: string | null = localStorage.getItem('prefer-dark-mode')
+  const darkModeEnabled: boolean =
+    darkModePref && darkModePref === 'true' ? true : false
+  return darkModeEnabled
+}
+
 const App: React.FC = () => {
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(darkModeEnabled())
   const { loading, error, data, refetch } = useMeQuery()
 
   useEffect(() => {
-    document.body.classList.add('with-custom-webkit-scrollbars')
-    document.body.classList.add('with-custom-css-scrollbars')
-
     const darkModePref = localStorage.getItem('prefer-dark-mode')
 
     if (darkModePref === 'true') {
       halfmoon.toggleDarkMode()
     }
-  }, [])
-
-  useEffect(() => {
-    setDarkMode(darkModeEnabled())
   }, [])
 
   useEffect(() => {
@@ -44,7 +44,6 @@ const App: React.FC = () => {
 
     const darkModePref = localStorage.getItem('prefer-dark-mode')
 
-    // TODO: Improve this
     if (darkModePref) {
       if (darkModePref === 'true') {
         setDarkMode(false)
@@ -59,13 +58,6 @@ const App: React.FC = () => {
     }
   }
 
-  const darkModeEnabled = (): boolean => {
-    const darkModePref: string | null = localStorage.getItem('prefer-dark-mode')
-    const darkModeEnabled: boolean =
-      darkModePref && darkModePref === 'true' ? true : false
-    return darkModeEnabled
-  }
-
   if (loading) return <div>Loading</div>
   if (error) return <div>Error</div>
 
@@ -73,77 +65,72 @@ const App: React.FC = () => {
     <ThemeContext.Provider
       value={{ darkMode: darkMode, toggleDarkMode: toggleDarkMode }}
     >
-      <div>
-        {data && data.me ? (
-          <UserContext.Provider
-            value={{
-              user: {
-                id: data.me.id,
-                name: data.me.name,
-                img: data.me.img,
-                // TODO: This is ugly. Find a better way to handle when a User has no activities
-                latestActivity:
-                  data.me.latestActivity && data.me.latestActivity.title
-                    ? data.me.latestActivity
-                    : { id: '', title: '', createdAt: '', startTime: 0 },
-                activityCount: data.me.activityCount
-                  ? data.me.activityCount
-                  : 0,
-                firstName: data.me.firstName,
-                lastName: data.me.lastName,
-                strokeColor: data.me.strokeColor,
-                measurementPreference: data.me.measurementPreference,
-                mapboxToken: data.mapboxToken,
-              },
-              refetch: refetch,
-            }}
-          >
-            <>
-              <div
-                id="pageWrapper"
-                className="page-wrapper with-navbar with-sidebar" //with-sidebar
-                data-sidebar-type="overlayed-sm-and-down"
-              >
-                <div className="sidebar-overlay" onClick={toggleSidebar}></div>
-                <div className="sidebar border-0">
-                  <UserCard />
-                  {data.me.id !== '0' && <UploadForm userId={data.me.id} />}
-                </div>
-
-                <Header />
-
-                <div className="content-wrapper">
-                  <div className="container">
-                    <Routes>
-                      <Route path="/settings" element={<UserSettings />} />
-                      <Route
-                        path="/activity/:id"
-                        element={<DetailedActivity />}
-                      />
-                      <Route path="/" element={<TimeLine />} />
-                    </Routes>
-                  </div>
-                </div>
+      {data && data.me ? (
+        <UserContext.Provider
+          value={{
+            user: {
+              id: data.me.id,
+              name: data.me.name,
+              img: data.me.img,
+              latestActivity:
+                data.me.latestActivity && data.me.latestActivity.title
+                  ? data.me.latestActivity
+                  : { id: '', title: '', createdAt: '', startTime: 0 },
+              activityCount: data.me.activityCount ? data.me.activityCount : 0,
+              firstName: data.me.firstName,
+              lastName: data.me.lastName,
+              strokeColor: data.me.strokeColor,
+              measurementPreference: data.me.measurementPreference,
+              mapboxToken: data.mapboxToken,
+            },
+            refetch: refetch,
+          }}
+        >
+          <>
+            <div
+              id="pageWrapper"
+              className="page-wrapper with-navbar with-sidebar" //with-sidebar
+              data-sidebar-type="overlayed-sm-and-down"
+            >
+              <div className="sidebar-overlay" onClick={toggleSidebar}></div>
+              <div className="sidebar border-0">
+                <UserCard />
+                {data.me.id !== '0' && <UploadForm userId={data.me.id} />}
               </div>
-            </>
-          </UserContext.Provider>
-        ) : (
-          <div
-            id="pageWrapper"
-            className="page-wrapper with-navbar" //with-sidebar
-          >
-            <Header />
 
-            <div className="content-wrapper">
-              <div className="container-fluid">
-                <div className="d-flex justify-content-center">
-                  <SignUp />
+              <Header />
+
+              <div className="content-wrapper">
+                <div className="container">
+                  <Routes>
+                    <Route path="/settings" element={<UserSettings />} />
+                    <Route
+                      path="/activity/:id"
+                      element={<DetailedActivity />}
+                    />
+                    <Route path="/" element={<TimeLine />} />
+                  </Routes>
                 </div>
               </div>
             </div>
+          </>
+        </UserContext.Provider>
+      ) : (
+        <div
+          id="pageWrapper"
+          className="page-wrapper with-navbar" //with-sidebar
+        >
+          <Header />
+
+          <div className="content-wrapper">
+            <div className="container-fluid">
+              <div className="d-flex justify-content-center">
+                <SignUp />
+              </div>
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </ThemeContext.Provider>
   )
 }

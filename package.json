@@ -4,8 +4,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "codegen": "rake graphql:schema:dump && cd frontend && npm run codegen",
-    "start": "docker compose up && docker exec -it avarts-app-1 sh -c \"rails db:create && rails db:migrate && rails db:seed\""
+    "codegen": "rake graphql:schema:dump && cd frontend && npm run codegen"
   },
   "devDependencies": {
     "@prettier/plugin-ruby": "^2.0.0",

@@ -57,7 +57,7 @@ const ActivityComments = (props: Props) => {
             src={
               comment.userImg !== ''
                 ? comment.userImg
-                : 'default-user-avatar.png'
+                : '/default-user-avatar.png'
             }
             className="rounded-circle"
             alt="user avatar"

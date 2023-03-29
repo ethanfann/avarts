@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Cookies from 'js-cookie'
 import { useLoginMutation } from '../generated/graphql'
 import { useNavigate } from 'react-router-dom'
 
@@ -20,9 +19,7 @@ const LoginDropdown = () => {
         refetchQueries: ['me'],
       })
       if (result && result.data && result.data.login?.token) {
-        Cookies.set('token', result.data.login.token, {
-          sameSite: 'strict',
-        })
+        localStorage.setItem('token', result.data.login.token)
         navigate(0)
       }
     } catch (error) {

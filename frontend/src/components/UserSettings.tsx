@@ -110,7 +110,7 @@ const UserSettings = () => {
         <div className="content">
           <div className="d-flex justify-content-left mb-20">
             <img
-              src={user.img ? user.img : 'default-user-avatar.png'}
+              src={user.img ? user.img : '/default-user-avatar.png'}
               className="img-fluid rounded-circle w-100 h-100"
               alt="user avatar"
             />
