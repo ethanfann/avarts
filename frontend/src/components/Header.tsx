@@ -4,12 +4,24 @@ import React from 'react'
 import UserContext from '../userContext'
 import { toggleSidebar } from '../utils/sideBar'
 import AvatarDropdown from './AvatarDropdown'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import LoginDropdown from './LoginDropdown'
 import DarkModeToggleButton from './DarkModeToggleButton'
 import styled from 'styled-components'
 
 const Header: React.FC = () => {
+  const location = useLocation()
+
+  const handleClick = () => {
+    // Scroll to the top if we're already viewing the timeline
+    if (location.pathname === '/') {
+      const contentWrapper = document.getElementById('contentWrapper')
+      if (contentWrapper !== null) {
+        contentWrapper.scrollTo(0, 0)
+      }
+    }
+  }
+
   return (
     <UserContext.Consumer>
       {(ctx) => (
@@ -25,7 +37,11 @@ const Header: React.FC = () => {
                 <FontAwesomeIcon icon={faBars} />
               </button>
             )}
-            <Link className="navbar-brand font-weight-bolder" to="/">
+            <Link
+              className="navbar-brand font-weight-bolder"
+              to="/"
+              onClick={handleClick}
+            >
               Avarts
             </Link>
           </div>

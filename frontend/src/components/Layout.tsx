@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Header from '../components/Header'
 import UserCard from '../components/UserCard'
 import { useMeQuery } from '../generated/graphql'
@@ -8,6 +8,7 @@ import { toggleSidebar } from '../utils/sideBar'
 import SignUp from '../components/SignUp'
 import UploadForm from '../components/UploadForm'
 import { Outlet } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 const halfmoon = require('halfmoon')
 
@@ -23,6 +24,8 @@ const darkModeEnabled = (): boolean => {
 const Layout: React.FC = () => {
   const [darkMode, setDarkMode] = useState(darkModeEnabled())
   const { loading, error, data, refetch } = useMeQuery()
+  const scrollerRef = useRef<HTMLDivElement>(null)
+  const location = useLocation()
 
   useEffect(() => {
     const darkModePref = localStorage.getItem('prefer-dark-mode')
@@ -35,6 +38,11 @@ const Layout: React.FC = () => {
   useEffect(() => {
     halfmoon.onDOMContentLoaded()
   }, [])
+
+  useLayoutEffect(() => {
+    if (scrollerRef.current === null) return
+    scrollerRef.current.scrollTo(0, 0)
+  }, [location.pathname])
 
   const toggleDarkMode = () => {
     halfmoon.toggleDarkMode()
@@ -97,10 +105,12 @@ const Layout: React.FC = () => {
 
               <Header />
 
-              <div className="content-wrapper">
-                <div className="container">
-                  <Outlet />
-                </div>
+              <div
+                id="contentWrapper"
+                ref={scrollerRef}
+                className="content-wrapper"
+              >
+                <Outlet />
               </div>
             </div>
           </>
